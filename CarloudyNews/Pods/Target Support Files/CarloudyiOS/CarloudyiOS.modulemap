@@ -1,0 +1,6 @@
+framework module CarloudyiOS {
+  umbrella header "CarloudyiOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

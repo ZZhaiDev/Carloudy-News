@@ -1,0 +1,24 @@
+PODS:
+  - Alamofire (5.0.0.beta.1)
+  - CarloudyiOS (1.06):
+    - CryptoSwift (= 0.8.0)
+  - CryptoSwift (0.8.0)
+
+DEPENDENCIES:
+  - Alamofire (~> 5.0.0.beta.1)
+  - CarloudyiOS (= 1.06)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Alamofire
+    - CarloudyiOS
+    - CryptoSwift
+
+SPEC CHECKSUMS:
+  Alamofire: 2ef6d6c984c5d21c366e9b41a9ae7dfee2b67a44
+  CarloudyiOS: b90addce0a6f7129b90d00d5d3b4b6830c7e3c88
+  CryptoSwift: f81907430ebbe38b8404b4f6fb40f3c576a8755f
+
+PODFILE CHECKSUM: 58a24878615efed072bc59c77b119654aadf2eb0
+
+COCOAPODS: 1.5.0
