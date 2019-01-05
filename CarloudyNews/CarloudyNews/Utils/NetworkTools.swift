@@ -21,7 +21,7 @@ class NetworkTools {
         let method = type == .get ? HTTPMethod.get : HTTPMethod.post
         
         // 2.发送网络请求
-        ZJPrint(URLString)
+//        ZJPrint(URLString)
         
         AF.request(URLString, method: method, parameters: parameters).responseJSON { (response) in
             

@@ -15,9 +15,9 @@ class HomeViewModel{
 
 extension HomeViewModel{
     func loadNews(str: String, finishesCallBack: @escaping () -> ()){
-        let url = "https://newsapi.org/v2/everything?sources=abc-news&apiKey=b7f7add8d89849be8c82306180dac738"
-        NetworkTools.requestData(.get, URLString: url) { (result) in
-            ZJPrint(result)
+ "https://newsapi.org/v2/everything?sources=abc-news&apiKey=b7f7add8d89849be8c82306180dac738"
+        NetworkTools.requestData(.get, URLString: str) { (result) in
+//            ZJPrint(result)
             guard let dict = result as? [String: Any] else { return }
             guard let jsonData = try? JSONSerialization.data(withJSONObject: dict, options: []) else{
                 return

@@ -15,6 +15,7 @@ class HomeViewController: UIViewController {
     fileprivate lazy var homeView: HomeMainView = { [unowned self] in
         let hv = HomeMainView(frame: self.view.bounds)
         hv.backgroundColor = UIColor.background
+        hv.delegate = self
         return hv
     }()
     
@@ -52,13 +53,25 @@ extension HomeViewController{
 // MARK:- API
 extension HomeViewController{
     fileprivate func loadData(){
-        let str = "https://newsapi.org/v2/everything?sources=abc-news&apiKey=b7f7add8d89849be8c82306180dac738"
+        let str = "https://newsapi.org/v2/everything?q=bitcoin&apiKey=b7f7add8d89849be8c82306180dac738"
         homeViewModel.loadNews(str: str) {
             DispatchQueue.main.async {
-                ZJPrint(self.homeViewModel.articles)
                 self.homeView.articles = self.homeViewModel.articles
             }
-            
         }
     }
+}
+
+
+// MARK:- HomeMainViewDelegate
+extension HomeViewController: HomeMainViewDelegate{
+    func homeMainView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let articles = self.homeViewModel.articles
+        let article = articles[indexPath.item]
+        let homeDetailVC = HomeDetailViewController()
+        homeDetailVC.article = article
+        navigationController?.pushViewController(homeDetailVC, animated: true)
+    }
+    
+    
 }

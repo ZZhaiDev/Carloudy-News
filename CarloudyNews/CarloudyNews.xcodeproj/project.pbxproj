@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		38D0E44521E04E0700293F7B /* HomeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D0E44421E04E0700293F7B /* HomeDetailViewController.swift */; };
+		38D0E44721E0556E00293F7B /* ZJProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D0E44621E0556E00293F7B /* ZJProgressHUD.swift */; };
 		A401331621DFEFC100E8E29E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A401331521DFEFC100E8E29E /* HomeViewController.swift */; };
 		A401331821DFEFCE00E8E29E /* LikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A401331721DFEFCE00E8E29E /* LikeViewController.swift */; };
 		A401331A21DFEFD700E8E29E /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A401331921DFEFD700E8E29E /* MineViewController.swift */; };
@@ -50,6 +52,8 @@
 
 /* Begin PBXFileReference section */
 		0EE447B55BBC04CACE1C6C89 /* Pods_CarloudyNews.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarloudyNews.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		38D0E44421E04E0700293F7B /* HomeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailViewController.swift; sourceTree = "<group>"; };
+		38D0E44621E0556E00293F7B /* ZJProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZJProgressHUD.swift; sourceTree = "<group>"; };
 		931847F70BF84EC7C7D65EFF /* Pods-CarloudyNews.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarloudyNews.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarloudyNews/Pods-CarloudyNews.release.xcconfig"; sourceTree = "<group>"; };
 		A401331521DFEFC100E8E29E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		A401331721DFEFCE00E8E29E /* LikeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeViewController.swift; sourceTree = "<group>"; };
@@ -124,6 +128,7 @@
 			children = (
 				A401331B21DFF01900E8E29E /* Home.storyboard */,
 				A401331521DFEFC100E8E29E /* HomeViewController.swift */,
+				38D0E44421E04E0700293F7B /* HomeDetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -161,6 +166,7 @@
 				A401333821E0077D00E8E29E /* NetworkTools.swift */,
 				A401332821DFF1D700E8E29E /* Const.swift */,
 				A401332A21DFF29400E8E29E /* UIBarButtonItem-Extension.swift */,
+				38D0E44621E0556E00293F7B /* ZJProgressHUD.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -459,6 +465,7 @@
 				A401333D21E0114B00E8E29E /* CustomImageView.swift in Sources */,
 				A401333B21E0079C00E8E29E /* HomeViewModel.swift in Sources */,
 				A4C0814421DFEEBF00E2216A /* AppDelegate.swift in Sources */,
+				38D0E44721E0556E00293F7B /* ZJProgressHUD.swift in Sources */,
 				A401333921E0077D00E8E29E /* NetworkTools.swift in Sources */,
 				A401333721E0059500E8E29E /* HomeModel.swift in Sources */,
 				A401331621DFEFC100E8E29E /* HomeViewController.swift in Sources */,
@@ -467,6 +474,7 @@
 				A401331A21DFEFD700E8E29E /* MineViewController.swift in Sources */,
 				A401332921DFF1D700E8E29E /* Const.swift in Sources */,
 				A401333421DFFF5B00E8E29E /* HomeCollectionViewCell.swift in Sources */,
+				38D0E44521E04E0700293F7B /* HomeDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
