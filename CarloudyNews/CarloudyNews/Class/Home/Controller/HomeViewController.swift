@@ -38,7 +38,9 @@ class HomeViewController: UIViewController {
         let us = AllViewController()
         us.parameters = "us"
         childVcs.append(us)
-        childVcs.append(AllViewController())
+        let sexy = AllViewController()
+        sexy.parameters = "sexy"
+        childVcs.append(sexy)
         
         let contentView = ContentMainView(frame: contentFrame, childVcs: childVcs, parentViewController: self)
         contentView.delegate = self

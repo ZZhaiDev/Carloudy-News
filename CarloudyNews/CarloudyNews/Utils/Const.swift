@@ -14,6 +14,8 @@ import UIKit
 let zjScreenWidth: CGFloat = UIScreen.main.bounds.width
 let zjScreenHeight: CGFloat = UIScreen.main.bounds.height
 
+let zjCollectionViewCell: CGFloat = 300
+
 
 func getloadingImages() -> [UIImage] {
     var loadingImages = [UIImage]()

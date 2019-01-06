@@ -9,8 +9,10 @@
 import UIKit
 
 
-fileprivate let cellId = "cellId"
-fileprivate let cellHeight: CGFloat = 400.0
+fileprivate let basiCellId = "basiCellId"
+fileprivate let secondCellId = "secondCellId"
+var isBasicCell_ = false
+//fileprivate let cellHeight: CGFloat = 400.0
 
 public protocol HomeMainViewDelegate{
     func homeMainView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
@@ -28,15 +30,18 @@ class HomeMainView: UIView {
     
     fileprivate lazy var collectionView: UICollectionView = { [unowned self] in
         let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 10
-        layout.minimumInteritemSpacing = 10
-//        layout.estimatedItemSize = CGSize(width: zjScreenWidth, height: cellHeight)
+        layout.minimumLineSpacing = 20
+        layout.minimumInteritemSpacing = 20
+        
+        
 //        layout.itemSize.width = zjScreenWidth
 //        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         
         let cv = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
 //        cv.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
-        cv.register(UINib(nibName: "HomeCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: cellId)
+        cv.register(UINib(nibName: "HomeCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: basiCellId)
+        cv.register(SecondCollectionViewCell.self, forCellWithReuseIdentifier: secondCellId)
+
         cv.delegate = self
         cv.dataSource = self
         cv.backgroundColor = UIColor.clear
@@ -75,12 +80,20 @@ extension HomeMainView: UICollectionViewDelegateFlowLayout, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! HomeCollectionViewCell
         
-        let article = articles[indexPath.item]
-        cell.cellData = article
-        
-        return cell
+        isBasicCell_ = true
+        if indexPath.item % 2 == 0{
+            isBasicCell_ = false
+           let cell = collectionView.dequeueReusableCell(withReuseIdentifier: secondCellId, for: indexPath) as! SecondCollectionViewCell
+            let article = articles[indexPath.item]
+            cell.cellData = article
+            return cell
+        }else{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: basiCellId, for: indexPath) as! HomeCollectionViewCell
+            let article = articles[indexPath.item]
+            cell.cellData = article
+            return cell
+        }
     }
     
     
@@ -88,24 +101,38 @@ extension HomeMainView: UICollectionViewDelegateFlowLayout, UICollectionViewData
         delegate?.homeMainView(collectionView, didSelectItemAt: indexPath)
     }
 
-    //MARK: -- 计算cell高度
+//    MARK: -- 计算cell高度
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        let approximateWidthOfContent = self.frame.width - 40
-
-        let size = CGSize(width: approximateWidthOfContent, height: 1000)
-
-        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]
-        let article = articles[indexPath.item]
-        if let text = article.description{
-            let estimatedFrame = NSString(string: text).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
-            let height = estimatedFrame.height + 135 + zjScreenWidth/1.778 + 10
-            ZJPrint(text)
-            ZJPrint(height)
-            return CGSize(width: zjScreenWidth, height: height)
+        if indexPath.item % 2 == 0{
+            isBasicCell_ = false
+        }else{
+            isBasicCell_ = true
         }
-        return CGSize(width: zjScreenWidth, height: 135 + zjScreenWidth/1.778)
+        
+        if isBasicCell_ == false{
+            let cellWidth = zjScreenWidth - 40
+            return CGSize(width: cellWidth, height: zjCollectionViewCell + 35)
+//            return CGSize(width: cellWidth, height: 400 + 35)
+            
 
+        }else{
+            let approximateWidthOfContent = self.frame.width - 40
+
+            let size = CGSize(width: approximateWidthOfContent, height: 1000)
+
+            let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]
+            let article = articles[indexPath.item]
+            if let text = article.description{
+                let estimatedFrame = NSString(string: text).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
+                let height = estimatedFrame.height + 135 + zjScreenWidth/1.778 + 10
+                ZJPrint(text)
+                ZJPrint(height)
+                return CGSize(width: zjScreenWidth - 40, height: height)
+
+            }
+            return CGSize(width: zjScreenWidth - 40, height: 135 + zjScreenWidth/1.778)
+        }
     }
     
 }

@@ -20,13 +20,13 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="B8x-yn-1hT" customClass="CustomImageView" customModule="CarloudyNews" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="8" width="317" height="160"/>
+                        <rect key="frame" x="0.0" y="0.0" width="317" height="160"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="160" id="kc2-Kj-aJS"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="POE-WR-trm">
-                        <rect key="frame" x="0.0" y="173" width="307" height="20"/>
+                        <rect key="frame" x="0.0" y="165" width="307" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="2Pm-7F-D9d"/>
                         </constraints>
@@ -35,7 +35,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Xo-Pe-aaA">
-                        <rect key="frame" x="20" y="203" width="277" height="46"/>
+                        <rect key="frame" x="20" y="195" width="277" height="46"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="46" id="1yd-wc-4pr"/>
                         </constraints>
@@ -61,7 +61,7 @@
                         <state key="normal" title="Button"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Lw-Qf-8Jq">
-                        <rect key="frame" x="20" y="257" width="277" height="699"/>
+                        <rect key="frame" x="20" y="249" width="277" height="707"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -76,7 +76,7 @@
                 <constraint firstItem="POE-WR-trm" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="PmQ-ay-rd8"/>
                 <constraint firstAttribute="trailing" secondItem="iRr-fs-R2l" secondAttribute="trailing" constant="10" id="YC5-P1-AkS"/>
                 <constraint firstItem="iRr-fs-R2l" firstAttribute="top" secondItem="3Lw-Qf-8Jq" secondAttribute="bottom" constant="8" id="aqB-tw-yoN"/>
-                <constraint firstItem="B8x-yn-1hT" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="bFb-4b-VND"/>
+                <constraint firstItem="B8x-yn-1hT" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="bFb-4b-VND"/>
                 <constraint firstItem="8Xo-Pe-aaA" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="hC2-cs-I7J"/>
                 <constraint firstItem="3Lw-Qf-8Jq" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="iuP-MF-ghB"/>
                 <constraint firstItem="Orn-pr-qrS" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="j2U-JS-DXV"/>
