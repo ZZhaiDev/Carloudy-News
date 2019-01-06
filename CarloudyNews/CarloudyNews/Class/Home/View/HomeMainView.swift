@@ -87,14 +87,14 @@ extension HomeMainView: UICollectionViewDelegateFlowLayout, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.homeMainView(collectionView, didSelectItemAt: indexPath)
     }
-    
+
     //MARK: -- 计算cell高度
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
         let approximateWidthOfContent = self.frame.width - 40
-        
+
         let size = CGSize(width: approximateWidthOfContent, height: 1000)
-        
+
         let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]
         let article = articles[indexPath.item]
         if let text = article.description{
@@ -105,7 +105,7 @@ extension HomeMainView: UICollectionViewDelegateFlowLayout, UICollectionViewData
             return CGSize(width: zjScreenWidth, height: height)
         }
         return CGSize(width: zjScreenWidth, height: 135 + zjScreenWidth/1.778)
-        
+
     }
     
 }
