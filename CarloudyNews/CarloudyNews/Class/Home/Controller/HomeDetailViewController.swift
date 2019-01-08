@@ -35,6 +35,10 @@ class HomeDetailViewController: UIViewController {
         }
         
     }
+    
+    deinit {
+        stopAnimations()
+    }
 
 }
 

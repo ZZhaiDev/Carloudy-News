@@ -10,7 +10,7 @@ import UIKit
 
 
 protocol ContentMainViewDelegate : class {
-    func pageContentView(_ contentView : ContentMainView, progress : CGFloat, sourceIndex : Int, targetIndex : Int)
+    func pageContentView(_ contentView : ContentMainView, progress : CGFloat, sourceIndex : Int, targetIndex : Int, direction_left: Bool)
 }
 
 private let ContentCellID = "ContentCellID"
@@ -23,6 +23,7 @@ class ContentMainView: UIView {
     fileprivate var startOffsetX : CGFloat = 0
     fileprivate var isForbidScrollDelegate : Bool = false
     weak var delegate : ContentMainViewDelegate?
+    fileprivate var direction_left: Bool?
     
     // MARK:- 懒加载属性
     fileprivate lazy var collectionView : UICollectionView = {[weak self] in
@@ -110,6 +111,10 @@ extension ContentMainView : UICollectionViewDelegate {
         
         startOffsetX = scrollView.contentOffset.x
     }
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        
+    }
+    
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
@@ -136,7 +141,7 @@ extension ContentMainView : UICollectionViewDelegate {
             if targetIndex >= childVcs.count {
                 targetIndex = childVcs.count - 1
             }
-            
+            direction_left = true
             // 4.如果完全划过去
             if currentOffsetX - startOffsetX == scrollViewW {
                 progress = 1
@@ -144,6 +149,7 @@ extension ContentMainView : UICollectionViewDelegate {
             }
         } else { // 右滑
             // 1.计算progress
+            direction_left = false
             progress = 1 - (currentOffsetX / scrollViewW - floor(currentOffsetX / scrollViewW))
             
             // 2.计算targetIndex
@@ -157,7 +163,7 @@ extension ContentMainView : UICollectionViewDelegate {
         }
         
         // 3.将progress/sourceIndex/targetIndex传递给titleView
-        delegate?.pageContentView(self, progress: progress, sourceIndex: sourceIndex, targetIndex: targetIndex)
+        delegate?.pageContentView(self, progress: progress, sourceIndex: sourceIndex, targetIndex: targetIndex, direction_left: direction_left!)
     }
 }
 

@@ -15,13 +15,15 @@ protocol PageTitleViewDelegate : class {
 
 // MARK:- 定义常量
 private let kScrollLineH : CGFloat = 2
-private let kLabelWidth : CGFloat = 80
+private let kLabelWidth : CGFloat = 120
 private let kNormalColor : (CGFloat, CGFloat, CGFloat) = (85, 85, 85)
 private let kSelectColor : (CGFloat, CGFloat, CGFloat) = (255, 128, 0)
+private var titleLabelX: [CGFloat] = []
 
 // MARK:- 定义PageTitleView类
 class PageTitleView: UIView {
     
+    fileprivate var pageIndex : Int = 0
     // MARK:- 定义属性
     fileprivate var currentIndex : Int = 0
     fileprivate var titles : [String]
@@ -81,11 +83,12 @@ extension PageTitleView {
         let labelW : CGFloat = kLabelWidth
         let labelH : CGFloat = frame.height - kScrollLineH
         let labelY : CGFloat = 0
-        
+        let labelRightInset : CGFloat = 30
+        var maxX: CGFloat = 10
         for (index, title) in titles.enumerated() {
             // 1.创建UILabel
-            let label = UILabel()
-            
+            let label = PaddingLabel()
+            label.rightInset = labelRightInset
             // 2.设置Label的属性
             label.text = title
             label.tag = index
@@ -94,10 +97,19 @@ extension PageTitleView {
             label.textAlignment = .center
             
             // 3.设置label的frame
-            let labelX : CGFloat = labelW * CGFloat(index)
-            label.frame = CGRect(x: labelX, y: labelY, width: labelW, height: labelH)
+//            let labelX : CGFloat = labelW * CGFloat(index)
+            let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16.0)]
+            let estimatedFrame = NSString(string: title).boundingRect(with: CGSize(width: labelW, height: labelH), options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
+            let estimatedLabelW = estimatedFrame.size.width + labelRightInset + 5
             
-            // 4.将label添加到scrollView中
+            
+            label.frame = CGRect(x: maxX, y: labelY, width: estimatedLabelW, height: labelH)
+            titleLabelX.append(maxX)
+            maxX += estimatedLabelW
+            if index == titles.count - 1{
+                titleLabelX.append(maxX)
+            }
+            
             scrollView.addSubview(label)
             titleLabels.append(label)
             
@@ -120,10 +132,11 @@ extension PageTitleView {
         // 2.1.获取第一个Label
         guard let firstLabel = titleLabels.first else { return }
         firstLabel.textColor = UIColor(r: kSelectColor.0, g: kSelectColor.1, b: kSelectColor.2)
+        let width = titleLabelX[1] - titleLabelX[0]
         
         // 2.2.设置scrollLine的属性
         scrollView.addSubview(scrollLine)
-        scrollLine.frame = CGRect(x: firstLabel.frame.origin.x, y: frame.height - kScrollLineH, width: firstLabel.frame.width, height: kScrollLineH)
+        scrollLine.frame = CGRect(x: firstLabel.frame.origin.x, y: frame.height - kScrollLineH, width: width - 35, height: kScrollLineH)
     }
 }
 
@@ -149,9 +162,13 @@ extension PageTitleView {
         currentIndex = currentLabel.tag
         
         // 5.滚动条位置发生改变
-        let scrollLineX = CGFloat(currentIndex) * scrollLine.frame.width
+//        let scrollLineX = CGFloat(currentIndex) * scrollLine.frame.width
+        let scrollLineX = titleLabelX[currentIndex]
+        self.scrollLine.frame.size.width = titleLabelX[self.currentIndex+1] - titleLabelX[self.currentIndex] - 25
+        
         UIView.animate(withDuration: 0.15, animations: {
             self.scrollLine.frame.origin.x = scrollLineX
+            
         })
         
         // 6.通知代理
@@ -161,11 +178,12 @@ extension PageTitleView {
 
 // MARK:- 对外暴露的方法
 extension PageTitleView {
-    func setTitleWithProgress(_ progress : CGFloat, sourceIndex : Int, targetIndex : Int) {
+    func setTitleWithProgress(_ progress : CGFloat, sourceIndex : Int, targetIndex : Int, direction_left: Bool) {
         // 1.取出sourceLabel/targetLabel
         let sourceLabel = titleLabels[sourceIndex]
         let targetLabel = titleLabels[targetIndex]
         
+        scrollLine.frame.size.width = titleLabelX[targetIndex+1] - titleLabelX[targetIndex] - 25
         // 2.处理滑块的逻辑
         let moveTotalX = targetLabel.frame.origin.x - sourceLabel.frame.origin.x
         let moveX = moveTotalX * progress
@@ -181,7 +199,21 @@ extension PageTitleView {
         // 3.2.变化targetLabel
         targetLabel.textColor = UIColor(r: kNormalColor.0 + colorDelta.0 * progress, g: kNormalColor.1 + colorDelta.1 * progress, b: kNormalColor.2 + colorDelta.2 * progress)
         
+        
+        adjustLabelPosition(targetLabel)
+        
         // 4.记录最新的index
         currentIndex = targetIndex
+    }
+    
+    private func adjustLabelPosition(_ targetLabel : UILabel) {
+        var offsetX = targetLabel.center.x - bounds.width * 0.5
+        if offsetX < 0 {
+            offsetX = 0
+        }
+        if offsetX > scrollView.contentSize.width - scrollView.bounds.width {
+            offsetX = scrollView.contentSize.width - scrollView.bounds.width
+        }
+        scrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: true)
     }
 }

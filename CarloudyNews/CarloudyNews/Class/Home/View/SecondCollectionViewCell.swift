@@ -8,7 +8,14 @@
 
 import UIKit
 
+public protocol SecondCollectionViewCellDelegate{
+    func secondCollectionViewCell(title: String, description: String, name: String)
+}
+
 class SecondCollectionViewCell: UICollectionViewCell {
+    
+    var index = 2
+    var delegate: SecondCollectionViewCellDelegate?
     
     var cellData: Article?{
         didSet{
@@ -21,7 +28,10 @@ class SecondCollectionViewCell: UICollectionViewCell {
             if let imageUrl = article.urlToImage{
                 imageV.loadImage(urlString: imageUrl)
             }
-//            de.text = article.description
+            if index == 0{
+                delegate?.secondCollectionViewCell(title: titleLabel.text ?? "", description: article.description ?? "", name: nameLabel.text ?? "")
+            }
+            
         }
     }
     

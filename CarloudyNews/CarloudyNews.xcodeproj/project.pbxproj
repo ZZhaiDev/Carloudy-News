@@ -28,6 +28,10 @@
 		A401333921E0077D00E8E29E /* NetworkTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = A401333821E0077D00E8E29E /* NetworkTools.swift */; };
 		A401333B21E0079C00E8E29E /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A401333A21E0079C00E8E29E /* HomeViewModel.swift */; };
 		A401333D21E0114B00E8E29E /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A401333C21E0114B00E8E29E /* CustomImageView.swift */; };
+		A486134121E52E420071CF17 /* MineHead.swift in Sources */ = {isa = PBXBuildFile; fileRef = A486134021E52E420071CF17 /* MineHead.swift */; };
+		A486134621E52E650071CF17 /* ParallaxHeaderMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A486134321E52E650071CF17 /* ParallaxHeaderMode.swift */; };
+		A486134721E52E650071CF17 /* UIScrollView+ParallaxHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A486134421E52E650071CF17 /* UIScrollView+ParallaxHeader.swift */; };
+		A486134821E52E650071CF17 /* ParallaxHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A486134521E52E650071CF17 /* ParallaxHeader.swift */; };
 		A4C0811921DFEB2B00E2216A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4C0811721DFEB2B00E2216A /* Main.storyboard */; };
 		A4C0811B21DFEB2D00E2216A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4C0811A21DFEB2D00E2216A /* Assets.xcassets */; };
 		A4C0811E21DFEB2D00E2216A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4C0811C21DFEB2D00E2216A /* LaunchScreen.storyboard */; };
@@ -78,6 +82,10 @@
 		A401333821E0077D00E8E29E /* NetworkTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTools.swift; sourceTree = "<group>"; };
 		A401333A21E0079C00E8E29E /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		A401333C21E0114B00E8E29E /* CustomImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
+		A486134021E52E420071CF17 /* MineHead.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineHead.swift; sourceTree = "<group>"; };
+		A486134321E52E650071CF17 /* ParallaxHeaderMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxHeaderMode.swift; sourceTree = "<group>"; };
+		A486134421E52E650071CF17 /* UIScrollView+ParallaxHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+ParallaxHeader.swift"; sourceTree = "<group>"; };
+		A486134521E52E650071CF17 /* ParallaxHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxHeader.swift; sourceTree = "<group>"; };
 		A4C0811021DFEB2B00E2216A /* CarloudyNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarloudyNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4C0811821DFEB2B00E2216A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A4C0811A21DFEB2D00E2216A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -174,6 +182,7 @@
 		A401332721DFF1B600E8E29E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				A486134221E52E650071CF17 /* ParallaxHeader */,
 				A401333C21E0114B00E8E29E /* CustomImageView.swift */,
 				A401333821E0077D00E8E29E /* NetworkTools.swift */,
 				A401332821DFF1D700E8E29E /* Const.swift */,
@@ -181,6 +190,16 @@
 				38D0E44621E0556E00293F7B /* ZJProgressHUD.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		A486134221E52E650071CF17 /* ParallaxHeader */ = {
+			isa = PBXGroup;
+			children = (
+				A486134321E52E650071CF17 /* ParallaxHeaderMode.swift */,
+				A486134421E52E650071CF17 /* UIScrollView+ParallaxHeader.swift */,
+				A486134521E52E650071CF17 /* ParallaxHeader.swift */,
+			);
+			path = ParallaxHeader;
 			sourceTree = "<group>";
 		};
 		A4C0810721DFEB2B00E2216A = {
@@ -280,6 +299,7 @@
 			children = (
 				A401332021DFF05100E8E29E /* Mine.storyboard */,
 				A401331921DFEFD700E8E29E /* MineViewController.swift */,
+				A486134021E52E420071CF17 /* MineHead.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -473,11 +493,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A486134121E52E420071CF17 /* MineHead.swift in Sources */,
+				A486134821E52E650071CF17 /* ParallaxHeader.swift in Sources */,
 				A401332D21DFF3AC00E8E29E /* HomeMainView.swift in Sources */,
 				A401333D21E0114B00E8E29E /* CustomImageView.swift in Sources */,
 				A401333B21E0079C00E8E29E /* HomeViewModel.swift in Sources */,
 				A4C0814421DFEEBF00E2216A /* AppDelegate.swift in Sources */,
 				38D0E44721E0556E00293F7B /* ZJProgressHUD.swift in Sources */,
+				A486134721E52E650071CF17 /* UIScrollView+ParallaxHeader.swift in Sources */,
+				A486134621E52E650071CF17 /* ParallaxHeaderMode.swift in Sources */,
 				A401333921E0077D00E8E29E /* NetworkTools.swift in Sources */,
 				A401333721E0059500E8E29E /* HomeModel.swift in Sources */,
 				A401331621DFEFC100E8E29E /* HomeViewController.swift in Sources */,
@@ -686,6 +710,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TJEC8LNQP8;
 				INFOPLIST_FILE = CarloudyNews/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -693,7 +718,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = cognitiveAI.CarloudyNews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -706,6 +731,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TJEC8LNQP8;
 				INFOPLIST_FILE = CarloudyNews/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -713,7 +739,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = cognitiveAI.CarloudyNews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

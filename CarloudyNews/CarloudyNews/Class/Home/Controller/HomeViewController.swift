@@ -11,12 +11,13 @@ import UIKit
 class HomeViewController: UIViewController {
     
     private let ZJTitleViewH : CGFloat = 40
-    
-    
-    private lazy var navigationMaxY: CGFloat = (navigationController?.navigationBar.frame.maxY) ?? 88
-    fileprivate lazy var pageTitleView : PageTitleView = {[weak self] in
-        let titleFrame = CGRect(x: 0, y: navigationMaxY, width: zjScreenWidth, height: ZJTitleViewH)
-        let titles = ["bit", "everything", "娱乐", "趣玩", "推荐", "游戏", "娱乐", "趣玩"]
+    var childVcs = [UIViewController]()
+    fileprivate let titles = ["U.S.", "Chicago", NewsSubCat.business.description, NewsSubCat.entertainment.description, NewsSubCat.health.description, NewsSubCat.science.description, NewsSubCat.sports.description, NewsSubCat.technology.description]
+//    private lazy var navigationMaxY: CGFloat = (navigationController?.navigationBar.frame.maxY) ?? 88
+    fileprivate lazy var pageTitleView : PageTitleView = {[unowned self] in
+        let y = zjStatusHeight + zjNavigationBarHeight
+        let titleFrame = CGRect(x: 0, y: y, width: zjScreenWidth, height: ZJTitleViewH)
+        let titles = self.titles
         let titleView = PageTitleView(frame: titleFrame, titles: titles)
         titleView.delegate = self
         return titleView
@@ -25,28 +26,28 @@ class HomeViewController: UIViewController {
     fileprivate lazy var pageContentView : ContentMainView = {[weak self] in
         
         // 1.确定内容的frame
-        let contentH = zjScreenHeight - ZJTitleViewH - 88
-        let contentFrame = CGRect(x: 0, y: ZJTitleViewH + 88, width: zjScreenWidth, height: contentH)
+        let y = zjStatusHeight + zjNavigationBarHeight + ZJTitleViewH
+        let contentH = zjScreenHeight - zjStatusHeight - zjNavigationBarHeight - ZJTitleViewH - zjTabBarHeight
+        let contentFrame = CGRect(x: 0, y: y, width: zjScreenWidth, height: contentH)
         
         // 2.确定所有的子控制器
-        var childVcs = [UIViewController]()
-        let bit = AllViewController()
-        childVcs.append(bit)
-        let apple = AllViewController()
-        apple.parameters = "apple"
-        childVcs.append(apple)
-        let us = AllViewController()
-        us.parameters = "us"
-        childVcs.append(us)
-        let sexy = AllViewController()
-        sexy.parameters = "sexy"
-        childVcs.append(sexy)
+        addControllers(cat: NewsCat.everything.description, subCat: titles[0])
+        addControllers(cat: NewsCat.everything.description, subCat: titles[1])
+        for title in titles[2..<titles.count]{
+            addControllers(cat: NewsCat.topheadlines.description, subCat: title)
+        }
         
         let contentView = ContentMainView(frame: contentFrame, childVcs: childVcs, parentViewController: self)
         contentView.delegate = self
         return contentView
     }()
     
+    fileprivate func addControllers(cat: String, subCat: String){
+        let vc = AllViewController(cat: cat, subCat: subCat)
+        childVcs.append(vc)
+    }
+    
+   
     
     
     override func loadView() {
@@ -92,9 +93,10 @@ extension HomeViewController : PageTitleViewDelegate {
 
 // MARK:- 遵守PageContentViewDelegate协议
 extension HomeViewController : ContentMainViewDelegate {
-    func pageContentView(_ contentView: ContentMainView, progress: CGFloat, sourceIndex: Int, targetIndex: Int) {
-        pageTitleView.setTitleWithProgress(progress, sourceIndex: sourceIndex, targetIndex: targetIndex)
+    func pageContentView(_ contentView: ContentMainView, progress: CGFloat, sourceIndex: Int, targetIndex: Int, direction_left: Bool) {
+        pageTitleView.setTitleWithProgress(progress, sourceIndex: sourceIndex, targetIndex: targetIndex, direction_left: direction_left)
     }
+    
 }
 
 

@@ -16,6 +16,7 @@ var isBasicCell_ = false
 
 public protocol HomeMainViewDelegate{
     func homeMainView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    func homeMainViewSecondCollectionViewCell(title: String, description: String, name: String)
 }
 
 class HomeMainView: UIView {
@@ -32,20 +33,13 @@ class HomeMainView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 20
         layout.minimumInteritemSpacing = 20
-        
-        
-//        layout.itemSize.width = zjScreenWidth
-//        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-        
         let cv = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
-//        cv.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
         cv.register(UINib(nibName: "HomeCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: basiCellId)
         cv.register(SecondCollectionViewCell.self, forCellWithReuseIdentifier: secondCellId)
-
+        cv.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 200, right: 0)
         cv.delegate = self
         cv.dataSource = self
         cv.backgroundColor = UIColor.clear
-        
         return cv
     }()
     
@@ -76,7 +70,7 @@ extension HomeMainView: UICollectionViewDelegateFlowLayout, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return min(10, articles.count)
+        return min(20, articles.count)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -85,6 +79,8 @@ extension HomeMainView: UICollectionViewDelegateFlowLayout, UICollectionViewData
         if indexPath.item % 2 == 0{
             isBasicCell_ = false
            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: secondCellId, for: indexPath) as! SecondCollectionViewCell
+            cell.delegate = self
+            cell.index = indexPath.item
             let article = articles[indexPath.item]
             cell.cellData = article
             return cell
@@ -113,8 +109,6 @@ extension HomeMainView: UICollectionViewDelegateFlowLayout, UICollectionViewData
         if isBasicCell_ == false{
             let cellWidth = zjScreenWidth - 40
             return CGSize(width: cellWidth, height: zjCollectionViewCell + 35)
-//            return CGSize(width: cellWidth, height: 400 + 35)
-            
 
         }else{
             let approximateWidthOfContent = self.frame.width - 40
@@ -135,5 +129,12 @@ extension HomeMainView: UICollectionViewDelegateFlowLayout, UICollectionViewData
         }
     }
     
+}
+
+
+extension HomeMainView: SecondCollectionViewCellDelegate{
+    func secondCollectionViewCell(title: String, description: String, name: String) {
+        delegate?.homeMainViewSecondCollectionViewCell(title: title, description: description, name: name)
+    }
 }
 

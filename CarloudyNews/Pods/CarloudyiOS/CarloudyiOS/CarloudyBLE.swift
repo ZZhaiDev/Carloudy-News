@@ -406,6 +406,7 @@ extension CarloudyBLE{
     open func getPairKey(){
         if UserDefaults.standard.object(forKey: "newKeySendToPairAndorid_") != nil {
             newKeySendToPairAndorid_ = UserDefaults.standard.object(forKey: "newKeySendToPairAndorid_") as! String
+            print("newKeySendToPairAndorid_--------\(newKeySendToPairAndorid_)")
         }
     }
 }

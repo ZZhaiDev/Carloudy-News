@@ -22,6 +22,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
                imageView.loadImage(urlString: imageUrl)
             }
             descriptionLabel.text = article.description
+            ZJPrint(article.content)
             
         }
     }
