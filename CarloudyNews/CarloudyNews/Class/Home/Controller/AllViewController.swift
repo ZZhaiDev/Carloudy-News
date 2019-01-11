@@ -68,7 +68,9 @@ class AllViewController: UIViewController {
     
     
     fileprivate lazy var homeView: HomeMainView = { [unowned self] in
-        let hv = HomeMainView(frame: CGRect(x: 0, y: 0, width: zjScreenWidth, height: self.view.bounds.size.height))
+//        let topHeight = zjStatusHeight + zjNavigationBarHeight + zjTabBarHeight
+//        let height = zjScreenHeight - topHeight - ZJTitleViewH
+        let hv = HomeMainView(frame: CGRect(x: 0, y: 0, width: zjScreenWidth, height: zjScreenHeight))
         hv.backgroundColor = UIColor.background
         
         hv.delegate = self
@@ -95,6 +97,7 @@ class AllViewController: UIViewController {
     // MARK:- 没有关闭app 被carloudy从background mode 打开
     @objc fileprivate func opendAppByCarloudy(){
         loadData()
+        ZJPrint("opendAppByCarloudy")
     }
 
 
@@ -111,6 +114,7 @@ extension AllViewController{
         }else if newsCat == NewsCat.topheadlines.description{
             str = "https://newsapi.org/v2/top-headlines?country=us&category=\(subCat!)&apiKey=b7f7add8d89849be8c82306180dac738"
         }
+        ZJPrint(subCat)
         if str == ""{return}
         homeViewModel.loadNews(str: str) {
             DispatchQueue.main.async {
@@ -129,10 +133,10 @@ extension AllViewController: HomeMainViewDelegate{
             carloudyBLE.newKeySendToPairAndorid_ = pairkey
         }
         carloudyBLE.startANewSession(appId: carloudyAppStoreAppKey_)
-        carloudyBLE.createIDAndViewForCarloudyHud(textViewId: "1", labelTextSize: 25, postionX: 10, postionY: 10, width: 80, height: 60)
-        ZJPrint(title)
-        ZJPrint(carloudyBlePairKey_)
-        carloudyBLE.sendMessage(textViewId: "1", message: title)
+        carloudyBLE.createIDAndViewForCarloudyHud(textViewId: "3", labelTextSize: 25, postionX: 10, postionY: 10, width: 80, height: 60)
+//        ZJPrint(title)
+//        ZJPrint(carloudyBlePairKey_)
+        carloudyBLE.sendMessage(textViewId: "3", message: title)
     }
     
     func homeMainView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

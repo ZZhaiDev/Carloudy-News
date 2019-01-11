@@ -22,6 +22,10 @@ class HomeDetailViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,7 +34,8 @@ class HomeDetailViewController: UIViewController {
         self.view.backgroundColor = UIColor.background
         if let url = article?.url{
             if let urlStr = URL(string: url){
-                webView.load(URLRequest(url: urlStr))
+                self.webView.load(URLRequest(url: urlStr))
+                
             }
         }
         
@@ -49,10 +54,30 @@ extension HomeDetailViewController: UIWebViewDelegate, WKNavigationDelegate{
         ZJProgressHUD.hideAllHUD()
     }
     
+    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         stopAnimations()
+        ZJPrint("5555")
         title = webView.title
     }
+    
+    func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
+        ZJPrint("000")
+    }
+    
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        ZJPrint("11111")
+    }
+    
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        ZJPrint("222222")
+    }
+    
+    func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
+        ZJPrint("333333")
+        return false
+    }
+    
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         stopAnimations()

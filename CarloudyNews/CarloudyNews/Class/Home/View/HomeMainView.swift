@@ -120,8 +120,8 @@ extension HomeMainView: UICollectionViewDelegateFlowLayout, UICollectionViewData
             if let text = article.description{
                 let estimatedFrame = NSString(string: text).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
                 let height = estimatedFrame.height + 135 + zjScreenWidth/1.778 + 10
-                ZJPrint(text)
-                ZJPrint(height)
+//                ZJPrint(text)
+//                ZJPrint(height)
                 return CGSize(width: zjScreenWidth - 40, height: height)
 
             }

@@ -30,6 +30,8 @@ class ContentMainView: UIView {
         // 1.创建layout
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = (self?.bounds.size)!
+//        layout.itemSize = CGSize(width: zjScreenWidth + 0.000001, height: zjScreenHeight)
+//        layout.itemSize = CGSize(width: zjScreenWidth, height: zjScreenHeight)
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         layout.scrollDirection = .horizontal
@@ -43,6 +45,7 @@ class ContentMainView: UIView {
         collectionView.delegate = self
         collectionView.scrollsToTop = false
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: ContentCellID)
+        collectionView.backgroundColor = UIColor.clear
         
         return collectionView
         }()
@@ -93,8 +96,9 @@ extension ContentMainView : UICollectionViewDataSource {
         for view in cell.contentView.subviews {
             view.removeFromSuperview()
         }
-        
+//        let index = (indexPath as NSIndexPath).item == 0 ? 0 : (indexPath as NSIndexPath).item
         let childVc = childVcs[(indexPath as NSIndexPath).item]
+        ZJPrint(indexPath.item)
         childVc.view.frame = cell.contentView.bounds
         cell.contentView.addSubview(childVc.view)
         
@@ -132,7 +136,7 @@ extension ContentMainView : UICollectionViewDelegate {
         if currentOffsetX > startOffsetX { // 左滑
             // 1.计算progress
             progress = currentOffsetX / scrollViewW - floor(currentOffsetX / scrollViewW)
-            
+            ZJPrint(progress)
             // 2.计算sourceIndex
             sourceIndex = Int(currentOffsetX / scrollViewW)
             
@@ -141,11 +145,13 @@ extension ContentMainView : UICollectionViewDelegate {
             if targetIndex >= childVcs.count {
                 targetIndex = childVcs.count - 1
             }
+            ZJPrint("\(targetIndex)--\(sourceIndex)")
             direction_left = true
             // 4.如果完全划过去
             if currentOffsetX - startOffsetX == scrollViewW {
                 progress = 1
                 targetIndex = sourceIndex
+                ZJPrint("\(targetIndex)--\(sourceIndex)")
             }
         } else { // 右滑
             // 1.计算progress
@@ -161,7 +167,6 @@ extension ContentMainView : UICollectionViewDelegate {
                 sourceIndex = childVcs.count - 1
             }
         }
-        
         // 3.将progress/sourceIndex/targetIndex传递给titleView
         delegate?.pageContentView(self, progress: progress, sourceIndex: sourceIndex, targetIndex: targetIndex, direction_left: direction_left!)
     }

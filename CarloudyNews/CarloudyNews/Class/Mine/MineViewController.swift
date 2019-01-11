@@ -17,13 +17,13 @@ class MineViewController: UIViewController {
         return [[["icon":"mine_feedBack", "title": "C/F"],
                  ["icon":"mine_setting", "title": "Carloudy Setting"]],
                 
-                [["icon":"mine_feedBack", "title": "帮助中心"],
+                [["icon":"mine_feedBack", "title": "夜间模式"],
                  ["icon":"mine_mail", "title": "我要反馈"],
                  ["icon":"mine_judge", "title": "给我们评分"]],
         
-            [["icon":"mine_feedBack", "title": "帮助中心"],
-             ["icon":"mine_mail", "title": "我要反馈"],
-             ["icon":"mine_judge", "title": "给我们评分"]]
+            [["icon":"mine_feedBack", "title": "about"],
+             ["icon":"mine_mail", "title": "feedback"],
+             ["icon":"mine_judge", "title": "rate"]]
         ]
         
     }()
@@ -38,6 +38,8 @@ class MineViewController: UIViewController {
         tv.backgroundColor = UIColor.background
         tv.delegate = self
         tv.dataSource = self
+        tv.layer.cornerRadius = 50
+        tv.layer.masksToBounds = true
         tv.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         return tv
     }()
@@ -121,8 +123,8 @@ extension MineViewController: UITableViewDelegate, UITableViewDataSource{
 //            unitVC.mainViewController = mainViewController
 //            navigationController?.pushViewController(unitVC, animated: true)
         }else if indexPath == [0, 1]{
-//            let csVC = CarloudySettingViewController()
-//            navigationController?.pushViewController(csVC, animated: true)
+            let csVC = CarloudySettingViewController()
+            navigationController?.pushViewController(csVC, animated: true)
         }
     }
     

@@ -7,12 +7,13 @@
 //
 
 import UIKit
+let ZJTitleViewH : CGFloat = 40
 
 class HomeViewController: UIViewController {
     
-    private let ZJTitleViewH : CGFloat = 40
+    
     var childVcs = [UIViewController]()
-    fileprivate let titles = ["U.S.", "Chicago", NewsSubCat.business.description, NewsSubCat.entertainment.description, NewsSubCat.health.description, NewsSubCat.science.description, NewsSubCat.sports.description, NewsSubCat.technology.description]
+    fileprivate let titles = [NewsSubCat.business.description, NewsSubCat.entertainment.description, NewsSubCat.health.description, NewsSubCat.science.description, NewsSubCat.sports.description, NewsSubCat.technology.description]
 //    private lazy var navigationMaxY: CGFloat = (navigationController?.navigationBar.frame.maxY) ?? 88
     fileprivate lazy var pageTitleView : PageTitleView = {[unowned self] in
         let y = zjStatusHeight + zjNavigationBarHeight
@@ -27,13 +28,15 @@ class HomeViewController: UIViewController {
         
         // 1.确定内容的frame
         let y = zjStatusHeight + zjNavigationBarHeight + ZJTitleViewH
+        ZJPrint(y)
         let contentH = zjScreenHeight - zjStatusHeight - zjNavigationBarHeight - ZJTitleViewH - zjTabBarHeight
         let contentFrame = CGRect(x: 0, y: y, width: zjScreenWidth, height: contentH)
         
         // 2.确定所有的子控制器
-        addControllers(cat: NewsCat.everything.description, subCat: titles[0])
-        addControllers(cat: NewsCat.everything.description, subCat: titles[1])
-        for title in titles[2..<titles.count]{
+//        addControllers(cat: NewsCat.everything.description, subCat: titles[0])
+//        addControllers(cat: NewsCat.everything.description, subCat: titles[1])
+        for title in titles{
+//            ZJPrint(title)
             addControllers(cat: NewsCat.topheadlines.description, subCat: title)
         }
         
@@ -45,14 +48,6 @@ class HomeViewController: UIViewController {
     fileprivate func addControllers(cat: String, subCat: String){
         let vc = AllViewController(cat: cat, subCat: subCat)
         childVcs.append(vc)
-    }
-    
-   
-    
-    
-    override func loadView() {
-        super.loadView()
-//        view = homeView
     }
 
     override func viewDidLoad() {
@@ -86,6 +81,7 @@ extension HomeViewController{
 // MARK:- 遵守PageTitleViewDelegate协议
 extension HomeViewController : PageTitleViewDelegate {
     func pageTitleView(_ titleView: PageTitleView, selectedIndex index: Int) {
+//        ZJPrint(index)
         pageContentView.setCurrentIndex(index)
     }
 }
@@ -94,6 +90,7 @@ extension HomeViewController : PageTitleViewDelegate {
 // MARK:- 遵守PageContentViewDelegate协议
 extension HomeViewController : ContentMainViewDelegate {
     func pageContentView(_ contentView: ContentMainView, progress: CGFloat, sourceIndex: Int, targetIndex: Int, direction_left: Bool) {
+//        ZJPrint("sourceIndex-\(sourceIndex)-\(targetIndex)")
         pageTitleView.setTitleWithProgress(progress, sourceIndex: sourceIndex, targetIndex: targetIndex, direction_left: direction_left)
     }
     
