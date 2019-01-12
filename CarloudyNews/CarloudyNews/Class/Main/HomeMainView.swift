@@ -21,6 +21,7 @@ public protocol HomeMainViewDelegate{
 
 class HomeMainView: UIView {
     
+    fileprivate var startOffsetX : CGFloat = 0
     open var delegate : HomeMainViewDelegate?
     
     var articles = [Article](){
@@ -36,7 +37,7 @@ class HomeMainView: UIView {
         let cv = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
         cv.register(UINib(nibName: "HomeCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: basiCellId)
         cv.register(SecondCollectionViewCell.self, forCellWithReuseIdentifier: secondCellId)
-        cv.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 200, right: 0)
+        cv.contentInset = UIEdgeInsets(top: settingViewHeight, left: 0, bottom: 200, right: 0)
         cv.delegate = self
         cv.dataSource = self
         cv.backgroundColor = UIColor.clear
@@ -45,6 +46,8 @@ class HomeMainView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+//        self.layer.cornerRadius  = 50
+//        self.layer.masksToBounds = true
         setupUI()
     }
     
@@ -129,6 +132,40 @@ extension HomeMainView: UICollectionViewDelegateFlowLayout, UICollectionViewData
         }
     }
     
+}
+
+
+// MARK:-- ScrollDelegate
+extension HomeMainView{
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        startOffsetX = scrollView.contentOffset.x
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        self.frame.origin.y = -scrollView.contentOffset.y
+//        ZJPrint(scrollView.contentOffset.y)
+        if let topViewController = UIApplication.topViewController() as? LikeViewController{
+//            let startY: CGFloat = scrollView.contentOffset.y
+//            if  scrollView.contentOffset.y > 0 && scrollView.contentOffset.y < 100{
+//                topViewController.pageContentView.frame.origin.y = -scrollView.contentOffset.y
+//                scrollView.contentOffset.y = 0
+//            }
+            ZJPrint("-----\(scrollView.contentOffset.y)--\(startOffsetX)")
+            if scrollView.contentOffset.y > startOffsetX{
+                if  scrollView.contentOffset.y > 0 && scrollView.contentOffset.y < 100{
+//                    scrollView.isScrollEnabled = false
+//                    topViewController.pageContentView.frame.origin.y = -scrollView.contentOffset.y
+//                    scrollView.contentOffset.y = 0
+//                    topViewController.pageContentView.frame.origin.y = 108 - scrollView.contentOffset.y
+//                    scrollView.scrollToView(view: , animated: <#T##Bool#>)
+//                    scrollView.contentOffset.y = 0
+                }
+            }else{
+                ZJPrint("down")
+            }
+            
+        }
+    }
 }
 
 

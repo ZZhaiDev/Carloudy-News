@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3853051521E9961F0076A5D3 /* UIScrollView-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3853051421E9961F0076A5D3 /* UIScrollView-Extension.swift */; };
 		3891B53721E17B2D008D8AA5 /* PageTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3891B53621E17B2D008D8AA5 /* PageTitleView.swift */; };
 		3891B53921E17D7F008D8AA5 /* AllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3891B53821E17D7F008D8AA5 /* AllViewController.swift */; };
 		3891B53B21E18261008D8AA5 /* ContentMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3891B53A21E18261008D8AA5 /* ContentMainView.swift */; };
@@ -63,6 +64,7 @@
 
 /* Begin PBXFileReference section */
 		0EE447B55BBC04CACE1C6C89 /* Pods_CarloudyNews.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarloudyNews.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3853051421E9961F0076A5D3 /* UIScrollView-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView-Extension.swift"; sourceTree = "<group>"; };
 		3891B53621E17B2D008D8AA5 /* PageTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageTitleView.swift; sourceTree = "<group>"; };
 		3891B53821E17D7F008D8AA5 /* AllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllViewController.swift; sourceTree = "<group>"; };
 		3891B53A21E18261008D8AA5 /* ContentMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentMainView.swift; sourceTree = "<group>"; };
@@ -150,8 +152,6 @@
 			children = (
 				A401331B21DFF01900E8E29E /* Home.storyboard */,
 				A401331521DFEFC100E8E29E /* HomeViewController.swift */,
-				3891B53821E17D7F008D8AA5 /* AllViewController.swift */,
-				38D0E44421E04E0700293F7B /* HomeDetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -159,7 +159,6 @@
 		A401332421DFF12800E8E29E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A401332C21DFF3AC00E8E29E /* HomeMainView.swift */,
 				A401333221DFFF5B00E8E29E /* HomeCollectionViewCell.swift */,
 				A401333321DFFF5B00E8E29E /* HomeCollectionViewCell.xib */,
 				3891B54021E1B018008D8AA5 /* SecondCollectionViewCell.swift */,
@@ -192,6 +191,7 @@
 				A401332821DFF1D700E8E29E /* Const.swift */,
 				A401332A21DFF29400E8E29E /* UIBarButtonItem-Extension.swift */,
 				38D0E44621E0556E00293F7B /* ZJProgressHUD.swift */,
+				3853051421E9961F0076A5D3 /* UIScrollView-Extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -317,6 +317,9 @@
 			children = (
 				3891B53A21E18261008D8AA5 /* ContentMainView.swift */,
 				3891B53621E17B2D008D8AA5 /* PageTitleView.swift */,
+				A401332C21DFF3AC00E8E29E /* HomeMainView.swift */,
+				3891B53821E17D7F008D8AA5 /* AllViewController.swift */,
+				38D0E44421E04E0700293F7B /* HomeDetailViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -520,6 +523,7 @@
 				38D0E44721E0556E00293F7B /* ZJProgressHUD.swift in Sources */,
 				A486134721E52E650071CF17 /* UIScrollView+ParallaxHeader.swift in Sources */,
 				A486134621E52E650071CF17 /* ParallaxHeaderMode.swift in Sources */,
+				3853051521E9961F0076A5D3 /* UIScrollView-Extension.swift in Sources */,
 				A401333921E0077D00E8E29E /* NetworkTools.swift in Sources */,
 				A401333721E0059500E8E29E /* HomeModel.swift in Sources */,
 				A401331621DFEFC100E8E29E /* HomeViewController.swift in Sources */,

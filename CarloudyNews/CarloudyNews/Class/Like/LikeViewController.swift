@@ -7,13 +7,14 @@
 //
 
 import UIKit
-
+var settingViewHeight: CGFloat = 108
 
 class LikeViewController: UIViewController {
     
     var highlightedButton: UIButton?
     
-    fileprivate let maintitles =  ["U.S.", "Chicago", "U.S.", "Chicago", "U.S.", "Chicago", "U.S.", "Chicago"]
+    
+    fileprivate let maintitles =  ["U.S.", "Chicago", "World"]
     var childVcs = [UIViewController]()
     
     //    private lazy var navigationMaxY: CGFloat = (navigationController?.navigationBar.frame.maxY) ?? 88
@@ -23,26 +24,28 @@ class LikeViewController: UIViewController {
         let titles = self.maintitles
         let titleView = PageTitleView(frame: titleFrame, titles: titles, isEnableBottomLine: false, defaultTheme: false)
 //        let titleView = PageTitleView(frame: titleFrame, titles: titles)
+        
         titleView.delegate = self
         return titleView
     }()
     
     let settingView: SettingView = {
         let view = SettingView.settingView()
-        //view.backgroundColor = .red
+        view.backgroundColor = .clear
         return view
     }()
     
-    fileprivate lazy var pageContentView : ContentMainView = {[weak self] in
+    lazy var pageContentView : ContentMainView = {[weak self] in
 //        let y =  100
 //        ZJPrint(y)
-        let contentH = zjScreenHeight - zjTabBarHeight - 100
-        let contentFrame = CGRect(x: 0, y: 100, width: zjScreenWidth, height: contentH)
+        let contentH = zjScreenHeight - zjTabBarHeight
+        let contentFrame = CGRect(x: 0, y: 0, width: zjScreenWidth, height: contentH)
         for title in maintitles{
             addControllers(cat: NewsCat.everything.description, subCat: title)
         }
         let contentView = ContentMainView(frame: contentFrame, childVcs: childVcs, parentViewController: self)
         contentView.delegate = self
+        
 //        contentView.backgroundColor = .yellow
         return contentView
     }()
@@ -65,8 +68,10 @@ class LikeViewController: UIViewController {
 extension LikeViewController{
     fileprivate func setupUI(){
         setupNavigationBar()
+//        self.view.backgroundColor = .clear
         view.addSubview(settingView)
-        settingView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 100)
+        settingView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: settingViewHeight)
+        
 //        view.addSubview(pageTitleView)
         view.addSubview(pageContentView)
     }
@@ -76,7 +81,12 @@ extension LikeViewController{
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
-        navigationItem.titleView = pageTitleView
+//        navigationItem.titleView = pageTitleView
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: pageTitleView)
+//        pageTitleView.backgroundColor = .red
+        let size = CGSize(width: 40, height: 40)
+        let searchItem = UIBarButtonItem(imageName: "btn_search", highImageName: "btn_search_clicked", size: size)
+        navigationItem.rightBarButtonItem = searchItem
     }
     
     fileprivate func addNavigationItem(buttonTitle: String, size: CGSize, tag: Int) -> UIBarButtonItem{
@@ -104,6 +114,11 @@ extension LikeViewController{
         sender.isSelected = true
         highlightedButton = sender
     }
+}
+
+
+extension LikeViewController{
+    
 }
 
 

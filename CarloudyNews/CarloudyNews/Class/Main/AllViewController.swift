@@ -71,7 +71,8 @@ class AllViewController: UIViewController {
 //        let topHeight = zjStatusHeight + zjNavigationBarHeight + zjTabBarHeight
 //        let height = zjScreenHeight - topHeight - ZJTitleViewH
         let hv = HomeMainView(frame: CGRect(x: 0, y: 0, width: zjScreenWidth, height: zjScreenHeight))
-        hv.backgroundColor = UIColor.background
+//        hv.backgroundColor = UIColor.background
+        hv.backgroundColor = .clear
         
         hv.delegate = self
         return hv
