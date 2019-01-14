@@ -42,6 +42,8 @@
 		A4ECD29621E7BF630040720D /* CarloudySettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ECD29521E7BF630040720D /* CarloudySettingViewController.swift */; };
 		A4ECD29921E94BB20040720D /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ECD29821E94BB20040720D /* SettingView.swift */; };
 		A4ECD29B21E94BBF0040720D /* SettingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4ECD29A21E94BBF0040720D /* SettingView.xib */; };
+		A4ECD2D721ED2A1C0040720D /* AddCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ECD2D621ED2A1C0040720D /* AddCategoriesViewController.swift */; };
+		A4ECD2D921ED31850040720D /* UIColor-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ECD2D821ED31850040720D /* UIColor-Extension.swift */; };
 		ADD1D8B0382E053972D66C87 /* Pods_CarloudyNews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EE447B55BBC04CACE1C6C89 /* Pods_CarloudyNews.framework */; };
 /* End PBXBuildFile section */
 
@@ -106,6 +108,8 @@
 		A4ECD29521E7BF630040720D /* CarloudySettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarloudySettingViewController.swift; sourceTree = "<group>"; };
 		A4ECD29821E94BB20040720D /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		A4ECD29A21E94BBF0040720D /* SettingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingView.xib; sourceTree = "<group>"; };
+		A4ECD2D621ED2A1C0040720D /* AddCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoriesViewController.swift; sourceTree = "<group>"; };
+		A4ECD2D821ED31850040720D /* UIColor-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor-Extension.swift"; sourceTree = "<group>"; };
 		ADB8FD6F4BEA93DBC06E7ADD /* Pods-CarloudyNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarloudyNews.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CarloudyNews/Pods-CarloudyNews.debug.xcconfig"; sourceTree = "<group>"; };
 		B60452CE45A7EC64E299B1FA /* Pods_CarloudyNewsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarloudyNewsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBCAE3AE176F0C552E3C2803 /* Pods_CarloudyNewsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarloudyNewsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -190,6 +194,7 @@
 				A401333821E0077D00E8E29E /* NetworkTools.swift */,
 				A401332821DFF1D700E8E29E /* Const.swift */,
 				A401332A21DFF29400E8E29E /* UIBarButtonItem-Extension.swift */,
+				A4ECD2D821ED31850040720D /* UIColor-Extension.swift */,
 				38D0E44621E0556E00293F7B /* ZJProgressHUD.swift */,
 				3853051421E9961F0076A5D3 /* UIScrollView-Extension.swift */,
 			);
@@ -297,6 +302,7 @@
 				A401331721DFEFCE00E8E29E /* LikeViewController.swift */,
 				A4ECD29821E94BB20040720D /* SettingView.swift */,
 				A4ECD29A21E94BBF0040720D /* SettingView.xib */,
+				A4ECD2D621ED2A1C0040720D /* AddCategoriesViewController.swift */,
 			);
 			path = Like;
 			sourceTree = "<group>";
@@ -516,7 +522,9 @@
 			files = (
 				A486134121E52E420071CF17 /* MineHead.swift in Sources */,
 				A486134821E52E650071CF17 /* ParallaxHeader.swift in Sources */,
+				A4ECD2D721ED2A1C0040720D /* AddCategoriesViewController.swift in Sources */,
 				A401332D21DFF3AC00E8E29E /* HomeMainView.swift in Sources */,
+				A4ECD2D921ED31850040720D /* UIColor-Extension.swift in Sources */,
 				A401333D21E0114B00E8E29E /* CustomImageView.swift in Sources */,
 				A401333B21E0079C00E8E29E /* HomeViewModel.swift in Sources */,
 				A4C0814421DFEEBF00E2216A /* AppDelegate.swift in Sources */,

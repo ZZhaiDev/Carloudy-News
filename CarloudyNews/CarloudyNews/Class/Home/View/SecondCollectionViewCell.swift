@@ -93,7 +93,7 @@ class SecondCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .red
+//        self.backgroundColor = .red
         self.layer.cornerRadius = 20
         self.layer.masksToBounds = true
         self.layer.borderWidth = 0.5

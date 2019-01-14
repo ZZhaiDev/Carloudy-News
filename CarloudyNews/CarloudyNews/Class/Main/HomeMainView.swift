@@ -11,7 +11,7 @@ import UIKit
 
 fileprivate let basiCellId = "basiCellId"
 fileprivate let secondCellId = "secondCellId"
-var isBasicCell_ = false
+
 //fileprivate let cellHeight: CGFloat = 400.0
 
 public protocol HomeMainViewDelegate{
@@ -21,8 +21,8 @@ public protocol HomeMainViewDelegate{
 
 class HomeMainView: UIView {
     
-    fileprivate var startOffsetY : CGFloat = settingViewHeight + 50
-    fileprivate var conteninsetY: CGFloat = settingViewHeight + 50
+    fileprivate var startOffsetY : CGFloat = settingViewHeight + zjStatusHeight + 5
+    fileprivate var conteninsetY: CGFloat = settingViewHeight + zjStatusHeight + 5
     open var delegate : HomeMainViewDelegate?
     var isdefaultTheme = true
     
@@ -95,21 +95,34 @@ extension HomeMainView: UICollectionViewDelegateFlowLayout, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        isBasicCell_ = true
-        if indexPath.item % 2 == 0{
-            isBasicCell_ = false
-           let cell = collectionView.dequeueReusableCell(withReuseIdentifier: secondCellId, for: indexPath) as! SecondCollectionViewCell
-            cell.delegate = self
-            cell.index = indexPath.item
-            let article = articles[indexPath.item]
-            cell.cellData = article
-            return cell
-        }else{
+        if cellStyle_ == cellStyleSegmentedControl_Array[0]{
+            if indexPath.item % 2 == 0{
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: secondCellId, for: indexPath) as! SecondCollectionViewCell
+                cell.delegate = self
+                cell.index = indexPath.item
+                let article = articles[indexPath.item]
+                cell.cellData = article
+                return cell
+            }else{
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: basiCellId, for: indexPath) as! HomeCollectionViewCell
+                let article = articles[indexPath.item]
+                cell.cellData = article
+                return cell
+            }
+        }else if cellStyle_ == cellStyleSegmentedControl_Array[1]{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: basiCellId, for: indexPath) as! HomeCollectionViewCell
             let article = articles[indexPath.item]
             cell.cellData = article
             return cell
         }
+        //  if cellStyle_ == cellStyleSegmentedControl_Array[2]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: secondCellId, for: indexPath) as! SecondCollectionViewCell
+        cell.delegate = self
+        cell.index = indexPath.item
+        let article = articles[indexPath.item]
+        cell.cellData = article
+        return cell
+        
     }
     
     
@@ -120,33 +133,47 @@ extension HomeMainView: UICollectionViewDelegateFlowLayout, UICollectionViewData
 //    MARK: -- 计算cell高度
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        if indexPath.item % 2 == 0{
-            isBasicCell_ = false
-        }else{
-            isBasicCell_ = true
-        }
-        
-        if isBasicCell_ == false{
-            let cellWidth = zjScreenWidth - 40
-            return CGSize(width: cellWidth, height: zjCollectionViewCell + 35)
-
-        }else{
+        if cellStyle_ == cellStyleSegmentedControl_Array[0]{
+            if indexPath.item % 2 == 0{
+                let cellWidth = zjScreenWidth - 40
+                return CGSize(width: cellWidth, height: zjCollectionViewCell + 35)
+            }else{
+                let approximateWidthOfContent = self.frame.width - 40
+                
+                let size = CGSize(width: approximateWidthOfContent, height: 1000)
+                
+                let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]
+                let article = articles[indexPath.item]
+                if let text = article.description{
+                    let estimatedFrame = NSString(string: text).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
+                    let height = estimatedFrame.height + 135 + zjScreenWidth/1.778 + 10
+                    //                ZJPrint(text)
+                    //                ZJPrint(height)
+                    return CGSize(width: zjScreenWidth - 40, height: height)
+                    
+                }
+                return CGSize(width: zjScreenWidth - 40, height: 135 + zjScreenWidth/1.778)
+            }
+        }else if cellStyle_ == cellStyleSegmentedControl_Array[1]{
             let approximateWidthOfContent = self.frame.width - 40
-
+            
             let size = CGSize(width: approximateWidthOfContent, height: 1000)
-
+            
             let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]
             let article = articles[indexPath.item]
             if let text = article.description{
                 let estimatedFrame = NSString(string: text).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
                 let height = estimatedFrame.height + 135 + zjScreenWidth/1.778 + 10
-//                ZJPrint(text)
-//                ZJPrint(height)
+                //                ZJPrint(text)
+                //                ZJPrint(height)
                 return CGSize(width: zjScreenWidth - 40, height: height)
-
+                
             }
             return CGSize(width: zjScreenWidth - 40, height: 135 + zjScreenWidth/1.778)
         }
+        
+        let cellWidth = zjScreenWidth - 40
+        return CGSize(width: cellWidth, height: zjCollectionViewCell + 35)
     }
     
 }

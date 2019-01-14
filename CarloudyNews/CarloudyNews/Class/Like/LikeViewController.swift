@@ -7,25 +7,27 @@
 //
 
 import UIKit
-var settingViewHeight: CGFloat = 108
+
+
 
 class LikeViewController: UIViewController {
     
     var highlightedButton: UIButton?
     
     
-    fileprivate let maintitles =  ["U.S.", "Chicago", "World"]
+    var maintitles =  ["U.S.", "Chicago", "World"]{
+        didSet{
+            setupUI()
+        }
+    }
     var childVcs = [UIViewController]()
     
-    //    private lazy var navigationMaxY: CGFloat = (navigationController?.navigationBar.frame.maxY) ?? 88
-    fileprivate lazy var pageTitleView : PageTitleView = {[unowned self] in
+    lazy var pageTitleView : PageTitleView = {[unowned self] in
         let y = zjStatusHeight + zjNavigationBarHeight
         let titleFrame = CGRect(x: 0, y: 0, width: zjTitlePageWidth, height: ZJTitleViewH)
         let titles = self.maintitles
         let titleView = PageTitleView(frame: titleFrame, titles: titles, isEnableBottomLine: false, defaultTheme: false)
-//        let titleView = PageTitleView(frame: titleFrame, titles: titles)
         titleView.delegate = self
-        titleView.backgroundColor = .red
         return titleView
     }()
     
@@ -36,8 +38,6 @@ class LikeViewController: UIViewController {
     }()
     
     lazy var pageContentView : ContentMainView = {[weak self] in
-//        let y =  100
-//        ZJPrint(y)
         let contentH = zjScreenHeight - zjTabBarHeight
         let contentFrame = CGRect(x: 0, y: 0, width: zjScreenWidth, height: contentH)
         for title in maintitles{
@@ -45,8 +45,6 @@ class LikeViewController: UIViewController {
         }
         let contentView = ContentMainView(frame: contentFrame, childVcs: childVcs, parentViewController: self, isdefaultTheme: false)
         contentView.delegate = self
-        
-//        contentView.backgroundColor = .yellow
         return contentView
     }()
     
@@ -58,7 +56,23 @@ class LikeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+            }
+    deinit {
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        navigationController?.navigationBar.isTranslucent = false
+//        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        navigationController?.navigationBar.shadowImage = UIImage()
+//        setupUI()
+
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isTranslucent = true
     }
 
 }
@@ -68,27 +82,29 @@ class LikeViewController: UIViewController {
 extension LikeViewController{
     fileprivate func setupUI(){
         setupNavigationBar()
-//        self.view.backgroundColor = .clear
-//        view.addSubview(settingView)
-//        settingView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: settingViewHeight)
-        
-//        view.addSubview(pageTitleView)
         view.addSubview(pageContentView)
         pageContentView.addSubview(settingView)
         settingView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: settingViewHeight)
     }
     
     fileprivate func setupNavigationBar(){
-       // navigationController?.navigationBar.barTintColor = UIColor.blue
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
-//        navigationItem.titleView = pageTitleView
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: pageTitleView)
-//        pageTitleView.backgroundColor = .red
-        let size = CGSize(width: 40, height: 40)
-        let searchItem = UIBarButtonItem(imageName: "btn_search", highImageName: "btn_search_clicked", size: size)
-        navigationItem.rightBarButtonItem = searchItem
+//        let size = CGSize(width: 40, height: 40)
+//        let searchItem = UIBarButtonItem(imageName: "btn_search", highImageName: "btn_search_clicked", size: size)
+//        navigationItem.rightBarButtonItem = searchItem
+//        let guesture = UITapGestureRecognizer(target: self, action: #selector(rightBarButtonItemClicked))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_search"), style: .plain, target: self, action: #selector(rightBarButtonItemClicked))
+        
+    }
+    
+    @objc fileprivate func rightBarButtonItemClicked(){
+        let vc = AddCategoriesViewController()
+        vc.titles = maintitles
+        let nvc = UINavigationController(rootViewController: vc)
+        self.present(nvc, animated: true, completion: nil)
     }
     
     fileprivate func addNavigationItem(buttonTitle: String, size: CGSize, tag: Int) -> UIBarButtonItem{

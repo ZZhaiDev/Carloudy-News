@@ -39,7 +39,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = UIColor.background
 //        frame.size.width = zjScreenWidth
         imageViewHeight.constant = zjScreenWidth/1.778
     }

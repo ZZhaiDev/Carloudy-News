@@ -17,6 +17,13 @@ let zjScreenWidth: CGFloat = UIScreen.main.bounds.width
 let zjScreenHeight: CGFloat = UIScreen.main.bounds.height
 let zjTitlePageWidth: CGFloat = zjScreenWidth - 80
 
+var isEditingSettingView: Bool = false{
+    didSet{
+        settingViewHeight = isEditingSettingView ? 158 : 108
+    }
+}
+var settingViewHeight: CGFloat =  108
+
 
 // 判断是否为 iPhone X
 let isIphoneX = zjScreenHeight >= 812 ? true : false
@@ -32,6 +39,7 @@ let zjCollectionViewCell: CGFloat = 300
 var carloudyBlePairKey_: String?
 var carloudyAppStoreAppKey_: String = "4bae9gb4"
 var launchAppByCarloudyNotificationKey_ = "launchAppByCarloudyNotificationKey"
+var settingViewUpdateAndReloadDataNotificationKey_ = "settingViewUpdateAndReloadDataNotificationKey"
 
 
 func getloadingImages() -> [UIImage] {

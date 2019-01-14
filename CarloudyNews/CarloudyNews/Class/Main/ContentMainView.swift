@@ -27,7 +27,7 @@ class ContentMainView: UIView {
     var isdefaultTheme = true
     
     // MARK:- 懒加载属性
-    fileprivate lazy var collectionView : UICollectionView = {[weak self] in
+    lazy var collectionView : UICollectionView = {[weak self] in
         // 1.创建layout
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = (self?.bounds.size)!

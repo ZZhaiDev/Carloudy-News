@@ -90,11 +90,13 @@ class AllViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(opendAppByCarloudy), name: NSNotification.Name(rawValue: launchAppByCarloudyNotificationKey_), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadDataBySettingView(userInfo:)), name: NSNotification.Name(rawValue: settingViewUpdateAndReloadDataNotificationKey_), object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: launchAppByCarloudyNotificationKey_), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: settingViewUpdateAndReloadDataNotificationKey_), object: nil)
     }
     
     // MARK:- 没有关闭app 被carloudy从background mode 打开
@@ -102,7 +104,34 @@ class AllViewController: UIViewController {
         loadData()
         ZJPrint("opendAppByCarloudy")
     }
-
+    
+    @objc fileprivate func reloadDataBySettingView(userInfo: NSNotification){
+        //  https://newsapi.org/v2/everything?q=apple&from=2019-01-10&to=2019-01-10&sortBy=popularity&apiKey=b7f7add8d89849be8c82306180dac738
+        let userInfo = userInfo.userInfo
+        if let cellStyle: Int = userInfo?["cellStyle"] as? Int,
+            let from: String = userInfo?["from"] as? String,
+            let to: String = userInfo?["to"] as? String,
+            let sortby: Int = userInfo?["sortby"] as? Int,
+            let subCat: String = self.subCat{
+            cellStyle_ = cellStyleSegmentedControl_Array[cellStyle]
+            let baseUrl = "https://newsapi.org/v2/everything?q=\(subCat)"
+            let timeUrl = "&from=\(from)&to=\(to)"
+            var sortUrl = ""
+            if sortby == 1{
+                sortUrl = "&sortBy=popularity"
+            }else if sortby == 2{
+                sortUrl = "&sortBy=publishedAt"
+            }
+            let apikeyUrl = "&apiKey=b7f7add8d89849be8c82306180dac738"
+            let url = baseUrl + timeUrl + sortUrl + apikeyUrl
+            
+            homeViewModel.loadNews(str: url) {
+                DispatchQueue.main.async {
+                    self.homeView.articles = self.homeViewModel.articles
+                }
+            }
+        }
+    }
 
 }
 
@@ -113,7 +142,21 @@ extension AllViewController{
         if subCat == nil{return}
         var str = ""
         if newsCat == NewsCat.everything.description{
-            str = "https://newsapi.org/v2/everything?q=\(subCat!)&apiKey=b7f7add8d89849be8c82306180dac738"
+            let sortby  = UserDefaults.standard.integer(forKey: sortbySegmentedControl_StringDescription)
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            let from = formatter.string(from: Date())
+            let to = formatter.string(from: Date())
+            let timeUrl = "&from=\(from)&to=\(to)"
+            var sortUrl = ""
+            if sortby == 1{
+                sortUrl = "&sortBy=popularity"
+            }else if sortby == 2{
+                sortUrl = "&sortBy=publishedAt"
+            }
+            let cellStyle = UserDefaults.standard.integer(forKey: cellStyleSegmentedControl_StringDescription)
+            cellStyle_ = cellStyleSegmentedControl_Array[cellStyle]
+            str = "https://newsapi.org/v2/everything?q=\(subCat!)\(sortUrl)\(timeUrl)&apiKey=b7f7add8d89849be8c82306180dac738"
         }else if newsCat == NewsCat.topheadlines.description{
             str = "https://newsapi.org/v2/top-headlines?country=us&category=\(subCat!)&apiKey=b7f7add8d89849be8c82306180dac738"
         }

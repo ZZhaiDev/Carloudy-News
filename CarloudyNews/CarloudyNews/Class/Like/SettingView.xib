@@ -13,7 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SettingView" customModule="CarloudyNews" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="108"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="158"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorted by:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="npJ-IS-uUt">
@@ -32,6 +32,9 @@
                         <segment title="Popularity"/>
                         <segment title="Time"/>
                     </segments>
+                    <connections>
+                        <action selector="sortbySegmentedControlClicked:" destination="iN0-l3-epB" eventType="valueChanged" id="ytB-4K-lfC"/>
+                    </connections>
                 </segmentedControl>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L99-2L-Nfn">
                     <rect key="frame" x="20" y="43" width="37" height="17"/>
@@ -72,6 +75,9 @@
                         <segment title="Nomal"/>
                         <segment title="Small"/>
                     </segments>
+                    <connections>
+                        <action selector="cellStyleSegmentedControlClicked:" destination="iN0-l3-epB" eventType="valueChanged" id="I3n-Nn-UTU"/>
+                    </connections>
                 </segmentedControl>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="2019/03/05" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="m9p-xj-xMA">
                     <rect key="frame" x="238.5" y="36.5" width="116.5" height="30"/>
@@ -79,10 +85,22 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AWe-5c-Ntn">
+                    <rect key="frame" x="283" y="108.5" width="72" height="32"/>
+                    <color key="backgroundColor" red="0.0" green="0.50980392159999999" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                    <state key="normal" title="  Update  ">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="updateButtonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="IUe-43-yna"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="WWd-Kb-Fv5" firstAttribute="leading" secondItem="d20-Bg-qKk" secondAttribute="leading" id="4Us-cm-IJS"/>
+                <constraint firstItem="AWe-5c-Ntn" firstAttribute="trailing" secondItem="WWd-Kb-Fv5" secondAttribute="trailing" id="4h7-L3-Kt5"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="d20-Bg-qKk" secondAttribute="trailing" constant="20" id="6LN-M1-YF5"/>
                 <constraint firstItem="m9p-xj-xMA" firstAttribute="width" secondItem="34I-79-o92" secondAttribute="width" id="AsO-Xo-02c"/>
                 <constraint firstItem="4N0-RV-ndv" firstAttribute="leading" secondItem="L99-2L-Nfn" secondAttribute="leading" id="Cd9-5l-9nN"/>
@@ -96,6 +114,7 @@
                 <constraint firstItem="L99-2L-Nfn" firstAttribute="leading" secondItem="npJ-IS-uUt" secondAttribute="leading" id="fhh-bp-asg"/>
                 <constraint firstItem="4N0-RV-ndv" firstAttribute="top" secondItem="L99-2L-Nfn" secondAttribute="bottom" constant="18" id="hew-mK-7kt"/>
                 <constraint firstItem="d20-Bg-qKk" firstAttribute="centerY" secondItem="npJ-IS-uUt" secondAttribute="centerY" id="kHs-ku-hld"/>
+                <constraint firstItem="AWe-5c-Ntn" firstAttribute="top" secondItem="WWd-Kb-Fv5" secondAttribute="bottom" constant="8" id="lYO-08-vlz"/>
                 <constraint firstItem="npJ-IS-uUt" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="mpe-iI-J1k"/>
                 <constraint firstItem="d20-Bg-qKk" firstAttribute="leading" secondItem="npJ-IS-uUt" secondAttribute="trailing" constant="20" id="nrj-N7-AVP"/>
                 <constraint firstItem="npJ-IS-uUt" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="oQA-C0-jZR"/>
@@ -106,8 +125,11 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="cellStyleSegmentedControl" destination="WWd-Kb-Fv5" id="yrQ-8P-fRT"/>
+                <outlet property="sortbySegmentedControl" destination="d20-Bg-qKk" id="9Yu-jj-Usl"/>
                 <outlet property="textDatePicker" destination="34I-79-o92" id="tAf-sd-aIU"/>
                 <outlet property="toDatePicker" destination="m9p-xj-xMA" id="H5W-a5-jJd"/>
+                <outlet property="updateButton" destination="AWe-5c-Ntn" id="ZNC-zD-E8c"/>
             </connections>
             <point key="canvasLocation" x="39.200000000000003" y="-81.859070464767626"/>
         </view>
