@@ -55,6 +55,7 @@ class AllViewController: UIViewController {
     var country = "us"
     var subCat : String?
     var newsCat: String?
+    var isdefaultTheme = true
     
     required public init(cat: String, subCat: String){
         self.subCat = subCat
@@ -70,10 +71,11 @@ class AllViewController: UIViewController {
     fileprivate lazy var homeView: HomeMainView = { [unowned self] in
 //        let topHeight = zjStatusHeight + zjNavigationBarHeight + zjTabBarHeight
 //        let height = zjScreenHeight - topHeight - ZJTitleViewH
-        let hv = HomeMainView(frame: CGRect(x: 0, y: 0, width: zjScreenWidth, height: zjScreenHeight))
+//        let hv = HomeMainView(frame: CGRect(x: 0, y: 0, width: zjScreenWidth, height: zjScreenHeight))
+        let hv = HomeMainView(frame: CGRect(x: 0, y: 0, width: zjScreenWidth, height: zjScreenHeight), isdefaultTheme: isdefaultTheme)
 //        hv.backgroundColor = UIColor.background
         hv.backgroundColor = .clear
-        
+//        hv.isdefaultTheme = isdefaultTheme
         hv.delegate = self
         return hv
     }()

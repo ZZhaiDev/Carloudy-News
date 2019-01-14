@@ -20,12 +20,12 @@ class LikeViewController: UIViewController {
     //    private lazy var navigationMaxY: CGFloat = (navigationController?.navigationBar.frame.maxY) ?? 88
     fileprivate lazy var pageTitleView : PageTitleView = {[unowned self] in
         let y = zjStatusHeight + zjNavigationBarHeight
-        let titleFrame = CGRect(x: 0, y: 0, width: zjScreenWidth, height: ZJTitleViewH)
+        let titleFrame = CGRect(x: 0, y: 0, width: zjTitlePageWidth, height: ZJTitleViewH)
         let titles = self.maintitles
         let titleView = PageTitleView(frame: titleFrame, titles: titles, isEnableBottomLine: false, defaultTheme: false)
 //        let titleView = PageTitleView(frame: titleFrame, titles: titles)
-        
         titleView.delegate = self
+        titleView.backgroundColor = .red
         return titleView
     }()
     
@@ -43,7 +43,7 @@ class LikeViewController: UIViewController {
         for title in maintitles{
             addControllers(cat: NewsCat.everything.description, subCat: title)
         }
-        let contentView = ContentMainView(frame: contentFrame, childVcs: childVcs, parentViewController: self)
+        let contentView = ContentMainView(frame: contentFrame, childVcs: childVcs, parentViewController: self, isdefaultTheme: false)
         contentView.delegate = self
         
 //        contentView.backgroundColor = .yellow
@@ -69,11 +69,13 @@ extension LikeViewController{
     fileprivate func setupUI(){
         setupNavigationBar()
 //        self.view.backgroundColor = .clear
-        view.addSubview(settingView)
-        settingView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: settingViewHeight)
+//        view.addSubview(settingView)
+//        settingView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: settingViewHeight)
         
 //        view.addSubview(pageTitleView)
         view.addSubview(pageContentView)
+        pageContentView.addSubview(settingView)
+        settingView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: settingViewHeight)
     }
     
     fileprivate func setupNavigationBar(){

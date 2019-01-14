@@ -21,14 +21,22 @@ public protocol HomeMainViewDelegate{
 
 class HomeMainView: UIView {
     
-    fileprivate var startOffsetX : CGFloat = 0
+    fileprivate var startOffsetY : CGFloat = settingViewHeight + 50
+    fileprivate var conteninsetY: CGFloat = settingViewHeight + 50
     open var delegate : HomeMainViewDelegate?
+    var isdefaultTheme = true
     
     var articles = [Article](){
         didSet{
             collectionView.reloadData()
         }
     }
+    
+//    let settingView: SettingView = {
+//        let view = SettingView.settingView()
+//        view.backgroundColor = .clear
+//        return view
+//    }()
     
     fileprivate lazy var collectionView: UICollectionView = { [unowned self] in
         let layout = UICollectionViewFlowLayout()
@@ -37,17 +45,23 @@ class HomeMainView: UIView {
         let cv = UICollectionView(frame: self.bounds, collectionViewLayout: layout)
         cv.register(UINib(nibName: "HomeCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: basiCellId)
         cv.register(SecondCollectionViewCell.self, forCellWithReuseIdentifier: secondCellId)
-        cv.contentInset = UIEdgeInsets(top: settingViewHeight, left: 0, bottom: 200, right: 0)
+        var contentY = conteninsetY
+        if isdefaultTheme == true{
+            contentY = 8
+        }
+        cv.contentInset = UIEdgeInsets(top: contentY, left: 0, bottom: 200, right: 0)
         cv.delegate = self
         cv.dataSource = self
         cv.backgroundColor = UIColor.clear
         return cv
     }()
     
-    override init(frame: CGRect) {
+     init(frame: CGRect, isdefaultTheme: Bool = false) {
         super.init(frame: frame)
+        self.isdefaultTheme = isdefaultTheme
 //        self.layer.cornerRadius  = 50
 //        self.layer.masksToBounds = true
+        
         setupUI()
     }
     
@@ -61,6 +75,9 @@ extension HomeMainView{
     fileprivate func setupUI(){
         self.addSubview(collectionView)
         collectionView.frame = self.bounds
+//        self.scrollViewDidScroll(collectionView)
+//        self.addSubview(settingView)
+//        settingView.anchor(top: self.topAnchor, left: self.leftAnchor, bottom: nil, right: self.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: settingViewHeight)
     }
 }
 
@@ -138,7 +155,7 @@ extension HomeMainView: UICollectionViewDelegateFlowLayout, UICollectionViewData
 // MARK:-- ScrollDelegate
 extension HomeMainView{
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        startOffsetX = scrollView.contentOffset.x
+        startOffsetY = scrollView.contentOffset.y
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -150,18 +167,21 @@ extension HomeMainView{
 //                topViewController.pageContentView.frame.origin.y = -scrollView.contentOffset.y
 //                scrollView.contentOffset.y = 0
 //            }
-            ZJPrint("-----\(scrollView.contentOffset.y)--\(startOffsetX)")
-            if scrollView.contentOffset.y > startOffsetX{
-                if  scrollView.contentOffset.y > 0 && scrollView.contentOffset.y < 100{
-//                    scrollView.isScrollEnabled = false
-//                    topViewController.pageContentView.frame.origin.y = -scrollView.contentOffset.y
-//                    scrollView.contentOffset.y = 0
-//                    topViewController.pageContentView.frame.origin.y = 108 - scrollView.contentOffset.y
-//                    scrollView.scrollToView(view: , animated: <#T##Bool#>)
-//                    scrollView.contentOffset.y = 0
+//            ZJPrint("\(scrollView.contentOffset.y)--\(startOffsetY)")
+            if scrollView.contentOffset.y > startOffsetY{
+                if  scrollView.contentOffset.y > -158 && scrollView.contentOffset.y < -zjNavigationBarHeight{
+                    topViewController.settingView.alpha = 1 - (conteninsetY + scrollView.contentOffset.y) * (1/(conteninsetY - zjNavigationBarHeight))
+                    ZJPrint(topViewController.settingView.alpha)
+                    ZJPrint("up")
+                }else if scrollView.contentOffset.y > 0{
+                    topViewController.settingView.alpha = 0
                 }
             }else{
-                ZJPrint("down")
+                if  scrollView.contentOffset.y > -158 && scrollView.contentOffset.y < -zjNavigationBarHeight{
+                    topViewController.settingView.alpha = 1 - (conteninsetY + scrollView.contentOffset.y) * (1/(conteninsetY - zjNavigationBarHeight))
+                }else if scrollView.contentOffset.y < -158{
+                    topViewController.settingView.alpha = 1
+                }
             }
             
         }

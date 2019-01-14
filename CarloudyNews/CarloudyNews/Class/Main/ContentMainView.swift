@@ -24,6 +24,7 @@ class ContentMainView: UIView {
     fileprivate var isForbidScrollDelegate : Bool = false
     weak var delegate : ContentMainViewDelegate?
     fileprivate var direction_left: Bool?
+    var isdefaultTheme = true
     
     // MARK:- 懒加载属性
     fileprivate lazy var collectionView : UICollectionView = {[weak self] in
@@ -46,15 +47,15 @@ class ContentMainView: UIView {
         collectionView.scrollsToTop = false
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: ContentCellID)
         collectionView.backgroundColor = UIColor.clear
-        
+//        collectionView.contentInset = UIEdgeInsets(top: settingViewHeight, left: 0, bottom: 0, right: 0)
         return collectionView
         }()
     
     // MARK:- 自定义构造函数
-    init(frame: CGRect, childVcs : [UIViewController], parentViewController : UIViewController?) {
+    init(frame: CGRect, childVcs : [UIViewController], parentViewController : UIViewController?, isdefaultTheme: Bool = true) {
         self.childVcs = childVcs
         self.parentViewController = parentViewController
-        
+        self.isdefaultTheme = isdefaultTheme
         super.init(frame: frame)
         
         // 设置UI
@@ -70,6 +71,7 @@ class ContentMainView: UIView {
 // MARK:- 设置UI界面
 extension ContentMainView {
     fileprivate func setupUI() {
+        
         // 1.将所有的子控制器添加父控制器中
         for childVc in childVcs {
             parentViewController?.addChild(childVc)
@@ -97,7 +99,8 @@ extension ContentMainView : UICollectionViewDataSource {
             view.removeFromSuperview()
         }
 //        let index = (indexPath as NSIndexPath).item == 0 ? 0 : (indexPath as NSIndexPath).item
-        let childVc = childVcs[(indexPath as NSIndexPath).item]
+        let childVc = childVcs[(indexPath as NSIndexPath).item] as! AllViewController
+        childVc.isdefaultTheme = self.isdefaultTheme
         ZJPrint(indexPath.item)
         childVc.view.frame = cell.contentView.bounds
         cell.contentView.addSubview(childVc.view)

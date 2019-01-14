@@ -15,6 +15,7 @@ import UIKit
 //Commons
 let zjScreenWidth: CGFloat = UIScreen.main.bounds.width
 let zjScreenHeight: CGFloat = UIScreen.main.bounds.height
+let zjTitlePageWidth: CGFloat = zjScreenWidth - 80
 
 
 // 判断是否为 iPhone X

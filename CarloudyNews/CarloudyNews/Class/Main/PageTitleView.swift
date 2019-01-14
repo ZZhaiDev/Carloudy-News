@@ -32,6 +32,7 @@ class PageTitleView: UIView {
     weak var delegate : PageTitleViewDelegate?
     var isEnableBottomLine = true
     var isdefaultTheme = true
+    fileprivate var isAdjustLabelPosition = true
     
     // MARK:- 懒加载属性
     fileprivate lazy var titleLabels : [UILabel] = [UILabel]()
@@ -58,6 +59,7 @@ class PageTitleView: UIView {
             kSelectColor = (0, 0, 0)
         }
         super.init(frame: frame)
+        
         
         // 设置UI界面
         setupUI()
@@ -120,7 +122,14 @@ extension PageTitleView {
             if index == titles.count - 1{
                 titleLabelX.append(maxX)
             }
-            
+            ZJPrint(maxX)
+            if maxX < zjTitlePageWidth{
+//                scrollView.frame.size.width = maxX
+//                scrollView.backgroundColor = .red
+                isAdjustLabelPosition = false
+            }else{
+               isAdjustLabelPosition = true
+            }
             scrollView.addSubview(label)
             titleLabels.append(label)
             
@@ -220,8 +229,10 @@ extension PageTitleView {
         // 3.2.变化targetLabel
         targetLabel.textColor = UIColor(r: kNormalColor.0 + colorDelta.0 * progress, g: kNormalColor.1 + colorDelta.1 * progress, b: kNormalColor.2 + colorDelta.2 * progress)
         
+        if isAdjustLabelPosition == true{
+            adjustLabelPosition(targetLabel)
+        }
         
-        adjustLabelPosition(targetLabel)
         
         // 4.记录最新的index
         currentIndex = targetIndex
