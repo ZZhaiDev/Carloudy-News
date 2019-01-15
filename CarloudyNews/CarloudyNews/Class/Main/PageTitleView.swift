@@ -21,14 +21,24 @@ class PageTitleView: UIView {
     // MARK:- 定义常量
     private let kScrollLineH : CGFloat = 2
     private let kLabelWidth : CGFloat = 120
-    private let kNormalColor : (CGFloat, CGFloat, CGFloat) = (85, 85, 85)
+    private var kNormalColor : (CGFloat, CGFloat, CGFloat) = (85, 85, 85)
     private var kSelectColor : (CGFloat, CGFloat, CGFloat) = (255, 128, 0)
     private var titleLabelX: [CGFloat] = []
     
     fileprivate var pageIndex : Int = 0
     // MARK:- 定义属性
     fileprivate var currentIndex : Int = 0
-    fileprivate var titles : [String]
+    var titles : [String]{
+        didSet{
+//            scrollView.removeFromSuperview()
+            for label in titleLabels{
+                label.removeFromSuperview()
+            }
+            titleLabels.removeAll()
+            titleLabelX.removeAll()
+            setupTitleLabels()
+        }
+    }
     weak var delegate : PageTitleViewDelegate?
     var isEnableBottomLine = true
     var isdefaultTheme = true
@@ -41,7 +51,7 @@ class PageTitleView: UIView {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.scrollsToTop = false
         scrollView.bounces = false
-        scrollView.contentSize.width = CGFloat(titles.count) * kLabelWidth
+//        scrollView.contentSize.width = CGFloat(titles.count) * kLabelWidth
         return scrollView
     }()
     fileprivate lazy var scrollLine : UIView = {
@@ -57,6 +67,7 @@ class PageTitleView: UIView {
         self.isdefaultTheme = defaultTheme
         if isdefaultTheme == false{
             kSelectColor = (0, 0, 0)
+            kNormalColor = (150, 150, 150)
         }
         super.init(frame: frame)
         
@@ -138,6 +149,8 @@ extension PageTitleView {
             let tapGes = UITapGestureRecognizer(target: self, action: #selector(self.titleLabelClick(_:)))
             label.addGestureRecognizer(tapGes)
         }
+        scrollView.contentSize.width = maxX
+        ZJPrint(maxX)
     }
     
     fileprivate func setupBottomLineAndScrollLine() {
@@ -152,6 +165,8 @@ extension PageTitleView {
         // 2.1.获取第一个Label
         guard let firstLabel = titleLabels.first else { return }
         firstLabel.textColor = UIColor(r: kSelectColor.0, g: kSelectColor.1, b: kSelectColor.2)
+        ZJPrint(kSelectColor.0)
+        ZJPrint(kSelectColor.1)
         let width = titleLabelX[1] - titleLabelX[0]
         
         // 2.2.设置scrollLine的属性

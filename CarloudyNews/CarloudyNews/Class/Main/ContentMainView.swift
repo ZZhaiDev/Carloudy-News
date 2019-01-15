@@ -18,7 +18,14 @@ private let ContentCellID = "ContentCellID"
 class ContentMainView: UIView {
     
     // MARK:- 定义属性
-    fileprivate var childVcs : [UIViewController]
+    var childVcs : [UIViewController]{
+        didSet{
+            for childVc in childVcs {
+                parentViewController?.addChild(childVc)
+            }
+            collectionView.reloadData()
+        }
+    }
     fileprivate weak var parentViewController : UIViewController?
     fileprivate var startOffsetX : CGFloat = 0
     fileprivate var isForbidScrollDelegate : Bool = false

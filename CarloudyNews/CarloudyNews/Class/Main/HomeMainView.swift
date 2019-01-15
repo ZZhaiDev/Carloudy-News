@@ -186,27 +186,23 @@ extension HomeMainView{
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        self.frame.origin.y = -scrollView.contentOffset.y
-//        ZJPrint(scrollView.contentOffset.y)
+        changeSettingViewAlphaWhileScrolling(offsetY: scrollView.contentOffset.y)
+    }
+    
+    func changeSettingViewAlphaWhileScrolling(offsetY: CGFloat){
         if let topViewController = UIApplication.topViewController() as? LikeViewController{
-//            let startY: CGFloat = scrollView.contentOffset.y
-//            if  scrollView.contentOffset.y > 0 && scrollView.contentOffset.y < 100{
-//                topViewController.pageContentView.frame.origin.y = -scrollView.contentOffset.y
-//                scrollView.contentOffset.y = 0
-//            }
-//            ZJPrint("\(scrollView.contentOffset.y)--\(startOffsetY)")
-            if scrollView.contentOffset.y > startOffsetY{
-                if  scrollView.contentOffset.y > -158 && scrollView.contentOffset.y < -zjNavigationBarHeight{
-                    topViewController.settingView.alpha = 1 - (conteninsetY + scrollView.contentOffset.y) * (1/(conteninsetY - zjNavigationBarHeight))
+            if offsetY > startOffsetY{
+                if  offsetY > -158 && offsetY < -zjNavigationBarHeight{
+                    topViewController.settingView.alpha = 1 - (conteninsetY + offsetY) * (1/(conteninsetY - zjNavigationBarHeight))
                     ZJPrint(topViewController.settingView.alpha)
                     ZJPrint("up")
-                }else if scrollView.contentOffset.y > 0{
+                }else if offsetY > 0{
                     topViewController.settingView.alpha = 0
                 }
             }else{
-                if  scrollView.contentOffset.y > -158 && scrollView.contentOffset.y < -zjNavigationBarHeight{
-                    topViewController.settingView.alpha = 1 - (conteninsetY + scrollView.contentOffset.y) * (1/(conteninsetY - zjNavigationBarHeight))
-                }else if scrollView.contentOffset.y < -158{
+                if  offsetY > -158 && offsetY < -zjNavigationBarHeight{
+                    topViewController.settingView.alpha = 1 - (conteninsetY + offsetY) * (1/(conteninsetY - zjNavigationBarHeight))
+                }else if offsetY < -158{
                     topViewController.settingView.alpha = 1
                 }
             }

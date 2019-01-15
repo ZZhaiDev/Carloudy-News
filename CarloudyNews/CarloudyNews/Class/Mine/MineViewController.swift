@@ -23,6 +23,10 @@ class MineViewController: UIViewController {
         
             [["icon":"mine_feedBack", "title": "about"],
              ["icon":"mine_mail", "title": "feedback"],
+             ["icon":"mine_judge", "title": "rate"]],
+            
+            [["icon":"mine_feedBack", "title": "about"],
+             ["icon":"mine_mail", "title": "feedback"],
              ["icon":"mine_judge", "title": "rate"]]
         ]
         
@@ -38,8 +42,8 @@ class MineViewController: UIViewController {
         tv.backgroundColor = UIColor.background
         tv.delegate = self
         tv.dataSource = self
-        tv.layer.cornerRadius = 50
-        tv.layer.masksToBounds = true
+//        tv.layer.cornerRadius = 50
+//        tv.layer.masksToBounds = true
         tv.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         return tv
     }()

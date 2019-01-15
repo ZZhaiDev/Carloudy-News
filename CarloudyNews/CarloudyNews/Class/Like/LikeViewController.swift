@@ -9,6 +9,7 @@
 import UIKit
 
 
+let titles_StringDescription = "titles_"
 
 class LikeViewController: UIViewController {
     
@@ -17,7 +18,14 @@ class LikeViewController: UIViewController {
     
     var maintitles =  ["U.S.", "Chicago", "World"]{
         didSet{
-            setupUI()
+            UserDefaults.standard.set(maintitles, forKey: titles_StringDescription)
+            
+            pageTitleView.titles = maintitles
+            childVcs.removeAll()
+            for title in maintitles{
+                addControllers(cat: NewsCat.everything.description, subCat: title)
+            }
+            pageContentView.childVcs = self.childVcs
         }
     }
     var childVcs = [UIViewController]()
@@ -55,24 +63,24 @@ class LikeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupUI()
-            }
+    }
+    
     deinit {
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        navigationController?.navigationBar.isTranslucent = false
-//        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-//        navigationController?.navigationBar.shadowImage = UIImage()
-//        setupUI()
+        if let titles = UserDefaults.standard.array(forKey: titles_StringDescription) as? [String]{
+            maintitles = titles
+        }
 
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.navigationBar.isTranslucent = true
     }
 
 }
