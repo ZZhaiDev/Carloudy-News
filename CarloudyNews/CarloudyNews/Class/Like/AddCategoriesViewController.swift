@@ -75,7 +75,7 @@ class AddCategoriesViewController: UIViewController {
         guard textView.text != nil, textView.text != "" else{
             return
         }
-        titles?.append(textView.text!)
+        titles?.append(textView.text!.replacingOccurrences(of: " ", with: "20%"))
         textView.text = ""
         for button in titleButtons{
             button.removeFromSuperview()

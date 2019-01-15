@@ -74,7 +74,9 @@ class LikeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let titles = UserDefaults.standard.array(forKey: titles_StringDescription) as? [String]{
-            maintitles = titles
+            if maintitles != titles{
+                maintitles = titles
+            }
         }
 
     }

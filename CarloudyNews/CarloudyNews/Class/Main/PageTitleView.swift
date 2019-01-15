@@ -30,13 +30,20 @@ class PageTitleView: UIView {
     fileprivate var currentIndex : Int = 0
     var titles : [String]{
         didSet{
-//            scrollView.removeFromSuperview()
-            for label in titleLabels{
+//            if let topVC = UIApplication.topViewController(){
+//                print(topVC)
+//            }
+            for (index, label) in titleLabels.enumerated(){
+//                label.textColor = UIColor(r: kNormalColor.0, g: kNormalColor.1, b: kNormalColor.2)
+//                if index == pageIndex{
+//                    label.textColor = UIColor(r: kSelectColor.0, g: kSelectColor.1, b: kSelectColor.2)
+//                }
                 label.removeFromSuperview()
             }
             titleLabels.removeAll()
             titleLabelX.removeAll()
             setupTitleLabels()
+//            setupBottomLineAndScrollLine()
         }
     }
     weak var delegate : PageTitleViewDelegate?
@@ -165,6 +172,7 @@ extension PageTitleView {
         // 2.1.获取第一个Label
         guard let firstLabel = titleLabels.first else { return }
         firstLabel.textColor = UIColor(r: kSelectColor.0, g: kSelectColor.1, b: kSelectColor.2)
+        pageIndex = 0
         ZJPrint(kSelectColor.0)
         ZJPrint(kSelectColor.1)
         let width = titleLabelX[1] - titleLabelX[0]
@@ -251,6 +259,7 @@ extension PageTitleView {
         
         // 4.记录最新的index
         currentIndex = targetIndex
+        pageIndex = currentIndex
     }
     
     private func adjustLabelPosition(_ targetLabel : UILabel) {

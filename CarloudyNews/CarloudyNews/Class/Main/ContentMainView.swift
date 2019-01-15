@@ -163,6 +163,12 @@ extension ContentMainView : UICollectionViewDelegate {
                 targetIndex = sourceIndex
                 ZJPrint("\(targetIndex)--\(sourceIndex)")
             }
+            
+//            第二个Bug是滑动到最后一个快速滑多一下会闪一下，这样操作会导致最后回调时progress会变一下0，所以先变一下灰色，再变黄色，我这边直接用progress做判断就没问题了
+            if progress == 0 {
+                progress = 1
+                targetIndex = sourceIndex
+            }
         } else { // 右滑
             // 1.计算progress
             direction_left = false
