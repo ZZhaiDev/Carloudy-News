@@ -8,14 +8,14 @@
 
 import UIKit
 
-public protocol SecondCollectionViewCellDelegate{
+public protocol SecondCollectionViewCellDelegate: class{
     func secondCollectionViewCell(title: String, description: String, name: String)
 }
 
 class SecondCollectionViewCell: UICollectionViewCell {
     
     var index = 2
-    var delegate: SecondCollectionViewCellDelegate?
+    weak var delegate: SecondCollectionViewCellDelegate?
     
     var cellData: Article?{
         didSet{

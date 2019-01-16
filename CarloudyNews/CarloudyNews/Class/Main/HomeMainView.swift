@@ -14,7 +14,7 @@ fileprivate let secondCellId = "secondCellId"
 
 //fileprivate let cellHeight: CGFloat = 400.0
 
-public protocol HomeMainViewDelegate{
+public protocol HomeMainViewDelegate: class{
     func homeMainView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     func homeMainViewSecondCollectionViewCell(title: String, description: String, name: String)
 }
@@ -23,7 +23,7 @@ class HomeMainView: UIView {
     
     fileprivate var startOffsetY : CGFloat = settingViewHeight + zjStatusHeight + 5
     fileprivate var conteninsetY: CGFloat = settingViewHeight + zjStatusHeight + 5
-    open var delegate : HomeMainViewDelegate?
+    weak open var delegate : HomeMainViewDelegate?
     var isdefaultTheme = true
     
     var articles = [Article](){

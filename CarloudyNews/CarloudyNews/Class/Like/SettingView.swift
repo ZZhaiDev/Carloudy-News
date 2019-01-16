@@ -21,13 +21,13 @@ var cellStyle_ = cellStyleSegmentedControl_Array[0]
 let textDatePicker_: String = "textDatePicker"
 let toDatePicker_: String = "toDatePicker"
 
-public protocol SettingViewDelegate{
+public protocol SettingViewDelegate: class{
     func settingView(url: String, cellStyle: String)
 }
 
 class SettingView: UIView {
     
-    var delegate: SettingViewDelegate?
+    weak var delegate: SettingViewDelegate?
     @IBOutlet weak var sortbySegmentedControl: UISegmentedControl!
     @IBAction func sortbySegmentedControlClicked(_ sender: Any) {
         showUpdateButton()
