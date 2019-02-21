@@ -44,6 +44,10 @@ class SecondCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    
+    
+    
+    
     let imageV: CustomImageView = {
        let iv = CustomImageView()
         iv.contentMode = .scaleAspectFill
@@ -91,6 +95,28 @@ class SecondCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    lazy var sendDataButton: UIButton = {[weak self] in
+        let button = UIButton()
+        button.setTitle("  send data to Carloudy  ", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = UIColor.blue
+        button.alpha = 0.6
+//        button.layer.cornerRadius = 5
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: UIFont.Weight.medium)
+//        button.layer.masksToBounds = true
+        button.addTarget(self!, action: #selector(sendButtonclicked), for: .touchUpInside)
+        button.isUserInteractionEnabled = true
+        return button
+    }()
+    
+    @objc fileprivate func sendButtonclicked(){
+        sendDataButton.isHidden = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.sendDataButton.isHidden = false
+        }
+        sendMessageToCarloudy(title: titleLabel.text ?? "")
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
 //        self.backgroundColor = .red
@@ -111,6 +137,8 @@ class SecondCollectionViewCell: UICollectionViewCell {
         nameLabel.anchor(top: imageV.topAnchor, left: nil, bottom: nil, right: imageV.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
         
+        
+        
         imageV.addSubview(titleBackgroundView)
         titleBackgroundView.anchor(top: nil, left: imageV.leftAnchor, bottom: imageV.bottomAnchor, right: imageV.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 65)
         
@@ -126,6 +154,9 @@ class SecondCollectionViewCell: UICollectionViewCell {
         
         bottomView.addSubview(bottomLabel)
         bottomLabel.anchor(top: bottomView.topAnchor, left: bottomView.leftAnchor, bottom: bottomView.bottomAnchor, right: bottomView.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        
+        addSubview(sendDataButton)
+        sendDataButton.anchor(top: bottomView.bottomAnchor, left: self.leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 35)
         
         
 //       addParallaxToView(vw: imageV)

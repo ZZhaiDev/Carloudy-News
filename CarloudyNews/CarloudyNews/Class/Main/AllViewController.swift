@@ -174,15 +174,7 @@ extension AllViewController{
 // MARK:- HomeMainViewDelegate
 extension AllViewController: HomeMainViewDelegate{
     func homeMainViewSecondCollectionViewCell(title: String, description: String, name: String) {
-        let carloudyBLE = CarloudyBLE.shareInstance
-        if let pairkey = carloudyBlePairKey_{
-            carloudyBLE.newKeySendToPairAndorid_ = pairkey
-        }
-        carloudyBLE.startANewSession(appId: carloudyAppStoreAppKey_)
-        carloudyBLE.createIDAndViewForCarloudyHud(textViewId: "3", labelTextSize: 25, postionX: 10, postionY: 10, width: 80, height: 60)
-//        ZJPrint(title)
-//        ZJPrint(carloudyBlePairKey_)
-        carloudyBLE.sendMessage(textViewId: "3", message: title)
+//        sendMessageToCarloudy(title: title)
     }
     
     func homeMainView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

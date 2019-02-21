@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CarloudyiOS
 
 
 
@@ -15,7 +16,7 @@ import UIKit
 //Commons
 let zjScreenWidth: CGFloat = UIScreen.main.bounds.width
 let zjScreenHeight: CGFloat = UIScreen.main.bounds.height
-let zjTitlePageWidth: CGFloat = zjScreenWidth - 80
+let zjTitlePageWidth: CGFloat = zjScreenWidth - 120
 
 var isEditingSettingView: Bool = false{
     didSet{
@@ -51,4 +52,19 @@ func getloadingImages() -> [UIImage] {
         }
     }
     return loadingImages
+}
+
+func sendMessageToCarloudy(title: String, content: String = ""){
+    let carloudyBLE = CarloudyBLE.shareInstance
+    if let pairkey = carloudyBlePairKey_{
+        carloudyBLE.newKeySendToPairAndorid_ = pairkey
+    }
+    carloudyBLE.startANewSession(appId: carloudyAppStoreAppKey_)
+    carloudyBLE.createIDAndViewForCarloudyHud(textViewId: "3", labelTextSize: 25, postionX: 10, postionY: 10, width: 80, height: 60)
+    carloudyBLE.sendMessage(textViewId: "3", message: title)
+    
+    if content != ""{
+        carloudyBLE.createIDAndViewForCarloudyHud(textViewId: "4", labelTextSize: 25, postionX: 10, postionY: 40, width: 80, height: 00)
+        carloudyBLE.sendMessage(textViewId: "4", message: content)
+    }
 }

@@ -33,6 +33,15 @@
 		A486134621E52E650071CF17 /* ParallaxHeaderMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A486134321E52E650071CF17 /* ParallaxHeaderMode.swift */; };
 		A486134721E52E650071CF17 /* UIScrollView+ParallaxHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A486134421E52E650071CF17 /* UIScrollView+ParallaxHeader.swift */; };
 		A486134821E52E650071CF17 /* ParallaxHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A486134521E52E650071CF17 /* ParallaxHeader.swift */; };
+		A49EAA59221F3B9600200C82 /* SwiftyWaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49EAA58221F3B9600200C82 /* SwiftyWaveView.swift */; };
+		A49EAA5B221F41B300200C82 /* PrimaryViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A49EAA5A221F41B300200C82 /* PrimaryViewController.storyboard */; };
+		A49EAA63221F41E300200C82 /* DrawerViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49EAA5C221F41E200200C82 /* DrawerViewController+TableView.swift */; };
+		A49EAA64221F41E300200C82 /* DrawerViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49EAA5D221F41E200200C82 /* DrawerViewControllerDelegate.swift */; };
+		A49EAA65221F41E300200C82 /* PrimaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49EAA5E221F41E200200C82 /* PrimaryViewController.swift */; };
+		A49EAA66221F41E300200C82 /* DrawerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49EAA5F221F41E200200C82 /* DrawerTableViewCell.swift */; };
+		A49EAA67221F41E300200C82 /* ExpansionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49EAA60221F41E200200C82 /* ExpansionState.swift */; };
+		A49EAA68221F41E300200C82 /* DrawerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A49EAA61221F41E200200C82 /* DrawerTableViewCell.xib */; };
+		A49EAA69221F41E300200C82 /* DrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49EAA62221F41E300200C82 /* DrawerViewController.swift */; };
 		A4C0811921DFEB2B00E2216A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4C0811721DFEB2B00E2216A /* Main.storyboard */; };
 		A4C0811B21DFEB2D00E2216A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4C0811A21DFEB2D00E2216A /* Assets.xcassets */; };
 		A4C0811E21DFEB2D00E2216A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4C0811C21DFEB2D00E2216A /* LaunchScreen.storyboard */; };
@@ -93,6 +102,16 @@
 		A486134321E52E650071CF17 /* ParallaxHeaderMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxHeaderMode.swift; sourceTree = "<group>"; };
 		A486134421E52E650071CF17 /* UIScrollView+ParallaxHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+ParallaxHeader.swift"; sourceTree = "<group>"; };
 		A486134521E52E650071CF17 /* ParallaxHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxHeader.swift; sourceTree = "<group>"; };
+		A49EAA54221F304500200C82 /* CarloudyNews.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CarloudyNews.entitlements; sourceTree = "<group>"; };
+		A49EAA58221F3B9600200C82 /* SwiftyWaveView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyWaveView.swift; sourceTree = "<group>"; };
+		A49EAA5A221F41B300200C82 /* PrimaryViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PrimaryViewController.storyboard; sourceTree = "<group>"; };
+		A49EAA5C221F41E200200C82 /* DrawerViewController+TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DrawerViewController+TableView.swift"; sourceTree = "<group>"; };
+		A49EAA5D221F41E200200C82 /* DrawerViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerViewControllerDelegate.swift; sourceTree = "<group>"; };
+		A49EAA5E221F41E200200C82 /* PrimaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryViewController.swift; sourceTree = "<group>"; };
+		A49EAA5F221F41E200200C82 /* DrawerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerTableViewCell.swift; sourceTree = "<group>"; };
+		A49EAA60221F41E200200C82 /* ExpansionState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpansionState.swift; sourceTree = "<group>"; };
+		A49EAA61221F41E200200C82 /* DrawerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawerTableViewCell.xib; sourceTree = "<group>"; };
+		A49EAA62221F41E300200C82 /* DrawerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerViewController.swift; sourceTree = "<group>"; };
 		A4C0811021DFEB2B00E2216A /* CarloudyNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarloudyNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4C0811821DFEB2B00E2216A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A4C0811A21DFEB2D00E2216A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -211,6 +230,22 @@
 			path = ParallaxHeader;
 			sourceTree = "<group>";
 		};
+		A49EAA57221F3B8300200C82 /* Siri */ = {
+			isa = PBXGroup;
+			children = (
+				A49EAA5A221F41B300200C82 /* PrimaryViewController.storyboard */,
+				A49EAA5F221F41E200200C82 /* DrawerTableViewCell.swift */,
+				A49EAA61221F41E200200C82 /* DrawerTableViewCell.xib */,
+				A49EAA62221F41E300200C82 /* DrawerViewController.swift */,
+				A49EAA5C221F41E200200C82 /* DrawerViewController+TableView.swift */,
+				A49EAA5D221F41E200200C82 /* DrawerViewControllerDelegate.swift */,
+				A49EAA60221F41E200200C82 /* ExpansionState.swift */,
+				A49EAA5E221F41E200200C82 /* PrimaryViewController.swift */,
+				A49EAA58221F3B9600200C82 /* SwiftyWaveView.swift */,
+			);
+			path = Siri;
+			sourceTree = "<group>";
+		};
 		A4C0810721DFEB2B00E2216A = {
 			isa = PBXGroup;
 			children = (
@@ -236,6 +271,7 @@
 		A4C0811221DFEB2B00E2216A /* CarloudyNews */ = {
 			isa = PBXGroup;
 			children = (
+				A49EAA54221F304500200C82 /* CarloudyNews.entitlements */,
 				A4C0814321DFEEBF00E2216A /* Info.plist */,
 				A4C0814121DFEEBF00E2216A /* Others */,
 				A4C0814621DFEEC400E2216A /* Class */,
@@ -298,6 +334,7 @@
 		A4C0814821DFEEC400E2216A /* Like */ = {
 			isa = PBXGroup;
 			children = (
+				A49EAA57221F3B8300200C82 /* Siri */,
 				A401331E21DFF03B00E8E29E /* Like.storyboard */,
 				A401331721DFEFCE00E8E29E /* LikeViewController.swift */,
 				A4ECD29821E94BB20040720D /* SettingView.swift */,
@@ -409,6 +446,11 @@
 				TargetAttributes = {
 					A4C0810F21DFEB2B00E2216A = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.Siri = {
+								enabled = 1;
+							};
+						};
 					};
 					A4C0812321DFEB2D00E2216A = {
 						CreatedOnToolsVersion = 10.1;
@@ -447,10 +489,12 @@
 			files = (
 				A401331D21DFF01900E8E29E /* Home.storyboard in Resources */,
 				A4ECD29B21E94BBF0040720D /* SettingView.xib in Resources */,
+				A49EAA68221F41E300200C82 /* DrawerTableViewCell.xib in Resources */,
 				A4C0811E21DFEB2D00E2216A /* LaunchScreen.storyboard in Resources */,
 				A401331F21DFF03B00E8E29E /* Like.storyboard in Resources */,
 				A401332221DFF05100E8E29E /* Mine.storyboard in Resources */,
 				A401333521DFFF5B00E8E29E /* HomeCollectionViewCell.xib in Resources */,
+				A49EAA5B221F41B300200C82 /* PrimaryViewController.storyboard in Resources */,
 				A4C0811B21DFEB2D00E2216A /* Assets.xcassets in Resources */,
 				A4C0811921DFEB2B00E2216A /* Main.storyboard in Resources */,
 			);
@@ -522,16 +566,22 @@
 			files = (
 				A486134121E52E420071CF17 /* MineHead.swift in Sources */,
 				A486134821E52E650071CF17 /* ParallaxHeader.swift in Sources */,
+				A49EAA64221F41E300200C82 /* DrawerViewControllerDelegate.swift in Sources */,
 				A4ECD2D721ED2A1C0040720D /* AddCategoriesViewController.swift in Sources */,
 				A401332D21DFF3AC00E8E29E /* HomeMainView.swift in Sources */,
+				A49EAA66221F41E300200C82 /* DrawerTableViewCell.swift in Sources */,
 				A4ECD2D921ED31850040720D /* UIColor-Extension.swift in Sources */,
+				A49EAA67221F41E300200C82 /* ExpansionState.swift in Sources */,
 				A401333D21E0114B00E8E29E /* CustomImageView.swift in Sources */,
+				A49EAA63221F41E300200C82 /* DrawerViewController+TableView.swift in Sources */,
 				A401333B21E0079C00E8E29E /* HomeViewModel.swift in Sources */,
+				A49EAA69221F41E300200C82 /* DrawerViewController.swift in Sources */,
 				A4C0814421DFEEBF00E2216A /* AppDelegate.swift in Sources */,
 				38D0E44721E0556E00293F7B /* ZJProgressHUD.swift in Sources */,
 				A486134721E52E650071CF17 /* UIScrollView+ParallaxHeader.swift in Sources */,
 				A486134621E52E650071CF17 /* ParallaxHeaderMode.swift in Sources */,
 				3853051521E9961F0076A5D3 /* UIScrollView-Extension.swift in Sources */,
+				A49EAA59221F3B9600200C82 /* SwiftyWaveView.swift in Sources */,
 				A401333921E0077D00E8E29E /* NetworkTools.swift in Sources */,
 				A401333721E0059500E8E29E /* HomeModel.swift in Sources */,
 				A401331621DFEFC100E8E29E /* HomeViewController.swift in Sources */,
@@ -541,6 +591,7 @@
 				A401331A21DFEFD700E8E29E /* MineViewController.swift in Sources */,
 				A401332921DFF1D700E8E29E /* Const.swift in Sources */,
 				3891B53721E17B2D008D8AA5 /* PageTitleView.swift in Sources */,
+				A49EAA65221F41E300200C82 /* PrimaryViewController.swift in Sources */,
 				3891B54121E1B018008D8AA5 /* SecondCollectionViewCell.swift in Sources */,
 				A401333421DFFF5B00E8E29E /* HomeCollectionViewCell.swift in Sources */,
 				3891B53B21E18261008D8AA5 /* ContentMainView.swift in Sources */,
@@ -739,6 +790,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = CarloudyNews/CarloudyNews.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TJEC8LNQP8;
 				INFOPLIST_FILE = CarloudyNews/Info.plist;
@@ -760,6 +812,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = CarloudyNews/CarloudyNews.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TJEC8LNQP8;
 				INFOPLIST_FILE = CarloudyNews/Info.plist;

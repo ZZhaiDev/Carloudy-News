@@ -136,7 +136,7 @@ extension HomeMainView: UICollectionViewDelegateFlowLayout, UICollectionViewData
         if cellStyle_ == cellStyleSegmentedControl_Array[0]{
             if indexPath.item % 2 == 0{
                 let cellWidth = zjScreenWidth - 40
-                return CGSize(width: cellWidth, height: zjCollectionViewCell + 35)
+                return CGSize(width: cellWidth, height: zjCollectionViewCell + 35 + 35)
             }else{
                 let approximateWidthOfContent = self.frame.width - 40
                 
@@ -173,7 +173,7 @@ extension HomeMainView: UICollectionViewDelegateFlowLayout, UICollectionViewData
         }
         
         let cellWidth = zjScreenWidth - 40
-        return CGSize(width: cellWidth, height: zjCollectionViewCell + 35)
+        return CGSize(width: cellWidth, height: zjCollectionViewCell + 35 + 35)
     }
     
 }

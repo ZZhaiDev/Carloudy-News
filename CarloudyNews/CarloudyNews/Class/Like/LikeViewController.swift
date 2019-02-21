@@ -106,8 +106,18 @@ extension LikeViewController{
 //        let searchItem = UIBarButtonItem(imageName: "btn_search", highImageName: "btn_search_clicked", size: size)
 //        navigationItem.rightBarButtonItem = searchItem
 //        let guesture = UITapGestureRecognizer(target: self, action: #selector(rightBarButtonItemClicked))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "btn_search"), style: .plain, target: self, action: #selector(rightBarButtonItemClicked))
+        let searchBtn = UIBarButtonItem(image: UIImage(named: "btn_search"), style: .plain, target: self, action: #selector(rightBarButtonItemClicked))
+        let siriBtn = UIBarButtonItem(image: UIImage(named: "Siri")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(siriBtnClicked))
         
+        navigationItem.rightBarButtonItems = [searchBtn, siriBtn]
+        
+    }
+    
+    @objc fileprivate func siriBtnClicked(){
+        let storyboard = UIStoryboard(name: "PrimaryViewController", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "PrimaryViewController")
+        let nvc = UINavigationController(rootViewController: controller)
+        self.present(nvc, animated: true, completion: nil)
     }
     
     @objc fileprivate func rightBarButtonItemClicked(){

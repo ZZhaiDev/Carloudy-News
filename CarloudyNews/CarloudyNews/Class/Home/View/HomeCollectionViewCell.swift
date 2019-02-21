@@ -34,6 +34,13 @@ class HomeCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var time: UILabel!
     @IBOutlet weak var newsButton: UIButton!
+    @IBAction func newsButtonSendButtonClicked(_ sender: Any) {
+        newsButton.isHidden = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.newsButton.isHidden = false
+        }
+        sendMessageToCarloudy(title: title.text ?? "")
+    }
     
     
     override func awakeFromNib() {
@@ -42,6 +49,9 @@ class HomeCollectionViewCell: UICollectionViewCell {
         self.backgroundColor = UIColor.background
 //        frame.size.width = zjScreenWidth
         imageViewHeight.constant = zjScreenWidth/1.778
+        
+        newsButton.layer.cornerRadius = 5
+        newsButton.layer.masksToBounds = true
     }
     
     
