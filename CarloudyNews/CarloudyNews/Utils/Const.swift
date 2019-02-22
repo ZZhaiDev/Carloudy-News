@@ -54,17 +54,25 @@ func getloadingImages() -> [UIImage] {
     return loadingImages
 }
 
+/*
+ x (2) [00-90]: position-x for display section
+ y (2) [00-72]: position-y for display section
+ width (2) [01-90]: width for display section; “00” for auto fit width
+ height (2) [01-72]: height for display section; “00” for auto fit height
+ */
+
 func sendMessageToCarloudy(title: String, content: String = ""){
+    let labelTextSize = 40
     let carloudyBLE = CarloudyBLE.shareInstance
     if let pairkey = carloudyBlePairKey_{
         carloudyBLE.newKeySendToPairAndorid_ = pairkey
     }
     carloudyBLE.startANewSession(appId: carloudyAppStoreAppKey_)
-    carloudyBLE.createIDAndViewForCarloudyHud(textViewId: "3", labelTextSize: 25, postionX: 10, postionY: 10, width: 80, height: 60)
+    carloudyBLE.createIDAndViewForCarloudyHud(textViewId: "3", labelTextSize: labelTextSize, postionX: 05, postionY: 05, width: 80, height: 00)
     carloudyBLE.sendMessage(textViewId: "3", message: title)
     
     if content != ""{
-        carloudyBLE.createIDAndViewForCarloudyHud(textViewId: "4", labelTextSize: 25, postionX: 10, postionY: 40, width: 80, height: 00)
+        carloudyBLE.createIDAndViewForCarloudyHud(textViewId: "4", labelTextSize: labelTextSize, postionX: 05, postionY: 05, width: 80, height: 00)
         carloudyBLE.sendMessage(textViewId: "4", message: content)
     }
 }

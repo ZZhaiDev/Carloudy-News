@@ -13,6 +13,15 @@ import AVFoundation
 /// A View Controller which displays content and is intended to be displayed
 /// as a Child View Controller, that can be panned and translated over the top
 /// of a Parent View Controller.
+
+private let topics = ["business",
+                      "entertainment",
+                      "health",
+                      "science",
+                      "sports",
+                      "technology"]
+
+
 class DrawerViewController: UIViewController, UIGestureRecognizerDelegate, UISearchBarDelegate {
 
 
@@ -22,6 +31,8 @@ class DrawerViewController: UIViewController, UIGestureRecognizerDelegate, UISea
     @IBOutlet private weak var headerViewTitleLabel: UILabel!
     @IBOutlet weak var animationview: SwiftyWaveView!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var imageViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
     
     var expansionState: ExpansionState = .compressed {
         didSet {
@@ -39,10 +50,18 @@ class DrawerViewController: UIViewController, UIGestureRecognizerDelegate, UISea
     /// in the case of subview's with gestureRecognizers conflicting with the `panGestureRecognizer`
     /// such as the tableView's scrollView recognizer.
     private var shouldHandleGesture: Bool = true
+    /// if its ture, will change topic and stop sending
+    private var finishSendingData: Bool = false
     
+    lazy var homeViewModel = HomeViewModel()
     let startSpeech = "tell me what kind of news you want"
     var textReturnedFromSiri = ""
     let searchingSpeech = "OK, searching for "
+    let closeSpeech = "I did not hear anything, closing"
+    let sorrySpeech = "sorry, please say `business`, `entertainment`, `health`, `science`, `sports`, `technology`"
+    
+    var workItem: DispatchWorkItem?
+    let queue = DispatchQueue(label: "Network Queue")
     weak var timer_checkTextIfChanging : Timer?
     var timer_forBaseSiri_inNavigationController = Timer()  ///每0.5秒 检测说的什么
     let carloudySpeech = CarloudySpeech()
@@ -97,13 +116,24 @@ extension DrawerViewController{
     }
     
     func endSiriSpeech(){
-        speak(string: "closed")
+//        speak(string: "closed")
         animationview.stop()
         carloudySpeech.endMicroPhone()
 //        siriButton.setTitle("end", for: .normal)
 //        siriButton.isEnabled = true
         timer_checkTextIfChanging?.invalidate()
         timer_forBaseSiri_inNavigationController.invalidate()
+        
+        
+    }
+    
+    fileprivate func dismissContoller(delay: Int = 0){
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(delay)) {
+            if let parentVC = self.parent as? PrimaryViewController{
+                parentVC.dismiss(animated: true, completion: nil)
+            }
+        }
+        
     }
     
     fileprivate func delay3Seconds_createTimer(){
@@ -138,16 +168,73 @@ extension DrawerViewController{
         guard carloudySpeech.checkTextChanging() == false else {return}
         ZJPrint(self.textReturnedFromSiri)
         if self.textReturnedFromSiri != ""{
+            endSiriSpeech()
+            
+            UIView.animate(withDuration: 0.5) {
+//                self.imageViewWidthConstraint.constant = 120
+//                self.imageViewHeightConstraint.constant = 120
+                self.imageView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+            }
+            
             imageView.startAnimating()
-            speak(string: searchingSpeech + self.textReturnedFromSiri)
+            
+            speak(string: searchingSpeech + "`\(self.textReturnedFromSiri)`")
+            loadData(topic: self.textReturnedFromSiri)
+        
+        }else{      //长时间没说话
+            speak(string: closeSpeech)
+            endSiriSpeech()
+            
         }
-        endSiriSpeech()
+    }
+    
+    fileprivate func loadData(topic: String){
+        if topics.contains(topic.lowercased()){
+            let timeInterVal: Int = 8
+           let str = "https://newsapi.org/v2/top-headlines?country=us&category=\(topic)&apiKey=b7f7add8d89849be8c82306180dac738"
+            homeViewModel.loadNews(str: str) {
+                DispatchQueue.main.async {
+                    self.speak(string: "`got it`, sending data to carloudy... you can say: `change topic`, or `close` any time.", rate: 0.55)
+                    let articles: [Article] = self.homeViewModel.articles
+                    for (index, article) in articles.enumerated(){
+                        if let title = article.title{
+                            ZJPrint(title)
+//                            self.workItem = DispatchWorkItem {
+//                                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(index * timeInterVal), execute: {
+//                                    ZJPrint(title)
+//                                    sendMessageToCarloudy(title: title)
+//                                })
+//                            }
+//                            DispatchQueue.global().async(execute: self.workItem)
+                            
+//                            self.workItem = DispatchWorkItem { [weak self] in
+//                                sendMessageToCarloudy(title: title)
+//                            }
+//                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(index * timeInterVal), execute: self.workItem!)
+
+                            self.queue.asyncAfter(deadline: .now() + .seconds(index * timeInterVal), execute: {
+                                DispatchQueue.main.async {
+                                    sendMessageToCarloudy(title: title)
+                                }
+                                
+                            })
+                            
+//                            self.sendingDatatimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(timeInterVal), repeats: true, block: { (_) in
+//
+//                            })
+                        }
+                    }
+                }
+            }
+        }else{
+            speak(string: sorrySpeech, rate: 0.55)
+        }
     }
 }
 
 
 extension DrawerViewController: AVSpeechSynthesizerDelegate{
-    fileprivate func speak(string: String, rate: CGFloat = 0.58){
+    func speak(string: String, rate: CGFloat = 0.58){
         let utterance = AVSpeechUtterance(string: string)
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         utterance.rate = Float(rate)
@@ -166,6 +253,45 @@ extension DrawerViewController: AVSpeechSynthesizerDelegate{
             startSiriSpeech()
 //            animationview.stop()
             
+        }else if utterance.speechString.hasPrefix(searchingSpeech){
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+//                self.endSiriSpeech()
+//                self.dismissContoller()
+//            }
+        }else if utterance.speechString == closeSpeech{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                //                self.endSiriSpeech()
+                self.dismissContoller()
+            }
+        }else if utterance.speechString == sorrySpeech{
+            speak(string: startSpeech)
+        }else if utterance.speechString.hasPrefix("`got it`, sending data to carloudy"){
+            animationview.start()
+            carloudySpeech.microphoneTapped()
+            timer_forBaseSiri_inNavigationController.invalidate()
+            timer_forBaseSiri_inNavigationController = Timer(timeInterval: 0.5, repeats: true, block: { [weak self](_) in
+                self?.textReturnedFromSiri = (self?.carloudySpeech.checkText().lowercased())!
+                //let result = self?.textReturnedFromSiri
+                ZJPrint(self?.textReturnedFromSiri.lowercased())
+                if (self?.textReturnedFromSiri.lowercased().contains("change topic"))! || (self?.textReturnedFromSiri.lowercased().contains("change the topic"))!{
+                    self?.endSiriSpeech()
+                    self?.speak(string: (self?.startSpeech)!)
+                }else if (self?.textReturnedFromSiri.lowercased().contains("stop"))! || (self?.textReturnedFromSiri.lowercased().contains("close"))!{
+                    self?.speak(string: "OK, Closing..", rate: 0.53)
+//                    DispatchQueue.main.async {
+//                        self?.workItem?.cancel()
+//                    }
+//                    DispatchQueue.main.async {
+//                        self?.queue.suspend()
+//                    }
+                    
+                    
+                    self?.endSiriSpeech()
+                    self?.dismissContoller(delay: 2)
+                    
+                }
+            })
+            RunLoop.current.add(timer_forBaseSiri_inNavigationController, forMode: .common)
         }
     }
 }

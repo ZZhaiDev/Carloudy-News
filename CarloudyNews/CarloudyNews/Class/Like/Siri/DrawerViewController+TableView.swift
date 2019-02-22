@@ -27,15 +27,15 @@ extension DrawerViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return 6
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "DrawerTableViewCell", for: indexPath) as? DrawerTableViewCell {
-            let randomDataIndex = Int.random(in: 0..<DrawerViewController.sampleAppIcons.count)
-            let iconImage = DrawerViewController.sampleAppIcons[randomDataIndex]
-            let titleText = DrawerViewController.sampleAppTitles[randomDataIndex]
-            let subtitleText = DrawerViewController.sampleAppDescriptions[randomDataIndex]
+//            let randomDataIndex = Int.random(in: 0..<DrawerViewController.sampleAppIcons.count)
+            let iconImage = DrawerViewController.sampleAppIcons[indexPath.item]
+            let titleText = DrawerViewController.sampleAppTitles[indexPath.item]
+            let subtitleText = DrawerViewController.sampleAppDescriptions[indexPath.item]
             cell.iconImageView.image = iconImage
             cell.titleLabel.text = titleText
             cell.descriptionLabel.text = subtitleText

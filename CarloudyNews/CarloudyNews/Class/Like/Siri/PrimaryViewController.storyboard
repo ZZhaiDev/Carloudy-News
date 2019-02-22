@@ -73,13 +73,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="diS-qw-uyE" customClass="SwiftyWaveView" customModule="CarloudyNews" customModuleProvider="target">
-                                        <rect key="frame" x="105" y="20" width="255" height="65"/>
+                                        <rect key="frame" x="172.5" y="20" width="187.5" height="65"/>
                                     </view>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="guzhang2" translatesAutoresizingMaskIntoConstraints="NO" id="Id7-mL-vCs">
-                                        <rect key="frame" x="15" y="10" width="75" height="75"/>
+                                        <rect key="frame" x="67.5" y="10" width="75" height="75"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="75" id="El3-ks-Aw2"/>
-                                            <constraint firstAttribute="height" constant="75" id="bz5-fd-3b2"/>
+                                            <constraint firstAttribute="width" constant="75" id="LKb-pm-8HP"/>
+                                            <constraint firstAttribute="height" constant="75" id="wf0-f0-zpu"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>
@@ -87,15 +87,13 @@
                                 <constraints>
                                     <constraint firstItem="diS-qw-uyE" firstAttribute="top" secondItem="h3G-Hj-IpG" secondAttribute="top" constant="20" id="AL4-04-2lD"/>
                                     <constraint firstAttribute="trailing" secondItem="6Lu-Gd-WTV" secondAttribute="trailing" constant="12" id="BqR-qO-nTi"/>
-                                    <constraint firstItem="diS-qw-uyE" firstAttribute="leading" secondItem="Id7-mL-vCs" secondAttribute="trailing" constant="15" id="DRw-jN-vE9"/>
                                     <constraint firstAttribute="height" constant="130" id="JW8-sZ-QIK"/>
-                                    <constraint firstItem="diS-qw-uyE" firstAttribute="leading" secondItem="Id7-mL-vCs" secondAttribute="trailing" constant="15" id="Q5z-G8-md9"/>
+                                    <constraint firstItem="diS-qw-uyE" firstAttribute="leading" secondItem="Id7-mL-vCs" secondAttribute="trailing" constant="30" id="P3O-vH-5zn"/>
+                                    <constraint firstItem="6Lu-Gd-WTV" firstAttribute="top" secondItem="Id7-mL-vCs" secondAttribute="bottom" constant="10" id="TuF-B5-kUJ"/>
                                     <constraint firstItem="6Lu-Gd-WTV" firstAttribute="top" secondItem="diS-qw-uyE" secondAttribute="bottom" constant="10" id="a01-Ta-Hzx"/>
                                     <constraint firstItem="6Lu-Gd-WTV" firstAttribute="leading" secondItem="h3G-Hj-IpG" secondAttribute="leading" constant="12" id="div-Xs-30y"/>
                                     <constraint firstAttribute="trailing" secondItem="diS-qw-uyE" secondAttribute="trailing" constant="15" id="pSk-Q3-ArO"/>
-                                    <constraint firstItem="Id7-mL-vCs" firstAttribute="top" secondItem="h3G-Hj-IpG" secondAttribute="top" constant="10" id="psc-wV-jmL"/>
                                     <constraint firstAttribute="bottom" secondItem="6Lu-Gd-WTV" secondAttribute="bottom" constant="6" id="tba-en-B72"/>
-                                    <constraint firstItem="Id7-mL-vCs" firstAttribute="leading" secondItem="h3G-Hj-IpG" secondAttribute="leading" constant="15" id="vaT-NN-5La"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="BgS-W2-zIi">
@@ -107,6 +105,7 @@
                         <constraints>
                             <constraint firstItem="BgS-W2-zIi" firstAttribute="top" secondItem="h3G-Hj-IpG" secondAttribute="bottom" id="AuT-4v-6Md"/>
                             <constraint firstItem="h3G-Hj-IpG" firstAttribute="leading" secondItem="fD7-dV-Mzs" secondAttribute="leading" id="GSp-UW-BCY"/>
+                            <constraint firstItem="diS-qw-uyE" firstAttribute="width" secondItem="fD7-dV-Mzs" secondAttribute="width" multiplier="0.5" id="IET-gB-czM"/>
                             <constraint firstItem="h3G-Hj-IpG" firstAttribute="top" secondItem="fD7-dV-Mzs" secondAttribute="top" id="If0-jS-WGw"/>
                             <constraint firstAttribute="trailing" secondItem="h3G-Hj-IpG" secondAttribute="trailing" id="TIK-5O-0mv"/>
                             <constraint firstAttribute="bottom" secondItem="BgS-W2-zIi" secondAttribute="bottom" id="TP4-Zw-Yye"/>
@@ -119,6 +118,8 @@
                         <outlet property="animationview" destination="diS-qw-uyE" id="IIt-X9-rYl"/>
                         <outlet property="headerViewTitleLabel" destination="6Lu-Gd-WTV" id="GAp-tZ-tEo"/>
                         <outlet property="imageView" destination="Id7-mL-vCs" id="YNA-X2-J6T"/>
+                        <outlet property="imageViewHeightConstraint" destination="wf0-f0-zpu" id="EO7-Nd-QQp"/>
+                        <outlet property="imageViewWidthConstraint" destination="LKb-pm-8HP" id="NJV-ns-Gld"/>
                         <outlet property="tableView" destination="BgS-W2-zIi" id="xDW-uj-dbq"/>
                     </connections>
                 </viewController>

@@ -215,7 +215,7 @@ open class CarloudyBLE: NSObject {
         dataArrayTimer =  Timer.scheduledTimer(withTimeInterval: dataArrayTimerInterval, repeats: true) { (_) in
             if self.dataArray.count > 0{
                 let stringToSend = self.dataArray.first
-//                print("-------------dataArray.count: --\(self.dataArray.count)")
+                print("-------------dataArray.count: --\(self.dataArray.count)")
                 self.sync(lock: self.dataArray, closure: {
                     self.dataArray.removeFirst()
                 })

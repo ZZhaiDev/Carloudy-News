@@ -26,12 +26,35 @@ class PrimaryViewController: UIViewController, DrawerViewControllerDelegate {
     private static let kBackgroundColorOverlayTargetAlpha: CGFloat = 0.4
 
     // MARK: - Configuration
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.background
         configureAppearance()
         configureDrawerViewController()
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Exit", style: .plain, target: self, action: #selector(dismissController))
+    }
+    
+    @objc fileprivate func dismissController(){
+        if let drawerViewController = children.first as? DrawerViewController {
+            drawerViewController.endSiriSpeech()
+            drawerViewController.speak(string: "closing", rate: 0.5)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+               self.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
+    
+    deinit {
+        ZJPrint("deinit")
     }
 
     private func configureAppearance() {
