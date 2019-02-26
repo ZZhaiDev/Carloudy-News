@@ -16,6 +16,7 @@ open class CarloudySpeech: NSObject, SFSpeechRecognizerDelegate {
     public let audioEngine = AVAudioEngine()
     open var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     open var recognitionTask: SFSpeechRecognitionTask?
+    lazy var inputNode = audioEngine.inputNode
     open var text_copy_ = ""
     open var text_ = ""
     
@@ -62,8 +63,16 @@ open class CarloudySpeech: NSObject, SFSpeechRecognizerDelegate {
             }catch{
                 
             }
+//            audioEngine.stop()
+//            recognitionRequest?.endAudio()
+            
+            inputNode.removeTap(onBus: 0)
+            inputNode.reset()
             audioEngine.stop()
             recognitionRequest?.endAudio()
+            recognitionTask?.cancel()
+            recognitionTask = nil
+            recognitionRequest = nil
         }
     }
     
@@ -81,7 +90,7 @@ open class CarloudySpeech: NSObject, SFSpeechRecognizerDelegate {
             print("audioSession properties weren't set because of an error.")
         }
         recognitionRequest = SFSpeechAudioBufferRecognitionRequest()  //3
-        let inputNode = audioEngine.inputNode   //4
+//        let inputNode = audioEngine.inputNode   //4
         guard let recognitionRequest = recognitionRequest else {
             fatalError("Unable to create an SFSpeechAudioBufferRecognitionRequest object")
         } //5
@@ -97,7 +106,7 @@ open class CarloudySpeech: NSObject, SFSpeechRecognizerDelegate {
             
             if error != nil || isFinal {  //10
                 self.audioEngine.stop()
-                inputNode.removeTap(onBus: 0)
+                self.inputNode.removeTap(onBus: 0)
                 self.recognitionRequest = nil
                 self.recognitionTask = nil
             }

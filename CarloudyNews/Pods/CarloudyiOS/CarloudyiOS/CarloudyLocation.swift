@@ -23,7 +23,7 @@ open class CarloudyLocation: NSObject, CLLocationManagerDelegate{
         _locationManager.activityType = .automotiveNavigation
         _locationManager.distanceFilter = 10.0  // Movement threshold for new events
         //  _locationManager.allowsBackgroundLocationUpdates = true // allow in background
-        
+
         return _locationManager
     }()
     
@@ -34,12 +34,13 @@ open class CarloudyLocation: NSObject, CLLocationManagerDelegate{
     open var sendAddress : Bool
     open var delegate : CarloudyLocationDelegate?
     
-    public init(sendSpeed : Bool = true, sendAddress : Bool = false) {
+    public init(sendSpeed : Bool = true, sendAddress : Bool = false) { //, desireAccuracy: CLLocationAccuracy = kCLLocationAccuracyNearestTenMeters
         self.sendSpeed = sendSpeed
         self.sendAddress = sendAddress
+        
         super.init()
+//        locationManager.desiredAccuracy = desireAccuracy
     }
-    
     
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print(manager.location?.speed ?? 0)
@@ -65,6 +66,10 @@ open class CarloudyLocation: NSObject, CLLocationManagerDelegate{
         let geoCoder = CLGeocoder()
         let location = CLLocation(latitude: latitude, longitude: longtitude)
         geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
+            if error != nil{
+                print(error!)
+                return
+            }
             
             // Place details
             var placeMark: CLPlacemark!
@@ -93,7 +98,7 @@ open class CarloudyLocation: NSObject, CLLocationManagerDelegate{
                 streetName = street
             }
             // City
-            if let city = placeMark.subAdministrativeArea {
+            if let city = placeMark.locality {
                 print(city)
                 cityName = city
             }

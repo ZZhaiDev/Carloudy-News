@@ -63,7 +63,7 @@ class LikeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        startGlobleHeyCarloudyNews(vc: self)
         setupUI()
     }
     

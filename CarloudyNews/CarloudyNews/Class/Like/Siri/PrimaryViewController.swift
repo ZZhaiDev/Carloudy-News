@@ -45,10 +45,18 @@ class PrimaryViewController: UIViewController, DrawerViewControllerDelegate {
     
     @objc fileprivate func dismissController(){
         if let drawerViewController = children.first as? DrawerViewController {
+            if drawerViewController.synthesizer.isSpeaking{
+                drawerViewController.synthesizer.stopSpeaking(at: .immediate)
+            }
+            
+            drawerViewController.synthesizer.delegate = nil
+            drawerViewController.endSendingData()
             drawerViewController.endSiriSpeech()
-            drawerViewController.speak(string: "closing", rate: 0.5)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-               self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true) {
+                if let vc = UIApplication.topViewController() as? LikeViewController{
+                    ZJPrint(vc)
+                    startGlobleHeyCarloudyNews(vc: vc)
+                }
             }
         }
     }

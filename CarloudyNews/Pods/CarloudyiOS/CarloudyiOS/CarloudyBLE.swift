@@ -107,7 +107,7 @@ open class CarloudyBLE: NSObject {
     /// “zc” + “(pic_id)” + “(x)” + “(y)” + “(width)” + “(height)”, Example: zc0100563030, This command must be sent after “z0”. Otherwise, it’s meaningless and will be ignored. The picture to display will keep the original aspect ratio. Command only has “pic_id” without other parameters will remove the image.
     ///
     /// - Parameters:
-    ///   - picID: (2) [0-9, a-z]: unique id for picture to display. The “pic_id” must be the same as the picture name uploaded by the user
+    ///   - picID: (2) [a-z]: unique id(such as: aa, zb..) for picture to display. The “pic_id” must be the same as the picture name uploaded by the user
     ///   - postionX: (2) [00-90]: position-x for display section
     ///   - postionY: (2) [00-72]: position-y for display section
     ///   - width: (2) [01-90]: width for display section; “00” for auto fit width
@@ -406,7 +406,6 @@ extension CarloudyBLE{
     open func getPairKey(){
         if UserDefaults.standard.object(forKey: "newKeySendToPairAndorid_") != nil {
             newKeySendToPairAndorid_ = UserDefaults.standard.object(forKey: "newKeySendToPairAndorid_") as! String
-            print("newKeySendToPairAndorid_--------\(newKeySendToPairAndorid_)")
         }
     }
 }

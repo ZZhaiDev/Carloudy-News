@@ -6,6 +6,6 @@ target 'CarloudyNews' do
   use_frameworks!
 
   pod 'Alamofire', '~> 5.0.0.beta.1'
-  pod 'CarloudyiOS', '1.06'
+  pod 'CarloudyiOS', '1.08'
 
 end

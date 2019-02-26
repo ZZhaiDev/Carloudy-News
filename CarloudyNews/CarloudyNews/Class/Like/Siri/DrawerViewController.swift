@@ -22,6 +22,8 @@ private let topics = ["business",
                       "technology"]
 
 
+
+
 class DrawerViewController: UIViewController, UIGestureRecognizerDelegate, UISearchBarDelegate {
 
 
@@ -58,13 +60,15 @@ class DrawerViewController: UIViewController, UIGestureRecognizerDelegate, UISea
     var textReturnedFromSiri = ""
     let searchingSpeech = "OK, searching for "
     let closeSpeech = "I did not hear anything, closing"
+    let okcloseSpeech = "ok, closing"
     let sorrySpeech = "sorry, please say `business`, `entertainment`, `health`, `science`, `sports`, `technology`"
     
     var workItem: DispatchWorkItem?
     let queue = DispatchQueue(label: "Network Queue")
     weak var timer_checkTextIfChanging : Timer?
-    var timer_forBaseSiri_inNavigationController = Timer()  ///每0.5秒 检测说的什么
-    let carloudySpeech = CarloudySpeech()
+    weak var timer_sendingData: Timer?
+    weak var timer_forBaseSiri_inNavigationController: Timer?  ///每0.5秒 检测说的什么
+    
     lazy var synthesizer : AVSpeechSynthesizer = {
         let synthesizer = AVSpeechSynthesizer()
         synthesizer.delegate = self
@@ -85,9 +89,15 @@ class DrawerViewController: UIViewController, UIGestureRecognizerDelegate, UISea
         super.viewDidLoad()
         drawerViewSetup()
         setupImageViewAnimation()
-//        animationview.start()
-        
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        stopGlobleHeyCarloudyNews()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.animationview.stop()
         }
@@ -100,6 +110,11 @@ class DrawerViewController: UIViewController, UIGestureRecognizerDelegate, UISea
         imageView.animationRepeatCount = LONG_MAX
         imageView.autoresizingMask = [.flexibleTopMargin, .flexibleBottomMargin]
     }
+    
+    deinit {
+        ZJPrint("deinit")
+    }
+
 }
 
 
@@ -116,30 +131,46 @@ extension DrawerViewController{
     }
     
     func endSiriSpeech(){
-//        speak(string: "closed")
         animationview.stop()
         carloudySpeech.endMicroPhone()
-//        siriButton.setTitle("end", for: .normal)
-//        siriButton.isEnabled = true
         timer_checkTextIfChanging?.invalidate()
-        timer_forBaseSiri_inNavigationController.invalidate()
-        
-        
+        timer_forBaseSiri_inNavigationController?.invalidate()
+        timer_checkTextIfChanging = nil
+        timer_forBaseSiri_inNavigationController = nil
     }
     
-    fileprivate func dismissContoller(delay: Int = 0){
+    func endSendingData(){
+        self.timer_sendingData?.invalidate()
+        self.timer_sendingData = nil
+    }
+    
+    func dismissContoller(delay: Int = 0){
+        if synthesizer.isSpeaking{
+           synthesizer.stopSpeaking(at: .immediate)
+        }
+        
+        synthesizer.delegate = nil
+        endSendingData()
+        endSiriSpeech()
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(delay)) {
             if let parentVC = self.parent as? PrimaryViewController{
-                parentVC.dismiss(animated: true, completion: nil)
+                parentVC.dismiss(animated: true, completion: {
+                    ZJPrint(UIApplication.topViewController())
+                    if let vc = UIApplication.topViewController() as? LikeViewController{
+                        ZJPrint(vc)
+                        startGlobleHeyCarloudyNews(vc: vc)
+                    }
+                })
             }
         }
         
     }
     
+    
     fileprivate func delay3Seconds_createTimer(){
-        let delayTime = DispatchTime.now() + Double(Int64(3 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+        let delayTime = DispatchTime.now() + Double(Int64(5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
         DispatchQueue.main.asyncAfter(deadline: delayTime) {
-            if self.carloudySpeech.audioEngine.isRunning == true{
+            if carloudySpeech.audioEngine.isRunning == true{
                 self.createTimerForBaseSiri_checkiftextChanging()
             }
         }
@@ -153,15 +184,18 @@ extension DrawerViewController{
     }
     
     fileprivate func createTimerForBaseSiri_checkText(){
-        timer_forBaseSiri_inNavigationController.invalidate()
-        timer_forBaseSiri_inNavigationController = Timer(timeInterval: 0.5, repeats: true, block: { [weak self](_) in
-            self?.textReturnedFromSiri = (self?.carloudySpeech.checkText().lowercased())!
-            //let result = self?.textReturnedFromSiri
-            if self?.textReturnedFromSiri != ""{
-                self?.createTimerForBaseSiri_checkiftextChanging()
-            }
-        })
-        RunLoop.current.add(timer_forBaseSiri_inNavigationController, forMode: .common)
+        if timer_forBaseSiri_inNavigationController == nil{
+            timer_forBaseSiri_inNavigationController?.invalidate()
+            timer_forBaseSiri_inNavigationController = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { [weak self](_) in
+                self?.textReturnedFromSiri = (carloudySpeech.checkText().lowercased())
+                //let result = self?.textReturnedFromSiri
+                if self?.textReturnedFromSiri != ""{
+                    self?.createTimerForBaseSiri_checkiftextChanging()
+                }
+            })
+            
+        }
+        
     }
     
     @objc func checkTextIsChanging(){
@@ -169,6 +203,12 @@ extension DrawerViewController{
         ZJPrint(self.textReturnedFromSiri)
         if self.textReturnedFromSiri != ""{
             endSiriSpeech()
+            
+            if self.textReturnedFromSiri.lowercased().contains("close") || self.textReturnedFromSiri.lowercased().contains("stop"){
+                ZJPrint("2222222222------------------------------------------------------------------------------------")
+                speak(string: okcloseSpeech)
+                return
+            }
             
             UIView.animate(withDuration: 0.5) {
 //                self.imageViewWidthConstraint.constant = 120
@@ -182,6 +222,11 @@ extension DrawerViewController{
             loadData(topic: self.textReturnedFromSiri)
         
         }else{      //长时间没说话
+            if (UIApplication.topViewController() as? LikeViewController) != nil{
+                
+                return
+            }
+            //MARK: -- 这里有问题，dismiss 后重开 会说closespeech
             speak(string: closeSpeech)
             endSiriSpeech()
             
@@ -196,34 +241,38 @@ extension DrawerViewController{
                 DispatchQueue.main.async {
                     self.speak(string: "`got it`, sending data to carloudy... you can say: `change topic`, or `close` any time.", rate: 0.55)
                     let articles: [Article] = self.homeViewModel.articles
-                    for (index, article) in articles.enumerated(){
-                        if let title = article.title{
-                            ZJPrint(title)
-//                            self.workItem = DispatchWorkItem {
-//                                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(index * timeInterVal), execute: {
-//                                    ZJPrint(title)
+//                    for (index, article) in articles.enumerated(){
+//                        if let title = article.title{
+//                            ZJPrint(title)
+//                            self.queue.asyncAfter(deadline: .now() + .seconds(index * timeInterVal), execute: {
+//                                DispatchQueue.main.async {
 //                                    sendMessageToCarloudy(title: title)
-//                                })
-//                            }
-//                            DispatchQueue.global().async(execute: self.workItem)
-                            
-//                            self.workItem = DispatchWorkItem { [weak self] in
-//                                sendMessageToCarloudy(title: title)
-//                            }
-//                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(index * timeInterVal), execute: self.workItem!)
-
-                            self.queue.asyncAfter(deadline: .now() + .seconds(index * timeInterVal), execute: {
-                                DispatchQueue.main.async {
-                                    sendMessageToCarloudy(title: title)
-                                }
-                                
-                            })
-                            
-//                            self.sendingDatatimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(timeInterVal), repeats: true, block: { (_) in
+//                                }
 //
 //                            })
+//                        }
+//                    }
+                    
+                    if self.timer_sendingData == nil{
+                        self.timer_sendingData?.invalidate()
+                        let maxIndex = articles.count
+                        let article = articles[0]
+                        if let title = article.title{
+                            sendMessageToCarloudy(title: title)
                         }
+                        var index = 1
+                        self.timer_sendingData = Timer.scheduledTimer(withTimeInterval: TimeInterval(timeInterVal), repeats: true, block: { (_) in
+                            let article = articles[index]
+                            if let title = article.title{
+                                sendMessageToCarloudy(title: title)
+                            }
+                            index += 1
+                            if index >= maxIndex{
+                                self.dismissContoller()
+                            }
+                        })
                     }
+                    
                 }
             }
         }else{
@@ -248,16 +297,17 @@ extension DrawerViewController: AVSpeechSynthesizerDelegate{
     }
     
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        if (UIApplication.topViewController() as? LikeViewController) != nil{
+            return
+        }
         ZJPrint(utterance.speechString)
-        if utterance.speechString == startSpeech{
+        if utterance.speechString == okcloseSpeech{
+            self.dismissContoller()
+        }else if utterance.speechString == startSpeech{
             startSiriSpeech()
 //            animationview.stop()
             
         }else if utterance.speechString.hasPrefix(searchingSpeech){
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-//                self.endSiriSpeech()
-//                self.dismissContoller()
-//            }
         }else if utterance.speechString == closeSpeech{
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 //                self.endSiriSpeech()
@@ -268,30 +318,27 @@ extension DrawerViewController: AVSpeechSynthesizerDelegate{
         }else if utterance.speechString.hasPrefix("`got it`, sending data to carloudy"){
             animationview.start()
             carloudySpeech.microphoneTapped()
-            timer_forBaseSiri_inNavigationController.invalidate()
-            timer_forBaseSiri_inNavigationController = Timer(timeInterval: 0.5, repeats: true, block: { [weak self](_) in
-                self?.textReturnedFromSiri = (self?.carloudySpeech.checkText().lowercased())!
+            timer_forBaseSiri_inNavigationController?.invalidate()
+            timer_forBaseSiri_inNavigationController = nil
+            timer_forBaseSiri_inNavigationController = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { [weak self](_) in
+                self?.textReturnedFromSiri = (carloudySpeech.checkText().lowercased())
                 //let result = self?.textReturnedFromSiri
-                ZJPrint(self?.textReturnedFromSiri.lowercased())
+                guard self?.textReturnedFromSiri.lowercased() != nil else {return}
+                ZJPrint(carloudySpeech.audioEngine.isRunning)
+                // MARK:- 如果这里超过一分钟 audioEngine.isRunning 不工作怎么办？
                 if (self?.textReturnedFromSiri.lowercased().contains("change topic"))! || (self?.textReturnedFromSiri.lowercased().contains("change the topic"))!{
+                    
+                    self?.endSendingData()
                     self?.endSiriSpeech()
                     self?.speak(string: (self?.startSpeech)!)
                 }else if (self?.textReturnedFromSiri.lowercased().contains("stop"))! || (self?.textReturnedFromSiri.lowercased().contains("close"))!{
-                    self?.speak(string: "OK, Closing..", rate: 0.53)
-//                    DispatchQueue.main.async {
-//                        self?.workItem?.cancel()
-//                    }
-//                    DispatchQueue.main.async {
-//                        self?.queue.suspend()
-//                    }
-                    
-                    
-                    self?.endSiriSpeech()
-                    self?.dismissContoller(delay: 2)
+                    self?.speak(string: (self?.okcloseSpeech)!, rate: 0.53)
+                    self?.timer_forBaseSiri_inNavigationController?.invalidate()
+                    ZJPrint("1111111-------------------------------------------------------------------------------")
                     
                 }
             })
-            RunLoop.current.add(timer_forBaseSiri_inNavigationController, forMode: .common)
+            
         }
     }
 }

@@ -10,6 +10,8 @@ import UIKit
 import CarloudyiOS
 
 
+let carloudySpeech = CarloudySpeech()
+weak var globleTimer: Timer?
 
 
 
@@ -75,4 +77,30 @@ func sendMessageToCarloudy(title: String, content: String = ""){
         carloudyBLE.createIDAndViewForCarloudyHud(textViewId: "4", labelTextSize: labelTextSize, postionX: 05, postionY: 05, width: 80, height: 00)
         carloudyBLE.sendMessage(textViewId: "4", message: content)
     }
+}
+
+
+func startGlobleHeyCarloudyNews(vc: UIViewController){
+    carloudySpeech.microphoneTapped()
+    globleTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (_) in
+        ZJPrint(carloudySpeech.checkText().lowercased())
+        ZJPrint(carloudySpeech.audioEngine.isRunning)
+        if !carloudySpeech.audioEngine.isRunning{
+            stopGlobleHeyCarloudyNews()
+            startGlobleHeyCarloudyNews(vc: vc)
+        }
+        if carloudySpeech.checkText().lowercased().contains("open carloudynews"){
+            stopGlobleHeyCarloudyNews()
+            let storyboard = UIStoryboard(name: "PrimaryViewController", bundle: nil)
+            let controller = storyboard.instantiateViewController(withIdentifier: "PrimaryViewController")
+            let nvc = UINavigationController(rootViewController: controller)
+            vc.present(nvc, animated: true, completion: nil)
+        }
+    })
+}
+
+func stopGlobleHeyCarloudyNews(){
+    carloudySpeech.endMicroPhone()
+    globleTimer?.invalidate()
+    globleTimer = nil
 }
