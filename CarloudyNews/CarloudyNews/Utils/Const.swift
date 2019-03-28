@@ -9,11 +9,8 @@
 import UIKit
 import CarloudyiOS
 
-
 let carloudySpeech = CarloudySpeech()
 weak var globleTimer: Timer?
-
-
 
 //Commons
 let zjScreenWidth: CGFloat = UIScreen.main.bounds.width
@@ -45,6 +42,8 @@ var launchAppByCarloudyNotificationKey_ = "launchAppByCarloudyNotificationKey"
 var settingViewUpdateAndReloadDataNotificationKey_ = "settingViewUpdateAndReloadDataNotificationKey"
 
 
+
+
 func getloadingImages() -> [UIImage] {
     var loadingImages = [UIImage]()
     for index in 0...14 {
@@ -63,44 +62,18 @@ func getloadingImages() -> [UIImage] {
  height (2) [01-72]: height for display section; “00” for auto fit height
  */
 
-func sendMessageToCarloudy(title: String, content: String = ""){
-    let labelTextSize = 40
-    let carloudyBLE = CarloudyBLE.shareInstance
-    if let pairkey = carloudyBlePairKey_{
-        carloudyBLE.newKeySendToPairAndorid_ = pairkey
-    }
-    carloudyBLE.startANewSession(appId: carloudyAppStoreAppKey_)
-    carloudyBLE.createIDAndViewForCarloudyHud(textViewId: "3", labelTextSize: labelTextSize, postionX: 05, postionY: 05, width: 80, height: 00)
-    carloudyBLE.sendMessage(textViewId: "3", message: title)
-    
-    if content != ""{
-        carloudyBLE.createIDAndViewForCarloudyHud(textViewId: "4", labelTextSize: labelTextSize, postionX: 05, postionY: 05, width: 80, height: 00)
-        carloudyBLE.sendMessage(textViewId: "4", message: content)
-    }
-}
 
+func sendMessageToCarloudy(title: String, content: String = ""){
+    GloableSiriFunc.shareInstance.sendMessageToCarloudy(title: title, content: content)
+}
 
 func startGlobleHeyCarloudyNews(vc: UIViewController){
-    carloudySpeech.microphoneTapped()
-    globleTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { (_) in
-        ZJPrint(carloudySpeech.checkText().lowercased())
-        ZJPrint(carloudySpeech.audioEngine.isRunning)
-        if !carloudySpeech.audioEngine.isRunning{
-            stopGlobleHeyCarloudyNews()
-            startGlobleHeyCarloudyNews(vc: vc)
-        }
-        if carloudySpeech.checkText().lowercased().contains("open carloudynews"){
-            stopGlobleHeyCarloudyNews()
-            let storyboard = UIStoryboard(name: "PrimaryViewController", bundle: nil)
-            let controller = storyboard.instantiateViewController(withIdentifier: "PrimaryViewController")
-            let nvc = UINavigationController(rootViewController: controller)
-            vc.present(nvc, animated: true, completion: nil)
-        }
-    })
+    GloableSiriFunc.shareInstance.startGlobleHeyCarloudyNews(vc: vc)
+    
 }
 
-func stopGlobleHeyCarloudyNews(){
-    carloudySpeech.endMicroPhone()
-    globleTimer?.invalidate()
-    globleTimer = nil
+func stopGlobleHeyCarloudyNews(stopOnce: Bool = false){
+    GloableSiriFunc.shareInstance.stopGlobleHeyCarloudyNews(stopOnce: stopOnce)
 }
+
+

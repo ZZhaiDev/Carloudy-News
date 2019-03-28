@@ -8,6 +8,7 @@
 
 import UIKit
 import CarloudyiOS
+import AVFoundation
 
 
 //https://newsapi.org/v2/everything?q=bitcoin&from=2018-12-08&sortBy=publishedAt&apiKey=b7f7add8d89849be8c82306180dac738
@@ -49,6 +50,9 @@ enum NewsSubCat {
 //sortBy=popularity
 //sortBy=publishedAt
 
+private var dataIndex = 0
+private var dataGotFromSiri = ""
+
 class AllViewController: UIViewController {
 
     lazy var homeViewModel = HomeViewModel()
@@ -56,6 +60,13 @@ class AllViewController: UIViewController {
     var subCat : String?
     var newsCat: String?
     var isdefaultTheme = true
+    
+    fileprivate weak var timer_checkText: Timer?
+    fileprivate lazy var synthesizer : AVSpeechSynthesizer = {
+        let synthesizer = AVSpeechSynthesizer()
+        synthesizer.delegate = self
+        return synthesizer
+    }()
     
     required public init(cat: String, subCat: String){
         self.subCat = subCat
@@ -84,6 +95,8 @@ class AllViewController: UIViewController {
         super.viewDidLoad()
         loadData()
         view.addSubview(homeView)
+        
+        GloableSiriFunc.shareInstance.delegate = self
         // Do any additional setup after loading the view.
     }
     
@@ -165,8 +178,105 @@ extension AllViewController{
         homeViewModel.loadNews(str: str) {
             DispatchQueue.main.async {
                 self.homeView.articles = self.homeViewModel.articles
+                if let titles = UserDefaults.standard.array(forKey: titles_StringDescription) as? [String]{
+                    ZJPrint(self.subCat!)
+                    ZJPrint(titles.first ?? "")
+                    if self.subCat! == titles.first ?? ""{
+//                        ZJPrint(self.subCat!)
+                        self.sendData()
+                    }
+                }
             }
         }
+    }
+    
+    
+    fileprivate func sendData(){
+        /*
+        weak var timer_sendingData_home: Timer?
+        if timer_sendingData_home == nil{
+            timer_sendingData_home?.invalidate()
+            let articles = self.homeViewModel.articles
+            let maxIndex = articles.count
+            let article = articles[dataIndex]
+            if let title = article.title{
+                sendMessageToCarloudy(title: title)
+            }
+            
+            
+            timer_sendingData_home = Timer.scheduledTimer(withTimeInterval: TimeInterval(8), repeats: true, block: { (_) in
+                let article = articles[dataIndex]
+                if let title = article.title{
+                    self.speak(string: title)
+                    sendMessageToCarloudy(title: title)
+                    
+                }
+                dataIndex += 1
+                if dataIndex >= maxIndex{
+//                    self.timer_sendingData_home?.invalidate()
+//                    self.timer_sendingData_home = nil
+                    dataIndex = 0
+                }
+            })
+ 
+        }
+         */
+            let articles = self.homeViewModel.articles
+            let maxIndex = articles.count
+            let article = articles[dataIndex]
+            if let title = article.title{
+                sendMessageToCarloudy(title: title)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.speak(string: title)
+                }
+                dataIndex += 1
+            if dataIndex >= maxIndex{
+                dataIndex = 0
+            }
+        }
+    }
+}
+
+
+extension AllViewController: AVSpeechSynthesizerDelegate, GloableSiriFuncDelegate{
+    
+    
+    func speak(string: String, rate: CGFloat = 0.53){
+        //开始说时 关闭recording
+        GloableSiriFunc.shareInstance.stopGlobleHeyCarloudyNews()
+        let utterance = AVSpeechUtterance(string: string)
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        utterance.rate = Float(rate)
+        synthesizer.speak(utterance)
+    }
+    
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        //结束说时，打开语音。 给用户两秒时间 停止read
+        if let vc = UIApplication.firstViewController() as? LikeViewController{  // && if user choose read
+            GloableSiriFunc.shareInstance.startGlobleHeyCarloudyNews(vc: vc)
+        }
+        
+        var timerIndex = 0
+        timer_checkText = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (_) in
+            timerIndex += 1
+            
+            if timerIndex > 3{
+                self.timer_checkText?.invalidate()
+                self.timer_checkText = nil
+                if !dataGotFromSiri.contains("stop"){        //停止read
+                    GloableSiriFunc.shareInstance.stopGlobleHeyCarloudyNews()
+                    self.sendData()
+                }
+                
+            }
+            
+            ZJPrint(timerIndex)
+        
+        }
+    }
+    
+    func gloableSiriFuncTextReturn(text: String) {
+        dataGotFromSiri = text
     }
 }
 

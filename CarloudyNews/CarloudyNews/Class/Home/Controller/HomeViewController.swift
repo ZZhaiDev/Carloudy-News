@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CarloudyiOS
 let ZJTitleViewH : CGFloat = 40
 
 class HomeViewController: UIViewController {
@@ -54,7 +55,10 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
+        
     }
+    
+    
 }
 
 

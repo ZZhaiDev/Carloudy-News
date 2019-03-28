@@ -133,10 +133,12 @@ extension DrawerViewController{
     func endSiriSpeech(){
         animationview.stop()
         carloudySpeech.endMicroPhone()
+        ZJPrint("//// -----\(timer_checkTextIfChanging?.isValid)")
         timer_checkTextIfChanging?.invalidate()
         timer_forBaseSiri_inNavigationController?.invalidate()
         timer_checkTextIfChanging = nil
         timer_forBaseSiri_inNavigationController = nil
+        ZJPrint("//// -----\(timer_checkTextIfChanging?.isValid)")
     }
     
     func endSendingData(){
@@ -156,7 +158,7 @@ extension DrawerViewController{
             if let parentVC = self.parent as? PrimaryViewController{
                 parentVC.dismiss(animated: true, completion: {
                     ZJPrint(UIApplication.topViewController())
-                    if let vc = UIApplication.topViewController() as? LikeViewController{
+                    if let vc = UIApplication.firstViewController() as? LikeViewController{
                         ZJPrint(vc)
                         startGlobleHeyCarloudyNews(vc: vc)
                     }
@@ -199,6 +201,9 @@ extension DrawerViewController{
     }
     
     @objc func checkTextIsChanging(){
+        ZJPrint("//// -----checkTextIsChanging")
+        ZJPrint("//// -----\(timer_checkTextIfChanging?.isValid)")
+        
         guard carloudySpeech.checkTextChanging() == false else {return}
         ZJPrint(self.textReturnedFromSiri)
         if self.textReturnedFromSiri != ""{
@@ -222,11 +227,17 @@ extension DrawerViewController{
             loadData(topic: self.textReturnedFromSiri)
         
         }else{      //长时间没说话
+            ZJPrint("//// -----return1111")
             if (UIApplication.topViewController() as? LikeViewController) != nil{
-                
+                ZJPrint(timer_checkTextIfChanging?.isValid)
+                timer_checkTextIfChanging?.invalidate()
+                timer_checkTextIfChanging = nil
+                ZJPrint(timer_checkTextIfChanging?.isValid)
+                ZJPrint("//// -----return")
                 return
             }
             //MARK: -- 这里有问题，dismiss 后重开 会说closespeech
+            ZJPrint("//// -----closeSpeech")
             speak(string: closeSpeech)
             endSiriSpeech()
             
@@ -280,6 +291,7 @@ extension DrawerViewController{
         }
     }
 }
+
 
 
 extension DrawerViewController: AVSpeechSynthesizerDelegate{

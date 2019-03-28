@@ -144,4 +144,12 @@ extension UIApplication {
         }
         return controller
     }
+    
+    class func firstViewController() -> UIViewController?{
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let tab = appDelegate.window?.rootViewController as! UITabBarController
+        let nav = tab.children.first as! UINavigationController
+        let vc = nav.viewControllers.first
+        return vc
+    }
 }

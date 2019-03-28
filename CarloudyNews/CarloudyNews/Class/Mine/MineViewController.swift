@@ -14,7 +14,7 @@ class MineViewController: UIViewController {
     
 //    var mainViewController: MainViewController?
     private lazy var myArray: Array = {
-        return [[["icon":"mine_feedBack", "title": "C/F"],
+        return [[["icon":"mine_feedBack", "title": "Talk to CarloudyNews"],
                  ["icon":"mine_setting", "title": "Carloudy Setting"]],
                 
                 [["icon":"mine_feedBack", "title": "夜间模式"],
@@ -123,9 +123,8 @@ extension MineViewController: UITableViewDelegate, UITableViewDataSource{
         ZJPrint(indexPath.item)
         ZJPrint(indexPath.row)
         if indexPath == [0, 0]{
-//            let unitVC = UnitViewController()
-//            unitVC.mainViewController = mainViewController
-//            navigationController?.pushViewController(unitVC, animated: true)
+            let talkToNews = TalkToCarloudyNewsViewController()
+            navigationController?.pushViewController(talkToNews, animated: true)
         }else if indexPath == [0, 1]{
             let csVC = CarloudySettingViewController()
             navigationController?.pushViewController(csVC, animated: true)

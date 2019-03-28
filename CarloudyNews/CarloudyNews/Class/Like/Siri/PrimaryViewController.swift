@@ -46,6 +46,7 @@ class PrimaryViewController: UIViewController, DrawerViewControllerDelegate {
     @objc fileprivate func dismissController(){
         if let drawerViewController = children.first as? DrawerViewController {
             if drawerViewController.synthesizer.isSpeaking{
+                ZJPrint("//// -----stopSpeaking")
                 drawerViewController.synthesizer.stopSpeaking(at: .immediate)
             }
             
@@ -53,7 +54,7 @@ class PrimaryViewController: UIViewController, DrawerViewControllerDelegate {
             drawerViewController.endSendingData()
             drawerViewController.endSiriSpeech()
             self.dismiss(animated: true) {
-                if let vc = UIApplication.topViewController() as? LikeViewController{
+                if let vc = UIApplication.firstViewController() as? LikeViewController{
                     ZJPrint(vc)
                     startGlobleHeyCarloudyNews(vc: vc)
                 }

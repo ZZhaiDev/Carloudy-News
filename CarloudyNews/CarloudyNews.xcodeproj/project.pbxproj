@@ -29,6 +29,7 @@
 		A401333921E0077D00E8E29E /* NetworkTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = A401333821E0077D00E8E29E /* NetworkTools.swift */; };
 		A401333B21E0079C00E8E29E /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A401333A21E0079C00E8E29E /* HomeViewModel.swift */; };
 		A401333D21E0114B00E8E29E /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A401333C21E0114B00E8E29E /* CustomImageView.swift */; };
+		A44B919A224C0B40006DF2A3 /* GloableSiriFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44B9199224C0B40006DF2A3 /* GloableSiriFunc.swift */; };
 		A486134121E52E420071CF17 /* MineHead.swift in Sources */ = {isa = PBXBuildFile; fileRef = A486134021E52E420071CF17 /* MineHead.swift */; };
 		A486134621E52E650071CF17 /* ParallaxHeaderMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A486134321E52E650071CF17 /* ParallaxHeaderMode.swift */; };
 		A486134721E52E650071CF17 /* UIScrollView+ParallaxHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A486134421E52E650071CF17 /* UIScrollView+ParallaxHeader.swift */; };
@@ -42,6 +43,8 @@
 		A49EAA67221F41E300200C82 /* ExpansionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49EAA60221F41E200200C82 /* ExpansionState.swift */; };
 		A49EAA68221F41E300200C82 /* DrawerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A49EAA61221F41E200200C82 /* DrawerTableViewCell.xib */; };
 		A49EAA69221F41E300200C82 /* DrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49EAA62221F41E300200C82 /* DrawerViewController.swift */; };
+		A49EAA6B22271EC800200C82 /* TalkToCarloudyNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49EAA6A22271EC800200C82 /* TalkToCarloudyNewsViewController.swift */; };
+		A49EAA6F22272B5B00200C82 /* TalkToCarloudyNewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A49EAA6E22272B5B00200C82 /* TalkToCarloudyNewsViewController.xib */; };
 		A4C0811921DFEB2B00E2216A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4C0811721DFEB2B00E2216A /* Main.storyboard */; };
 		A4C0811B21DFEB2D00E2216A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4C0811A21DFEB2D00E2216A /* Assets.xcassets */; };
 		A4C0811E21DFEB2D00E2216A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4C0811C21DFEB2D00E2216A /* LaunchScreen.storyboard */; };
@@ -98,6 +101,7 @@
 		A401333821E0077D00E8E29E /* NetworkTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTools.swift; sourceTree = "<group>"; };
 		A401333A21E0079C00E8E29E /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		A401333C21E0114B00E8E29E /* CustomImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
+		A44B9199224C0B40006DF2A3 /* GloableSiriFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GloableSiriFunc.swift; sourceTree = "<group>"; };
 		A486134021E52E420071CF17 /* MineHead.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineHead.swift; sourceTree = "<group>"; };
 		A486134321E52E650071CF17 /* ParallaxHeaderMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxHeaderMode.swift; sourceTree = "<group>"; };
 		A486134421E52E650071CF17 /* UIScrollView+ParallaxHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+ParallaxHeader.swift"; sourceTree = "<group>"; };
@@ -112,6 +116,8 @@
 		A49EAA60221F41E200200C82 /* ExpansionState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpansionState.swift; sourceTree = "<group>"; };
 		A49EAA61221F41E200200C82 /* DrawerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawerTableViewCell.xib; sourceTree = "<group>"; };
 		A49EAA62221F41E300200C82 /* DrawerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawerViewController.swift; sourceTree = "<group>"; };
+		A49EAA6A22271EC800200C82 /* TalkToCarloudyNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkToCarloudyNewsViewController.swift; sourceTree = "<group>"; };
+		A49EAA6E22272B5B00200C82 /* TalkToCarloudyNewsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkToCarloudyNewsViewController.xib; sourceTree = "<group>"; };
 		A4C0811021DFEB2B00E2216A /* CarloudyNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarloudyNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4C0811821DFEB2B00E2216A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A4C0811A21DFEB2D00E2216A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -211,6 +217,7 @@
 				A486134221E52E650071CF17 /* ParallaxHeader */,
 				A401333C21E0114B00E8E29E /* CustomImageView.swift */,
 				A401333821E0077D00E8E29E /* NetworkTools.swift */,
+				A44B9199224C0B40006DF2A3 /* GloableSiriFunc.swift */,
 				A401332821DFF1D700E8E29E /* Const.swift */,
 				A401332A21DFF29400E8E29E /* UIBarButtonItem-Extension.swift */,
 				A4ECD2D821ED31850040720D /* UIColor-Extension.swift */,
@@ -351,6 +358,8 @@
 				A401331921DFEFD700E8E29E /* MineViewController.swift */,
 				A486134021E52E420071CF17 /* MineHead.swift */,
 				A4ECD29521E7BF630040720D /* CarloudySettingViewController.swift */,
+				A49EAA6A22271EC800200C82 /* TalkToCarloudyNewsViewController.swift */,
+				A49EAA6E22272B5B00200C82 /* TalkToCarloudyNewsViewController.xib */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -494,6 +503,7 @@
 				A401331F21DFF03B00E8E29E /* Like.storyboard in Resources */,
 				A401332221DFF05100E8E29E /* Mine.storyboard in Resources */,
 				A401333521DFFF5B00E8E29E /* HomeCollectionViewCell.xib in Resources */,
+				A49EAA6F22272B5B00200C82 /* TalkToCarloudyNewsViewController.xib in Resources */,
 				A49EAA5B221F41B300200C82 /* PrimaryViewController.storyboard in Resources */,
 				A4C0811B21DFEB2D00E2216A /* Assets.xcassets in Resources */,
 				A4C0811921DFEB2B00E2216A /* Main.storyboard in Resources */,
@@ -575,6 +585,7 @@
 				A401333D21E0114B00E8E29E /* CustomImageView.swift in Sources */,
 				A49EAA63221F41E300200C82 /* DrawerViewController+TableView.swift in Sources */,
 				A401333B21E0079C00E8E29E /* HomeViewModel.swift in Sources */,
+				A49EAA6B22271EC800200C82 /* TalkToCarloudyNewsViewController.swift in Sources */,
 				A49EAA69221F41E300200C82 /* DrawerViewController.swift in Sources */,
 				A4C0814421DFEEBF00E2216A /* AppDelegate.swift in Sources */,
 				38D0E44721E0556E00293F7B /* ZJProgressHUD.swift in Sources */,
@@ -593,6 +604,7 @@
 				3891B53721E17B2D008D8AA5 /* PageTitleView.swift in Sources */,
 				A49EAA65221F41E300200C82 /* PrimaryViewController.swift in Sources */,
 				3891B54121E1B018008D8AA5 /* SecondCollectionViewCell.swift in Sources */,
+				A44B919A224C0B40006DF2A3 /* GloableSiriFunc.swift in Sources */,
 				A401333421DFFF5B00E8E29E /* HomeCollectionViewCell.swift in Sources */,
 				3891B53B21E18261008D8AA5 /* ContentMainView.swift in Sources */,
 				A4ECD29921E94BB20040720D /* SettingView.swift in Sources */,

@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         UITabBar.appearance().tintColor = .orange
         
+        isEnableOpenCarloudyNews = UserDefaults.standard.bool(forKey: "isEnableOpenCarloudyNews")
+        ZJPrint(isEnableOpenCarloudyNews)
         
         return true
     }
