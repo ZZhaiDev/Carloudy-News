@@ -66,22 +66,23 @@ class LikeViewController: UIViewController {
         super.viewDidLoad()
 //        startGlobleHeyCarloudyNews(vc: self)
         setupUI()
-        sendToCarloudy(title: "Say 'Open CarloudyNews' to activate speech")
+        GloableSiriFunc.shareInstance.createWaringLabelInCarloudy()
+        GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: "Say 'Open CarloudyNews' to activate speech")
         
 
         
     }
     
-    func sendToCarloudy(title: String){
-        let labelTextSize = 30
-        let carloudyBLE = CarloudyBLE.shareInstance
-        if let pairkey = carloudyBlePairKey_{
-            carloudyBLE.newKeySendToPairAndorid_ = pairkey
-        }
-        carloudyBLE.startANewSession(appId: carloudyAppStoreAppKey_)
-        carloudyBLE.createIDAndViewForCarloudyHud(textViewId: "9", labelTextSize: labelTextSize, postionX: 05, postionY: 65, width: 00, height: 00)
-        carloudyBLE.sendMessage(textViewId: "9", message: title)
-    }
+//    func sendToCarloudy(title: String){
+//        let labelTextSize = 30
+//        let carloudyBLE = CarloudyBLE.shareInstance
+//        if let pairkey = carloudyBlePairKey_{
+//            carloudyBLE.newKeySendToPairAndorid_ = pairkey
+//        }
+//        carloudyBLE.startANewSession(appId: carloudyAppStoreAppKey_)
+//        carloudyBLE.createIDAndViewForCarloudyHud(textViewId: "9", labelTextSize: labelTextSize, postionX: 05, postionY: 65, width: 00, height: 00)
+//        carloudyBLE.sendMessage(textViewId: "9", message: title)
+//    }
     
     deinit {
         ZJPrint("deinit----LikeViewController")

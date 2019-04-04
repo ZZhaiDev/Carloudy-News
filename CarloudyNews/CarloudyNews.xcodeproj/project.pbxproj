@@ -30,6 +30,7 @@
 		A401333B21E0079C00E8E29E /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A401333A21E0079C00E8E29E /* HomeViewModel.swift */; };
 		A401333D21E0114B00E8E29E /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A401333C21E0114B00E8E29E /* CustomImageView.swift */; };
 		A44B919A224C0B40006DF2A3 /* GloableSiriFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44B9199224C0B40006DF2A3 /* GloableSiriFunc.swift */; };
+		A44B91DA2253EA8F006DF2A3 /* DrawViewController+Siri.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44B91D92253EA8F006DF2A3 /* DrawViewController+Siri.swift */; };
 		A486134121E52E420071CF17 /* MineHead.swift in Sources */ = {isa = PBXBuildFile; fileRef = A486134021E52E420071CF17 /* MineHead.swift */; };
 		A486134621E52E650071CF17 /* ParallaxHeaderMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A486134321E52E650071CF17 /* ParallaxHeaderMode.swift */; };
 		A486134721E52E650071CF17 /* UIScrollView+ParallaxHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A486134421E52E650071CF17 /* UIScrollView+ParallaxHeader.swift */; };
@@ -102,6 +103,7 @@
 		A401333A21E0079C00E8E29E /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		A401333C21E0114B00E8E29E /* CustomImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		A44B9199224C0B40006DF2A3 /* GloableSiriFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GloableSiriFunc.swift; sourceTree = "<group>"; };
+		A44B91D92253EA8F006DF2A3 /* DrawViewController+Siri.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DrawViewController+Siri.swift"; sourceTree = "<group>"; };
 		A486134021E52E420071CF17 /* MineHead.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineHead.swift; sourceTree = "<group>"; };
 		A486134321E52E650071CF17 /* ParallaxHeaderMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxHeaderMode.swift; sourceTree = "<group>"; };
 		A486134421E52E650071CF17 /* UIScrollView+ParallaxHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+ParallaxHeader.swift"; sourceTree = "<group>"; };
@@ -244,6 +246,7 @@
 				A49EAA5F221F41E200200C82 /* DrawerTableViewCell.swift */,
 				A49EAA61221F41E200200C82 /* DrawerTableViewCell.xib */,
 				A49EAA62221F41E300200C82 /* DrawerViewController.swift */,
+				A44B91D92253EA8F006DF2A3 /* DrawViewController+Siri.swift */,
 				A49EAA5C221F41E200200C82 /* DrawerViewController+TableView.swift */,
 				A49EAA5D221F41E200200C82 /* DrawerViewControllerDelegate.swift */,
 				A49EAA60221F41E200200C82 /* ExpansionState.swift */,
@@ -608,6 +611,7 @@
 				A401333421DFFF5B00E8E29E /* HomeCollectionViewCell.swift in Sources */,
 				3891B53B21E18261008D8AA5 /* ContentMainView.swift in Sources */,
 				A4ECD29921E94BB20040720D /* SettingView.swift in Sources */,
+				A44B91DA2253EA8F006DF2A3 /* DrawViewController+Siri.swift in Sources */,
 				38D0E44521E04E0700293F7B /* HomeDetailViewController.swift in Sources */,
 				A4ECD29621E7BF630040720D /* CarloudySettingViewController.swift in Sources */,
 			);

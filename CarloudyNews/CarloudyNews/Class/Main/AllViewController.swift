@@ -191,7 +191,7 @@ extension AllViewController{
     }
     
     
-    fileprivate func sendData(){
+    func sendData(){
         /*
         weak var timer_sendingData_home: Timer?
         if timer_sendingData_home == nil{
@@ -248,9 +248,11 @@ extension AllViewController: AVSpeechSynthesizerDelegate, GloableSiriFuncDelegat
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         utterance.rate = Float(rate)
         synthesizer.speak(utterance)
+        GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: "Say 'Stop' between two voices to cancel")
     }
     
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+
         //结束说时，打开语音。 给用户两秒时间 停止read
         if let vc = UIApplication.firstViewController() as? LikeViewController{  // && if user choose read
             GloableSiriFunc.shareInstance.startGlobleHeyCarloudyNews(vc: vc)
@@ -266,6 +268,8 @@ extension AllViewController: AVSpeechSynthesizerDelegate, GloableSiriFuncDelegat
                 if !dataGotFromSiri.contains("stop"){        //停止read
                     GloableSiriFunc.shareInstance.stopGlobleHeyCarloudyNews()
                     self.sendData()
+                }else{
+                    GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: "Say 'Open CarloudyNews' to activate speech")
                 }
                 
             }

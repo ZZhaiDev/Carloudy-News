@@ -17,6 +17,7 @@ class GloableSiriFunc: NSObject {
     public static let shareInstance: GloableSiriFunc = GloableSiriFunc()
     var falseIndex = 0
     weak var delegate: GloableSiriFuncDelegate?
+    fileprivate let warningText = "9"
 }
 
 extension GloableSiriFunc{
@@ -34,6 +35,21 @@ extension GloableSiriFunc{
             carloudyBLE.createIDAndViewForCarloudyHud(textViewId: "4", labelTextSize: labelTextSize, postionX: 05, postionY: 05, width: 80, height: 00)
             carloudyBLE.sendMessage(textViewId: "4", message: content)
         }
+    }
+    
+    func createWaringLabelInCarloudy(){
+        let labelTextSize = 30
+        let carloudyBLE = CarloudyBLE.shareInstance
+        if let pairkey = carloudyBlePairKey_{
+            carloudyBLE.newKeySendToPairAndorid_ = pairkey
+        }
+        carloudyBLE.startANewSession(appId: carloudyAppStoreAppKey_)
+        carloudyBLE.createIDAndViewForCarloudyHud(textViewId: warningText, labelTextSize: labelTextSize, postionX: 05, postionY: 65, width: 00, height: 00)
+        
+    }
+    
+    func sendWaringLabelToCarloudy(title: String){
+        CarloudyBLE.shareInstance.sendMessage(textViewId: warningText, message: title)
     }
     
     
