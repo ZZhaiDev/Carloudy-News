@@ -88,8 +88,8 @@ open class CarloudySpeech: NSObject, SFSpeechRecognizerDelegate {
 //            try audioSession.setActive(true, with: .notifyOthersOnDeactivation)
             
             try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
-            try audioSession.setMode(AVAudioSessionModeDefault)
-            //try audioSession.setMode(AVAudioSessionModeMeasurement)
+//            try audioSession.setMode(AVAudioSessionModeDefault)
+            try audioSession.setMode(AVAudioSessionModeMeasurement)
             try audioSession.setActive(true, with: .notifyOthersOnDeactivation)
             try audioSession.overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
         } catch {

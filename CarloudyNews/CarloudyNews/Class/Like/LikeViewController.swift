@@ -94,6 +94,8 @@ class LikeViewController: UIViewController {
             if maintitles != titles{
                 maintitles = titles
             }
+        }else{
+            maintitles =  ["U.S.", "Chicago", "World"]
         }
 
     }

@@ -50,23 +50,23 @@ enum NewsSubCat {
 //sortBy=popularity
 //sortBy=publishedAt
 
-private var dataIndex = 0
-private var dataGotFromSiri = ""
 
-class AllViewController: UIViewController {
+// MARK:- 如何设置只能自己访问和子类访问
 
-    lazy var homeViewModel = HomeViewModel()
+
+class AllViewController: SiriViewController {
+
+    
     var country = "us"
     var subCat : String?
     var newsCat: String?
     var isdefaultTheme = true
     
-    fileprivate weak var timer_checkText: Timer?
-    fileprivate lazy var synthesizer : AVSpeechSynthesizer = {
-        let synthesizer = AVSpeechSynthesizer()
-        synthesizer.delegate = self
-        return synthesizer
-    }()
+    
+    
+    
+    
+    
     
     required public init(cat: String, subCat: String){
         self.subCat = subCat
@@ -80,20 +80,15 @@ class AllViewController: UIViewController {
     
     
     fileprivate lazy var homeView: HomeMainView = { [unowned self] in
-//        let topHeight = zjStatusHeight + zjNavigationBarHeight + zjTabBarHeight
-//        let height = zjScreenHeight - topHeight - ZJTitleViewH
-//        let hv = HomeMainView(frame: CGRect(x: 0, y: 0, width: zjScreenWidth, height: zjScreenHeight))
         let hv = HomeMainView(frame: CGRect(x: 0, y: 0, width: zjScreenWidth, height: zjScreenHeight), isdefaultTheme: isdefaultTheme)
-//        hv.backgroundColor = UIColor.background
         hv.backgroundColor = .clear
-//        hv.isdefaultTheme = isdefaultTheme
         hv.delegate = self
         return hv
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadData()
+        
         view.addSubview(homeView)
         
         GloableSiriFunc.shareInstance.delegate = self
@@ -102,6 +97,7 @@ class AllViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        loadData()
         NotificationCenter.default.addObserver(self, selector: #selector(opendAppByCarloudy), name: NSNotification.Name(rawValue: launchAppByCarloudyNotificationKey_), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadDataBySettingView(userInfo:)), name: NSNotification.Name(rawValue: settingViewUpdateAndReloadDataNotificationKey_), object: nil)
     }
@@ -116,6 +112,14 @@ class AllViewController: UIViewController {
     @objc fileprivate func opendAppByCarloudy(){
         loadData()
         ZJPrint("opendAppByCarloudy")
+    }
+    
+    override func gloableSiriFuncTextReturn(text: String) {
+        dataGotFromSiri = text
+    }
+    override func gloableSiriFuncOpenCarloudyNewsWasSaid() {
+        invalidatetimer_sendingData_home()
+        invalidatetimer_checkText()
     }
     
     @objc fileprivate func reloadDataBySettingView(userInfo: NSNotification){
@@ -191,44 +195,31 @@ extension AllViewController{
     }
     
     
+    
+    
+    
+    
+    
+    
     func sendData(){
-        /*
-        weak var timer_sendingData_home: Timer?
-        if timer_sendingData_home == nil{
-            timer_sendingData_home?.invalidate()
             let articles = self.homeViewModel.articles
             let maxIndex = articles.count
             let article = articles[dataIndex]
             if let title = article.title{
-                sendMessageToCarloudy(title: title)
-            }
-            
-            
-            timer_sendingData_home = Timer.scheduledTimer(withTimeInterval: TimeInterval(8), repeats: true, block: { (_) in
-                let article = articles[dataIndex]
-                if let title = article.title{
-                    self.speak(string: title)
-                    sendMessageToCarloudy(title: title)
+                switch isListenForReadNews{
+                case 0: //never
+                    sendMessageWithTimer(articles: articles, maxIndex: maxIndex)
+                    // open CarloudyNews 会在globle timer里检查
+                case 1: //User control
+                    sendMessageWithTimer(articles: articles, maxIndex: maxIndex)
+                    checkReadNews(articles, maxIndex)
                     
+                case 2: //always
+                    GloableSiriFunc.shareInstance.stopGlobleHeyCarloudyNews()
+                    sendMessageWithNoTimer(articles: articles, maxIndex: maxIndex)
+                default: break
                 }
-                dataIndex += 1
-                if dataIndex >= maxIndex{
-//                    self.timer_sendingData_home?.invalidate()
-//                    self.timer_sendingData_home = nil
-                    dataIndex = 0
-                }
-            })
- 
-        }
-         */
-            let articles = self.homeViewModel.articles
-            let maxIndex = articles.count
-            let article = articles[dataIndex]
-            if let title = article.title{
-                sendMessageToCarloudy(title: title)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    self.speak(string: title)
-                }
+                
                 dataIndex += 1
             if dataIndex >= maxIndex{
                 dataIndex = 0
@@ -238,50 +229,80 @@ extension AllViewController{
 }
 
 
-extension AllViewController: AVSpeechSynthesizerDelegate, GloableSiriFuncDelegate{
+extension AllViewController{
     
     
-    func speak(string: String, rate: CGFloat = 0.53){
-        //开始说时 关闭recording
-        GloableSiriFunc.shareInstance.stopGlobleHeyCarloudyNews()
-        let utterance = AVSpeechUtterance(string: string)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        utterance.rate = Float(rate)
-        synthesizer.speak(utterance)
-        GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: "Say 'Stop' between two voices to cancel")
-    }
     
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-
-        //结束说时，打开语音。 给用户两秒时间 停止read
-        if let vc = UIApplication.firstViewController() as? LikeViewController{  // && if user choose read
-            GloableSiriFunc.shareInstance.startGlobleHeyCarloudyNews(vc: vc)
-        }
-        
-        var timerIndex = 0
-        timer_checkText = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (_) in
-            timerIndex += 1
-            
-            if timerIndex > 3{
-                self.timer_checkText?.invalidate()
-                self.timer_checkText = nil
-                if !dataGotFromSiri.contains("stop"){        //停止read
-                    GloableSiriFunc.shareInstance.stopGlobleHeyCarloudyNews()
-                    self.sendData()
-                }else{
-                    GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: "Say 'Open CarloudyNews' to activate speech")
+    
+//    func speak(string: String, rate: CGFloat = 0.53){
+//        //开始说时 关闭recording
+//        GloableSiriFunc.shareInstance.stopGlobleHeyCarloudyNews()
+//        let utterance = AVSpeechUtterance(string: string)
+//        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+//        utterance.rate = Float(rate)
+//        synthesizer.speak(utterance)
+//        GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: "Say 'Stop' between two voices to cancel")
+//    }
+    
+//    fileprivate func checkWhatUserSaidBetweenTwoVoices() {
+//        //结束说时，打开语音。 给用户两秒时间 停止read
+//        self.startGlobleHeyCarloudyNews()
+//
+//        invalidatetimer_checkText()
+//        let articles = self.homeViewModel.articles
+//        let maxIndex = articles.count
+//
+//        var timerIndex = 0
+//        timer_checkText = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (_) in
+//            timerIndex += 1
+//
+//            if timerIndex > 3{
+//                self.timer_checkText?.invalidate()
+//                self.timer_checkText = nil
+//                if !dataGotFromSiri.contains("stop"){        //停止read
+//                    GloableSiriFunc.shareInstance.stopGlobleHeyCarloudyNews()
+//
+//                    self.sendMessageWithNoTimer(articles: articles, maxIndex: maxIndex)
+//                }else{
+//                    GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: "Say 'Open CarloudyNews' to activate speech")
+//                    self.sendMessageWithTimer(articles: articles, maxIndex: maxIndex)
+//                    self.checkReadNews(articles, maxIndex)
+//                }
+//            }
+//            ZJPrint(timerIndex)
+//        }
+//    }
+    
+    override func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        ZJPrint(utterance.speechString.lowercased())
+        ZJPrint(currentSpeakingNews.lowercased())
+        if utterance.speechString.lowercased() == currentSpeakingNews.lowercased(){
+            if isListenForReadNews == 1{
+                self.checkWhatUserSaidBetweenTwoVoices()
+            }else if isListenForReadNews == 2{
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    let articles = self.homeViewModel.articles
+                    let maxIndex = articles.count
+                    self.sendMessageWithNoTimer(articles: articles, maxIndex: maxIndex)
                 }
-                
             }
             
-            ZJPrint(timerIndex)
-        
         }
+        switch isListenForReadNews {
+        case 0:
+            break
+        case 1:
+            break
+        case 2:
+            break
+        default:
+            break
+        }
+        
+        
     }
     
-    func gloableSiriFuncTextReturn(text: String) {
-        dataGotFromSiri = text
-    }
+    
 }
 
 
@@ -299,6 +320,7 @@ extension AllViewController: HomeMainViewDelegate{
         navigationController?.pushViewController(homeDetailVC, animated: true)
     }
 }
+
 
 
 

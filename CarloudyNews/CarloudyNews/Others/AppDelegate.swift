@@ -18,7 +18,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().tintColor = .orange
         
         isEnableOpenCarloudyNews = UserDefaults.standard.bool(forKey: "isEnableOpenCarloudyNews")
+        isListenForReadNews = UserDefaults.standard.integer(forKey: "isListenForReadNews")
+        
+        //第一次打开，默认isListenForReadNews == 1
+        let str = "openBefore"
+        if UserDefaults.standard.bool(forKey: str) == false{
+            isListenForReadNews = 1
+            UserDefaults.standard.set(true, forKey: str)
+        }
+        
+        
         ZJPrint(isEnableOpenCarloudyNews)
+        ZJPrint(isListenForReadNews)
         
         return true
     }

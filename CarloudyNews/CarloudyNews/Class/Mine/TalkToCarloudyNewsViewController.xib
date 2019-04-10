@@ -12,6 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TalkToCarloudyNewsViewController" customModule="CarloudyNews" customModuleProvider="target">
             <connections>
+                <outlet property="listenForReadNews" destination="uI4-2F-wGB" id="ux3-lJ-5xl"/>
                 <outlet property="switchButton" destination="NhU-58-6Wt" id="0Gn-07-uVv"/>
                 <outlet property="view" destination="iN0-l3-epB" id="jIA-vr-bg9"/>
             </connections>
@@ -78,6 +79,9 @@
                                 <segment title="Always"/>
                             </segments>
                             <color key="tintColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="listenForReadNewsClicked:" destination="-1" eventType="valueChanged" id="T6t-h2-Itq"/>
+                            </connections>
                         </segmentedControl>
                     </subviews>
                     <color key="backgroundColor" red="0.14117647059999999" green="0.25490196079999999" blue="0.3294117647" alpha="1" colorSpace="calibratedRGB"/>

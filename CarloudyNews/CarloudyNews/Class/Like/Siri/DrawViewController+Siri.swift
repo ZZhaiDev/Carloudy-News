@@ -203,7 +203,7 @@ extension DrawerViewController{
 }
 
 extension DrawerViewController: AVSpeechSynthesizerDelegate{
-    func speak(string: String, rate: CGFloat = 0.58){
+    func speak(string: String, rate: CGFloat = 0.53){
         let utterance = AVSpeechUtterance(string: string)
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         utterance.rate = Float(rate)
@@ -218,6 +218,7 @@ extension DrawerViewController: AVSpeechSynthesizerDelegate{
     
     fileprivate func yuyinxunhuan() {
         animationview.start()
+//        carloudySpeech.endMicroPhone()
         carloudySpeech.microphoneTapped()
         timer_forBaseSiri_inNavigationController?.invalidate()
         timer_forBaseSiri_inNavigationController = nil
@@ -286,33 +287,79 @@ extension DrawerViewController: AVSpeechSynthesizerDelegate{
         var timerIndex = 0
         self.timer_checkText = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (_) in
             timerIndex += 1
-            
             if timerIndex > 3{
                 GloableSiriFunc.shareInstance.stopGlobleHeyCarloudyNews()
                 self.timer_checkText?.invalidate()
                 self.timer_checkText = nil
                 if !dataGotFromSiri.contains("stop"){        //停止read
-                    
                     self.startReadAndSendTheNews()
-                    //                                self.sendData()
-                    //                                let article = articles[self.sendingDataIndex]
-                    //                                if let title = article.title{
-                    //                                    sendMessageToCarloudy(title: title)
-                    //                                }
                 }else{
+                    /*
                     GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: "Say 'Open CarloudyNews' to activate speech")
                     //继续发送？
                     self.isStartReadTheNews = false
-//                    self.startReadAndSendTheNews()
                     self.createTimer_sendingData()
-                    self.yuyinxunhuan()
+//                    self.yuyinxunhuan()
+                    */
+                    
+                    self.speak(string: (self.okcloseSpeech), rate: 0.53)
                 }
-                
             }
         }
         //4. 提示用户stop 'read the news'
         //5. 如果用户stop了，进入循环
     }
+    /*
+    func yuyin(){
+        if let vc = UIApplication.firstViewController() as? LikeViewController{  // && if user choose read
+            GloableSiriFunc.shareInstance.startGlobleHeyCarloudyNews(vc: vc)
+        }
+        timer_forBaseSiri_inNavigationController?.invalidate()
+        timer_forBaseSiri_inNavigationController = nil
+        timer_forBaseSiri_inNavigationController = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { [weak self](_) in
+            let textReturnedFromSiri = dataGotFromSiri.lowercased()
+            ZJPrint(textReturnedFromSiri)
+            //let result = self?.textReturnedFromSiri
+            guard textReturnedFromSiri.lowercased() != "" else {return}
+//            if !(carloudySpeech.audioEngine.isRunning){
+//                GloableSiriFunc.shareInstance.stopGlobleHeyCarloudyNews()
+//                GloableSiriFunc.shareInstance.startGlobleHeyCarloudyNews(vc: vc)
+//            }
+            // MARK:- 如果这里超过一分钟 audioEngine.isRunning 不工作怎么办？
+            if (textReturnedFromSiri.lowercased().contains("change topic")) || (textReturnedFromSiri.lowercased().contains("change the topic")) || (textReturnedFromSiri.lowercased().contains("change your topic")){
+                
+                self?.endSendingData()
+//                self?.endSiriSpeech()
+                GloableSiriFunc.shareInstance.stopGlobleHeyCarloudyNews()
+                self?.timer_forBaseSiri_inNavigationController?.invalidate()
+                self?.timer_forBaseSiri_inNavigationController = nil
+                
+                self?.speak(string: (self?.startSpeech)!)
+            }else if (textReturnedFromSiri.lowercased().contains("stop")) || (textReturnedFromSiri.lowercased().contains("close")){
+                self?.speak(string: (self?.okcloseSpeech)!, rate: 0.53)
+                self?.timer_forBaseSiri_inNavigationController?.invalidate()
+                ZJPrint("1111111-------------------------------------------------------------------------------")
+                
+            }else if (textReturnedFromSiri.lowercased().contains("read the news")) || (textReturnedFromSiri.lowercased().contains("read news")) ||
+                (textReturnedFromSiri.lowercased().contains("read a news")) || (textReturnedFromSiri.lowercased().contains("read it")){
+                self?.isStartReadTheNews = true
+                //1. 关闭timer
+                //                self?.timer_forBaseSiri_inNavigationController?.invalidate()
+                //                self?.timer_forBaseSiri_inNavigationController = nil
+                //                //2. 关闭录音
+                //                carloudySpeech.endMicroPhone()
+                
+                GloableSiriFunc.shareInstance.stopGlobleHeyCarloudyNews()
+                self?.timer_forBaseSiri_inNavigationController?.invalidate()
+                self?.timer_forBaseSiri_inNavigationController = nil
+                
+                //3. 打开read the news
+                self?.startReadAndSendTheNews()
+                
+            }
+        })
+    }
+    */
     
     func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
         if (UIApplication.topViewController() as? LikeViewController) != nil{
@@ -343,6 +390,9 @@ extension DrawerViewController: AVSpeechSynthesizerDelegate{
 }
 
 extension DrawerViewController: GloableSiriFuncDelegate{
+    func gloableSiriFuncOpenCarloudyNewsWasSaid() {
+    }
+    
     func gloableSiriFuncTextReturn(text: String) {
         dataGotFromSiri = text
     }

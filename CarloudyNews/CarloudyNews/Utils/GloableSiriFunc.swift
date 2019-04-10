@@ -11,6 +11,7 @@ import CarloudyiOS
 
 protocol GloableSiriFuncDelegate: class{
     func gloableSiriFuncTextReturn(text: String)
+    func gloableSiriFuncOpenCarloudyNewsWasSaid()
 }
 
 class GloableSiriFunc: NSObject {
@@ -78,6 +79,7 @@ extension GloableSiriFunc{
             self.delegate?.gloableSiriFuncTextReturn(text: carloudySpeech.checkText().lowercased())
             if carloudySpeech.checkText().lowercased().contains("open carloudynews"){
                 self.stopGlobleHeyCarloudyNews()
+                self.delegate?.gloableSiriFuncOpenCarloudyNewsWasSaid()
                 let storyboard = UIStoryboard(name: "PrimaryViewController", bundle: nil)
                 let controller = storyboard.instantiateViewController(withIdentifier: "PrimaryViewController")
                 let nvc = UINavigationController(rootViewController: controller)
