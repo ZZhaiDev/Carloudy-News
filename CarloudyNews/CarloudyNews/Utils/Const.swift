@@ -77,3 +77,8 @@ func stopGlobleHeyCarloudyNews(stopOnce: Bool = false){
 }
 
 
+let carloudy_show_openCarloudyNewsOrReadNews = "Say 'Open CarloudyNews' or 'Read News'"
+let carloudy_show_stop = "Say 'Stop' between two voices to cancel"
+let carloudy_show_choices = "Say business, entertainment, health, science.."
+let carloudy_show_optional = "Say 'change topic', 'Stop' or 'read news'"
+

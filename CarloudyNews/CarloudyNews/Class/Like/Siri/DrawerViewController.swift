@@ -103,7 +103,8 @@ class DrawerViewController: UIViewController, UIGestureRecognizerDelegate, UISea
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.animationview.stop()
         }
-        GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: "Say business, entertainment, health, science..")
+        GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: carloudy_show_choices)
+        GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: carloudy_show_choices)
         speak(string: startSpeech, rate: 0.58)
     }
     

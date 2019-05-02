@@ -67,7 +67,8 @@ class LikeViewController: UIViewController {
 //        startGlobleHeyCarloudyNews(vc: self)
         setupUI()
         GloableSiriFunc.shareInstance.createWaringLabelInCarloudy()
-        GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: "Say 'Open CarloudyNews' to activate speech")
+        GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: carloudy_show_openCarloudyNewsOrReadNews)
+        GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: carloudy_show_openCarloudyNewsOrReadNews)
         
 
         

@@ -15,19 +15,19 @@ class MineViewController: UIViewController {
 //    var mainViewController: MainViewController?
     private lazy var myArray: Array = {
         return [[["icon":"mine_feedBack", "title": "Talk to CarloudyNews"],
-                 ["icon":"mine_setting", "title": "Carloudy Setting"]],
+                 ["icon":"mine_setting", "title": "Carloudy Setting"]]//,
                 
-                [["icon":"mine_feedBack", "title": "夜间模式"],
-                 ["icon":"mine_mail", "title": "我要反馈"],
-                 ["icon":"mine_judge", "title": "给我们评分"]],
-        
-            [["icon":"mine_feedBack", "title": "about"],
-             ["icon":"mine_mail", "title": "feedback"],
-             ["icon":"mine_judge", "title": "rate"]],
-            
-            [["icon":"mine_feedBack", "title": "about"],
-             ["icon":"mine_mail", "title": "feedback"],
-             ["icon":"mine_judge", "title": "rate"]]
+//                [["icon":"mine_feedBack", "title": "夜间模式"],
+//                 ["icon":"mine_mail", "title": "我要反馈"],
+//                 ["icon":"mine_judge", "title": "给我们评分"]],
+//
+//            [["icon":"mine_feedBack", "title": "about"],
+//             ["icon":"mine_mail", "title": "feedback"],
+//             ["icon":"mine_judge", "title": "rate"]],
+//
+//            [["icon":"mine_feedBack", "title": "about"],
+//             ["icon":"mine_mail", "title": "feedback"],
+//             ["icon":"mine_judge", "title": "rate"]]
         ]
         
     }()

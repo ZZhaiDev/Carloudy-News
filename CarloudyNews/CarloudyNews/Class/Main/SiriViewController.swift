@@ -81,6 +81,7 @@ class SiriViewController: UIViewController {
         let article = articles[dataIndex]
         if let title = article.title{
             self.speak(string: title)
+            GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: carloudy_show_stop)
             currentSpeakingNews = title
             sendMessageToCarloudy(title: title)
         }
@@ -103,6 +104,7 @@ class SiriViewController: UIViewController {
                 if let title = article.title{
                     //                    self.speak(string: title)
                     sendMessageToCarloudy(title: title)
+                    GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: carloudy_show_openCarloudyNewsOrReadNews)
                 }
                 self.dataIndex += 1
                 if self.dataIndex >= maxIndex{
@@ -124,7 +126,7 @@ extension SiriViewController: AVSpeechSynthesizerDelegate, GloableSiriFuncDelega
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         utterance.rate = Float(rate)
         synthesizer.speak(utterance)
-        GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: "Say 'Stop' between two voices to cancel")
+        
     }
     
     func checkWhatUserSaidBetweenTwoVoices() {
@@ -147,7 +149,7 @@ extension SiriViewController: AVSpeechSynthesizerDelegate, GloableSiriFuncDelega
                     
                     self.sendMessageWithNoTimer(articles: articles, maxIndex: maxIndex)
                 }else{
-                    GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: "Say 'Open CarloudyNews' to activate speech")
+                    GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: carloudy_show_openCarloudyNewsOrReadNews)
                     self.sendMessageWithTimer(articles: articles, maxIndex: maxIndex)
                     self.checkReadNews(articles, maxIndex)
                 }
