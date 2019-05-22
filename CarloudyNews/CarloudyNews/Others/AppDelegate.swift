@@ -7,15 +7,30 @@
 //
 
 import UIKit
+import CarloudyiOS
+
+let testView = UILabel(frame: CGRect(x: 50, y: 150, width: 200, height: 50))
+func test(){
+    let window = UIApplication.shared.keyWindow!
+    testView.backgroundColor = UIColor.white
+    testView.textColor = .black
+    window.addSubview(testView)
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    
+    
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         UITabBar.appearance().tintColor = .orange
+        //常亮
+        UIApplication.shared.isIdleTimerDisabled = true
         
         isEnableOpenCarloudyNews = UserDefaults.standard.bool(forKey: "isEnableOpenCarloudyNews")
         isListenForReadNews = UserDefaults.standard.integer(forKey: "isListenForReadNews")
@@ -34,6 +49,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        if let vc = UIApplication.topViewController(){
+            startGlobleHeyCarloudyNews(vc: vc)
+        }
+    }
     
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {

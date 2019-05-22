@@ -44,9 +44,14 @@ class SiriViewController: UIViewController {
         GloableSiriFunc.shareInstance.delegate = self
     }
     
+    deinit {
+        ZJPrint("deinit")
+    }
+    
     func checkIfContainsReadNews(str: String) -> Bool{
-        if (str.lowercased().contains("read the news")) || (str.lowercased().contains("read news")) ||
-            (str.lowercased().contains("read a news")) || (str.lowercased().contains("read it")){
+        ZJPrint(str)
+        if (str.lowercased().contains("read the news")) || (str.lowercased().contains("read")) ||
+            (str.lowercased().contains("read a news")) || (str.lowercased().contains("read news")){
             return true
         }
         return false
@@ -60,7 +65,7 @@ class SiriViewController: UIViewController {
     
     
     func checkReadNews(_ articles: [Article], _ maxIndex: Int) {
-        // 检查read news
+        // 检查read
         invalidatetimer_checkText()
         //                    self.startGlobleHeyCarloudyNews()
         timer_checkText = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: true, block: { (_) in
@@ -188,7 +193,9 @@ extension SiriViewController: AVSpeechSynthesizerDelegate, GloableSiriFuncDelega
     }
     
     
+    
     @objc func gloableSiriFuncTextReturn(text: String) {
+        ZJPrint(text)
 //        dataGotFromSiri = text
     }
     @objc func gloableSiriFuncOpenCarloudyNewsWasSaid() {

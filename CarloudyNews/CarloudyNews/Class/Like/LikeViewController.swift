@@ -58,15 +58,15 @@ class LikeViewController: UIViewController {
     }()
     
     fileprivate func addControllers(cat: String, subCat: String){
-        let vc = AllViewController(cat: cat, subCat: subCat)
-        childVcs.append(vc)
+        let allVC = AllViewController(cat: cat, subCat: subCat)
+        childVcs.append(allVC)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 //        startGlobleHeyCarloudyNews(vc: self)
         setupUI()
-        GloableSiriFunc.shareInstance.createWaringLabelInCarloudy()
+        GloableSiriFunc.shareInstance.createLabelsInCarloudy()
         GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: carloudy_show_openCarloudyNewsOrReadNews)
         GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: carloudy_show_openCarloudyNewsOrReadNews)
         
@@ -91,6 +91,7 @@ class LikeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        test()
         if let titles = UserDefaults.standard.array(forKey: titles_StringDescription) as? [String]{
             if maintitles != titles{
                 maintitles = titles
@@ -134,6 +135,9 @@ extension LikeViewController{
     }
     
     @objc fileprivate func siriBtnClicked(){
+//        globleTimer?.invalidate()
+//        globleTimer = nil
+//        GloableSiriFunc.shareInstance.stopGlobleHeyCarloudyNews()
         let storyboard = UIStoryboard(name: "PrimaryViewController", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "PrimaryViewController")
         let nvc = UINavigationController(rootViewController: controller)

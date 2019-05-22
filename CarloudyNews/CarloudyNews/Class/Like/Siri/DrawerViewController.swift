@@ -103,8 +103,13 @@ class DrawerViewController: UIViewController, UIGestureRecognizerDelegate, UISea
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.animationview.stop()
         }
-        GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: carloudy_show_choices)
-        GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: carloudy_show_choices)
+//        GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: carloudy_show_choices)
+//        GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: carloudy_show_choices)
+//        CarloudyBLE.shareInstance.sendAppCommand(commandID: "0", appId: carloudyAppStoreAppKey_)
+//        CarloudyBLE.shareInstance.sendAppCommand(commandID: "0", appId: carloudyAppStoreAppKey_)
+//        CarloudyBLE.shareInstance.createPictureIDAndImageViewForCarloudyHUD(picID: "ct", postionX: 0, postionY: 0, width: 0, height: 0)
+//        CarloudyBLE.shareInstance.createPictureIDAndImageViewForCarloudyHUD(picID: "ct", postionX: 0, postionY: 0, width: 0, height: 0)
+        self.showImageAlert()
         speak(string: startSpeech, rate: 0.58)
     }
     

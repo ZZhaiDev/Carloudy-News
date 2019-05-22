@@ -31,8 +31,8 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Djh-QE-xsO">
                     <rect key="frame" x="0.0" y="75" width="375" height="75"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Listen for &quot;Open CarloudyNews&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3HC-jZ-Jub">
-                            <rect key="frame" x="10" y="28" width="260" height="19.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Listen for &quot;category&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3HC-jZ-Jub">
+                            <rect key="frame" x="10" y="28" width="168.5" height="19.5"/>
                             <fontDescription key="fontDescription" type="system" weight="black" pointSize="16"/>
                             <color key="textColor" red="1" green="0.53978096350000004" blue="0.24072938890000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -53,17 +53,17 @@
                         <constraint firstItem="NhU-58-6Wt" firstAttribute="centerY" secondItem="3HC-jZ-Jub" secondAttribute="centerY" id="y6s-UH-s9U"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Say &quot;Open CarloudyNews&quot; to start talking to CarloudyNews. " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhk-mm-QLC">
-                    <rect key="frame" x="10" y="155" width="360" height="57.5"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Say &quot;category&quot; to start talking to CarloudyNews. " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mhk-mm-QLC">
+                    <rect key="frame" x="10" y="155" width="360" height="38.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <color key="textColor" red="0.97570782899856567" green="0.3853994607925415" blue="0.045764006674289703" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JXw-Vb-BCd">
-                    <rect key="frame" x="0.0" y="217.5" width="375" height="110"/>
+                    <rect key="frame" x="0.0" y="198.5" width="375" height="110"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Listen for &quot;Read News&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="etd-P5-GJV">
-                            <rect key="frame" x="10" y="28" width="184.5" height="19.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Listen for &quot;read&quot;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="etd-P5-GJV">
+                            <rect key="frame" x="10" y="28" width="133" height="19.5"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="19.5" id="xOL-8c-EN7"/>
                             </constraints>

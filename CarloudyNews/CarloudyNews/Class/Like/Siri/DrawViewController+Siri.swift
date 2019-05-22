@@ -54,6 +54,7 @@ extension DrawerViewController{
         }
         
         synthesizer.delegate = nil
+        clearScreen()
         endSendingData()
         endSiriSpeech()
         GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: carloudy_show_openCarloudyNewsOrReadNews)
@@ -195,7 +196,9 @@ extension DrawerViewController{
         let str = "https://newsapi.org/v2/top-headlines?country=us&category=\(topic)&apiKey=b7f7add8d89849be8c82306180dac738"
         homeViewModel.loadNews(str: str) {
             DispatchQueue.main.async {
-                self.speak(string: "`got it`, sending data to carloudy... you can say: `change topic`, `stop` , or `read news` any time.", rate: 0.55)
+                self.clearScreen()
+                self.endSendingData()
+                self.speak(string: "`got it`, sending data to carloudy... you can say: `change topic`, `stop` , or `read` any time.", rate: 0.55)
                 GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: carloudy_show_optional)
                 GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: carloudy_show_optional)
                 self.createTimer_sendingData()
@@ -241,15 +244,16 @@ extension DrawerViewController: AVSpeechSynthesizerDelegate{
                 
                 self?.endSendingData()
                 self?.endSiriSpeech()
-                GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: carloudy_show_choices)
-                GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: carloudy_show_choices)
+//                GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: carloudy_show_choices)
+//                GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: carloudy_show_choices)
+                self?.showImageAlert()
                 self?.speak(string: (self?.startSpeech)!)
             }else if (self?.textReturnedFromSiri.lowercased().contains("stop"))! || (self?.textReturnedFromSiri.lowercased().contains("close"))!{
                 self?.speak(string: (self?.okcloseSpeech)!, rate: 0.53)
                 self?.timer_forBaseSiri_inNavigationController?.invalidate()
                 ZJPrint("1111111-------------------------------------------------------------------------------")
                 
-            }else if (self?.textReturnedFromSiri.lowercased().contains("read the news"))! || (self?.textReturnedFromSiri.lowercased().contains("read news"))! ||
+            }else if (self?.textReturnedFromSiri.lowercased().contains("read the news"))! || (self?.textReturnedFromSiri.lowercased().contains("read"))! ||
                 (self?.textReturnedFromSiri.lowercased().contains("read a news"))! || (self?.textReturnedFromSiri.lowercased().contains("read it"))!{
                 self?.isStartReadTheNews = true
                 //1. 关闭timer
@@ -265,6 +269,23 @@ extension DrawerViewController: AVSpeechSynthesizerDelegate{
             }
         })
     }
+    
+    func clearScreen(){
+        CarloudyBLE.shareInstance.sendAppCommand(commandID: "0", appId: carloudyAppStoreAppKey_)
+        CarloudyBLE.shareInstance.sendAppCommand(commandID: "0", appId: carloudyAppStoreAppKey_)
+    }
+    
+    func showImageAlert(){
+        clearScreen()
+        CarloudyBLE.shareInstance.createPictureIDAndImageViewForCarloudyHUD(picID: "ct", postionX: 0, postionY: 0, width: 0, height: 0)
+        CarloudyBLE.shareInstance.createPictureIDAndImageViewForCarloudyHUD(picID: "ct", postionX: 0, postionY: 0, width: 0, height: 0)
+        self.timer_sendingData = Timer.scheduledTimer(withTimeInterval: 8, repeats: true, block: { (_) in
+            CarloudyBLE.shareInstance.sendMessage(textViewId: "zzz", message: "")
+            CarloudyBLE.shareInstance.createPictureIDAndImageViewForCarloudyHUD(picID: "ct", postionX: 0, postionY: 0, width: 0, height: 0)
+            CarloudyBLE.shareInstance.createPictureIDAndImageViewForCarloudyHUD(picID: "ct", postionX: 0, postionY: 0, width: 0, height: 0)
+        })
+    }
+    
     func startReadAndSendTheNews(){
         let articles: [Article] = self.homeViewModel.articles
        // MARK:- Thread 1: Fatal error: Index out of range
@@ -303,7 +324,7 @@ extension DrawerViewController: AVSpeechSynthesizerDelegate{
                     self.startReadAndSendTheNews()
                 }else{
                     /*
-                    GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: "Say 'Open CarloudyNews' to activate speech")
+                    GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: "Say 'category' to activate speech")
                     //继续发送？
                     self.isStartReadTheNews = false
                     self.createTimer_sendingData()

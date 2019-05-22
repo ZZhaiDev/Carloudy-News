@@ -32,6 +32,8 @@
 		A44B919A224C0B40006DF2A3 /* GloableSiriFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44B9199224C0B40006DF2A3 /* GloableSiriFunc.swift */; };
 		A44B91DA2253EA8F006DF2A3 /* DrawViewController+Siri.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44B91D92253EA8F006DF2A3 /* DrawViewController+Siri.swift */; };
 		A44B91DC225E8004006DF2A3 /* SiriViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44B91DB225E8004006DF2A3 /* SiriViewController.swift */; };
+		A454DA7D22947F69006EED07 /* beep_short_on.wav in Resources */ = {isa = PBXBuildFile; fileRef = A454DA7B22947F69006EED07 /* beep_short_on.wav */; };
+		A454DA7E22947F69006EED07 /* beep_short_off.wav in Resources */ = {isa = PBXBuildFile; fileRef = A454DA7C22947F69006EED07 /* beep_short_off.wav */; };
 		A486134121E52E420071CF17 /* MineHead.swift in Sources */ = {isa = PBXBuildFile; fileRef = A486134021E52E420071CF17 /* MineHead.swift */; };
 		A486134621E52E650071CF17 /* ParallaxHeaderMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A486134321E52E650071CF17 /* ParallaxHeaderMode.swift */; };
 		A486134721E52E650071CF17 /* UIScrollView+ParallaxHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A486134421E52E650071CF17 /* UIScrollView+ParallaxHeader.swift */; };
@@ -106,6 +108,8 @@
 		A44B9199224C0B40006DF2A3 /* GloableSiriFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GloableSiriFunc.swift; sourceTree = "<group>"; };
 		A44B91D92253EA8F006DF2A3 /* DrawViewController+Siri.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DrawViewController+Siri.swift"; sourceTree = "<group>"; };
 		A44B91DB225E8004006DF2A3 /* SiriViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiriViewController.swift; sourceTree = "<group>"; };
+		A454DA7B22947F69006EED07 /* beep_short_on.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beep_short_on.wav; sourceTree = "<group>"; };
+		A454DA7C22947F69006EED07 /* beep_short_off.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = beep_short_off.wav; sourceTree = "<group>"; };
 		A486134021E52E420071CF17 /* MineHead.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineHead.swift; sourceTree = "<group>"; };
 		A486134321E52E650071CF17 /* ParallaxHeaderMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParallaxHeaderMode.swift; sourceTree = "<group>"; };
 		A486134421E52E650071CF17 /* UIScrollView+ParallaxHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+ParallaxHeader.swift"; sourceTree = "<group>"; };
@@ -227,6 +231,8 @@
 				A4ECD2D821ED31850040720D /* UIColor-Extension.swift */,
 				38D0E44621E0556E00293F7B /* ZJProgressHUD.swift */,
 				3853051421E9961F0076A5D3 /* UIScrollView-Extension.swift */,
+				A454DA7C22947F69006EED07 /* beep_short_off.wav */,
+				A454DA7B22947F69006EED07 /* beep_short_on.wav */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -506,6 +512,8 @@
 				A4ECD29B21E94BBF0040720D /* SettingView.xib in Resources */,
 				A49EAA68221F41E300200C82 /* DrawerTableViewCell.xib in Resources */,
 				A4C0811E21DFEB2D00E2216A /* LaunchScreen.storyboard in Resources */,
+				A454DA7D22947F69006EED07 /* beep_short_on.wav in Resources */,
+				A454DA7E22947F69006EED07 /* beep_short_off.wav in Resources */,
 				A401331F21DFF03B00E8E29E /* Like.storyboard in Resources */,
 				A401332221DFF05100E8E29E /* Mine.storyboard in Resources */,
 				A401333521DFFF5B00E8E29E /* HomeCollectionViewCell.xib in Resources */,

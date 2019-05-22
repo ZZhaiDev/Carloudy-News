@@ -91,12 +91,17 @@ class AllViewController: SiriViewController {
         
         view.addSubview(homeView)
         
-        GloableSiriFunc.shareInstance.delegate = self
+//        GloableSiriFunc.shareInstance.delegate = self
         // Do any additional setup after loading the view.
+    }
+    
+    deinit {
+        ZJPrint("denit")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        GloableSiriFunc.shareInstance.delegate = self
         loadData()
         NotificationCenter.default.addObserver(self, selector: #selector(opendAppByCarloudy), name: NSNotification.Name(rawValue: launchAppByCarloudyNotificationKey_), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reloadDataBySettingView(userInfo:)), name: NSNotification.Name(rawValue: settingViewUpdateAndReloadDataNotificationKey_), object: nil)
@@ -116,6 +121,7 @@ class AllViewController: SiriViewController {
     
     override func gloableSiriFuncTextReturn(text: String) {
         dataGotFromSiri = text
+        ZJPrint(dataGotFromSiri)
     }
     override func gloableSiriFuncOpenCarloudyNewsWasSaid() {
         invalidatetimer_sendingData_home()
@@ -209,7 +215,7 @@ extension AllViewController{
                 switch isListenForReadNews{
                 case 0: //never
                     sendMessageWithTimer(articles: articles, maxIndex: maxIndex)
-                    // open CarloudyNews 会在globle timer里检查
+                    // category 会在globle timer里检查
                 case 1: //User control
                     sendMessageWithTimer(articles: articles, maxIndex: maxIndex)
                     checkReadNews(articles, maxIndex)
@@ -264,7 +270,7 @@ extension AllViewController{
 //
 //                    self.sendMessageWithNoTimer(articles: articles, maxIndex: maxIndex)
 //                }else{
-//                    GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: "Say 'Open CarloudyNews' to activate speech")
+//                    GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: "Say 'category' to activate speech")
 //                    self.sendMessageWithTimer(articles: articles, maxIndex: maxIndex)
 //                    self.checkReadNews(articles, maxIndex)
 //                }

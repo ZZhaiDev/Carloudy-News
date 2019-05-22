@@ -51,6 +51,9 @@ class MineViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.alpha = 0
+        
+        
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
