@@ -134,10 +134,17 @@ extension LikeViewController{
         
     }
     
+    fileprivate func remove_Timer_ofSendMessage(){
+        invalidatetimer_checkText()
+        invalidatetimer_sendingData_home()
+    }
+    
     @objc fileprivate func siriBtnClicked(){
 //        globleTimer?.invalidate()
 //        globleTimer = nil
 //        GloableSiriFunc.shareInstance.stopGlobleHeyCarloudyNews()
+        remove_Timer_ofSendMessage()
+        
         let storyboard = UIStoryboard(name: "PrimaryViewController", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "PrimaryViewController")
         let nvc = UINavigationController(rootViewController: controller)

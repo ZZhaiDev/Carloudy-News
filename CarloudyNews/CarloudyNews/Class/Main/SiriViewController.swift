@@ -10,27 +10,44 @@ import UIKit
 import CarloudyiOS
 import AVFoundation
 
+var timer_checkText: Timer?
+func invalidatetimer_checkText(){
+    if timer_checkText != nil{
+        timer_checkText?.invalidate()
+        timer_checkText = nil
+    }
+}
+
+var timer_sendingData_home: Timer?
+func invalidatetimer_sendingData_home(){
+    if timer_sendingData_home != nil{
+        timer_sendingData_home?.invalidate()
+        timer_sendingData_home = nil
+    }
+}
+
+
 class SiriViewController: UIViewController {
     var dataIndex = 0
     var dataGotFromSiri = ""
     var currentSpeakingNews = ""
     lazy var homeViewModel = HomeViewModel()
     //    fileprivate weak var tempTimer: Timer?
-    weak var timer_checkText: Timer?
-    func invalidatetimer_checkText(){
-        if timer_checkText != nil{
-            timer_checkText?.invalidate()
-            timer_checkText = nil
-        }
-    }
-    
-    var timer_sendingData_home: Timer?
-    func invalidatetimer_sendingData_home(){
-        if timer_sendingData_home != nil{
-            timer_sendingData_home?.invalidate()
-            timer_sendingData_home = nil
-        }
-    }
+//    weak var timer_checkText: Timer?
+//    func invalidatetimer_checkText(){
+//        if timer_checkText != nil{
+//            timer_checkText?.invalidate()
+//            timer_checkText = nil
+//        }
+//    }
+//
+//    var timer_sendingData_home: Timer?
+//    func invalidatetimer_sendingData_home(){
+//        if timer_sendingData_home != nil{
+//            timer_sendingData_home?.invalidate()
+//            timer_sendingData_home = nil
+//        }
+//    }
     
     lazy var synthesizer : AVSpeechSynthesizer = {
         let synthesizer = AVSpeechSynthesizer()
@@ -71,8 +88,8 @@ class SiriViewController: UIViewController {
         timer_checkText = Timer.scheduledTimer(withTimeInterval: 0.8, repeats: true, block: { (_) in
             ZJPrint(self.dataGotFromSiri)
             if self.checkIfContainsReadNews(str: self.dataGotFromSiri){
-                self.invalidatetimer_sendingData_home()
-                self.invalidatetimer_checkText()
+                invalidatetimer_sendingData_home()
+                invalidatetimer_checkText()
                 GloableSiriFunc.shareInstance.stopGlobleHeyCarloudyNews()
                 // sendmessage and speak
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
@@ -147,8 +164,8 @@ extension SiriViewController: AVSpeechSynthesizerDelegate, GloableSiriFuncDelega
             timerIndex += 1
             
             if timerIndex > 3{
-                self.timer_checkText?.invalidate()
-                self.timer_checkText = nil
+                timer_checkText?.invalidate()
+                timer_checkText = nil
                 if !self.dataGotFromSiri.contains("stop"){        //停止read
                     GloableSiriFunc.shareInstance.stopGlobleHeyCarloudyNews()
                     
