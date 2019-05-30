@@ -97,6 +97,7 @@ class AllViewController: SiriViewController {
     
     deinit {
         ZJPrint("denit")
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

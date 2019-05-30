@@ -9,7 +9,7 @@
 import UIKit
 import CarloudyiOS
 
-let testView = UILabel(frame: CGRect(x: 50, y: 150, width: 200, height: 50))
+let testView = UILabel(frame: CGRect(x: 50, y: 80, width: 200, height: 50))
 func test(){
     let window = UIApplication.shared.keyWindow!
     testView.backgroundColor = UIColor.white
@@ -53,6 +53,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let vc = UIApplication.topViewController(){
             startGlobleHeyCarloudyNews(vc: vc)
         }
+    }
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        
+    }
+    
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        
+    }
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+        ZJPrint("123123133213")
+        stopGlobleHeyCarloudyNews()
     }
     
 

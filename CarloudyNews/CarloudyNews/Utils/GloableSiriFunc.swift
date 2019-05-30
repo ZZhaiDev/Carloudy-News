@@ -38,7 +38,7 @@ extension GloableSiriFunc{
     func sendMessageToCarloudy(title: String, content: String = ""){
         carloudyBLE.sendMessage(textViewId: "3", message: title)
         let number = Int.random(in: 0 ..< 100)
-        carloudyBLE.sendMessage(textViewId: "x", message: "\(number)")
+        carloudyBLE.sendMessage(textViewId: "x", message: "")
         startNewSession()           //fangzhiqingping
         
         carloudyBLE.sendMessage(textViewId: "3", message: title)
@@ -51,11 +51,12 @@ extension GloableSiriFunc{
     
     func sendOpenListeningLableToCarloudy(str: String = "Listen"){
 //        carloudyBLE.sendMessage(textViewId: liseningText, message: str)
-        carloudyBLE.createPictureIDAndImageViewForCarloudyHUD(picID: "yy", postionX: 02, postionY: 02, width: 05, height: 00)
-        
+        carloudyBLE.createPictureIDAndImageViewForCarloudyHUD(picID: "yy", postionX: 02, postionY: 02, width: 10, height: 10)
     }
-    func sendCloseListeningLableToCarloudy(str: String = ""){
+    
+    func sendCloseListeningLableToCarloudy(){
 //        carloudyBLE.sendMessage(textViewId: liseningText, message: str)
+        carloudyBLE.removeImageViewForCarloudyHUD(picID: "yy")
     }
     
     func createLabelsInCarloudy(){
@@ -70,16 +71,16 @@ extension GloableSiriFunc{
             carloudyBLE.newKeySendToPairAndorid_ = pairkey
         }
         carloudyBLE.startANewSession(appId: carloudyAppStoreAppKey_)
-        carloudyBLE.createIDAndViewForCarloudyHud(textViewId: "3", labelTextSize: labelTextSize, postionX: 05, postionY: 05, width: 80, height: 00)
-        carloudyBLE.createIDAndViewForCarloudyHud(textViewId: "3", labelTextSize: labelTextSize, postionX: 05, postionY: 05, width: 80, height: 00)
+        carloudyBLE.createIDAndViewForCarloudyHud(textViewId: "3", labelTextSize: labelTextSize, postionX: 15, postionY: 05, width: 80, height: 00)
+        carloudyBLE.createIDAndViewForCarloudyHud(textViewId: "3", labelTextSize: labelTextSize, postionX: 15, postionY: 05, width: 80, height: 00)
         carloudyBLE.createIDAndViewForCarloudyHud(textViewId: "x", labelTextSize: waringTextSize, postionX: 02, postionY: 05, width: 05, height: 00)
 //        carloudyBLE.createIDAndViewForCarloudyHud(textViewId: liseningText, labelTextSize: waringTextSize, postionX: 02, postionY: 02, width: 05, height: 00)
         sendOpenListeningLableToCarloudy()
         sendOpenListeningLableToCarloudy()
         carloudyBLE.createIDAndViewForCarloudyHud(textViewId: warningText, labelTextSize: waringTextSize, postionX: 05, postionY: 65, width: 00, height: 00)
         carloudyBLE.createIDAndViewForCarloudyHud(textViewId: warningText, labelTextSize: waringTextSize, postionX: 05, postionY: 65, width: 00, height: 00)
-        carloudyBLE.createIDAndViewForCarloudyHud(textViewId: "3", labelTextSize: labelTextSize, postionX: 05, postionY: 05, width: 80, height: 00)
-        carloudyBLE.createIDAndViewForCarloudyHud(textViewId: "3", labelTextSize: labelTextSize, postionX: 05, postionY: 05, width: 80, height: 00)
+        carloudyBLE.createIDAndViewForCarloudyHud(textViewId: "3", labelTextSize: labelTextSize, postionX: 15, postionY: 05, width: 80, height: 00)
+        carloudyBLE.createIDAndViewForCarloudyHud(textViewId: "3", labelTextSize: labelTextSize, postionX: 15, postionY: 05, width: 80, height: 00)
         
     }
     
@@ -97,6 +98,7 @@ extension GloableSiriFunc{
         
         carloudySpeech.microphoneTapped()
         sendOpenListeningLableToCarloudy()
+        self.sendOpenListeningLableToCarloudy()
         
         globleTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { (_) in
             ZJPrint(carloudySpeech.checkText().lowercased())
@@ -118,8 +120,7 @@ extension GloableSiriFunc{
             self.falseIndex = 0
             self.delegate?.gloableSiriFuncTextReturn(text: carloudySpeech.checkText().lowercased())
             if carloudySpeech.checkText().lowercased().contains("category") || carloudySpeech.checkText().lowercased().contains("choose category") || carloudySpeech.checkText().lowercased().contains("choose a category"){
-                self.sendCloseListeningLableToCarloudy()
-                self.playSound(soundName: "beep_short_off")
+//                self.playSound(soundName: "beep_short_off")
                 self.stopGlobleHeyCarloudyNews()
                 self.delegate?.gloableSiriFuncOpenCarloudyNewsWasSaid()
                 let storyboard = UIStoryboard(name: "PrimaryViewController", bundle: nil)
@@ -127,8 +128,8 @@ extension GloableSiriFunc{
                 let nvc = UINavigationController(rootViewController: controller)
                 vc.present(nvc, animated: true, completion: nil)
             }else if carloudySpeech.checkText().lowercased().contains("open carloudy"){
-                self.sendCloseListeningLableToCarloudy()
-                self.playSound(soundName: "beep_short_off")
+                
+//                self.playSound(soundName: "beep_short_off")
                 if let url = URL(string: "com.CognitiveAI.Carloudy://"){
                     if UIApplication.shared.canOpenURL(url){
                         self.stopGlobleHeyCarloudyNews()
@@ -145,6 +146,7 @@ extension GloableSiriFunc{
     
     func stopGlobleHeyCarloudyNews(stopOnce: Bool = false){
         if !isEnableOpenCarloudyNews && stopOnce == false{return}
+        self.sendCloseListeningLableToCarloudy()
         carloudySpeech.endMicroPhone()
         globleTimer?.invalidate()
         globleTimer = nil

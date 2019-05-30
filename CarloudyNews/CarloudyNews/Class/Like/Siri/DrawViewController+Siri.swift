@@ -23,8 +23,10 @@ private var currentSpeakingNews = ""
 
 extension DrawerViewController{
     func startSiriSpeech(){
-        animationview.start()
+//        animationview.start()
+        startAnimationView()
         carloudySpeech.microphoneTapped()
+        GloableSiriFunc.shareInstance.sendOpenListeningLableToCarloudy()
         self.createTimerForBaseSiri_checkText()
         self.delay3Seconds_createTimer()
         //        siriButton.setTitle("listening", for: .normal)
@@ -33,7 +35,9 @@ extension DrawerViewController{
     }
     
     func endSiriSpeech(){
-        animationview.stop()
+//        animationview.stop()
+        stopAnimationView()
+        GloableSiriFunc.shareInstance.sendCloseListeningLableToCarloudy()
         carloudySpeech.endMicroPhone()
         ZJPrint("//// -----\(timer_checkTextIfChanging?.isValid)")
         timer_checkTextIfChanging?.invalidate()
@@ -225,19 +229,24 @@ extension DrawerViewController: AVSpeechSynthesizerDelegate{
     }
     
     fileprivate func yuyinxunhuan() {
-        animationview.start()
+//        animationview.start()
+        startAnimationView()
 //        carloudySpeech.endMicroPhone()
         carloudySpeech.microphoneTapped()
+        GloableSiriFunc.shareInstance.sendOpenListeningLableToCarloudy()
+        
         timer_forBaseSiri_inNavigationController?.invalidate()
         timer_forBaseSiri_inNavigationController = nil
         timer_forBaseSiri_inNavigationController = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { [weak self](_) in
             self?.textReturnedFromSiri = (carloudySpeech.checkText().lowercased())
+            testView.text = self?.textReturnedFromSiri
             ZJPrint(self?.textReturnedFromSiri)
             //let result = self?.textReturnedFromSiri
             guard self?.textReturnedFromSiri.lowercased() != nil else {return}
             if !(carloudySpeech.audioEngine.isRunning){
                 carloudySpeech.endMicroPhone()
                 carloudySpeech.microphoneTapped()
+                GloableSiriFunc.shareInstance.sendOpenListeningLableToCarloudy()
             }
             // MARK:- 如果这里超过一分钟 audioEngine.isRunning 不工作怎么办？
             if (self?.textReturnedFromSiri.lowercased().contains("change topic"))! || (self?.textReturnedFromSiri.lowercased().contains("change the topic"))! || (self?.textReturnedFromSiri.lowercased().contains("change your topic"))!{
@@ -292,12 +301,12 @@ extension DrawerViewController: AVSpeechSynthesizerDelegate{
         let maxIndex = articles.count
         let article = articles[self.sendingDataIndex]
         self.sendingDataIndex += 1
-        if let title = article.title{
+        if let description = article.description, let title = article.title{
             
             sendMessageToCarloudy(title: title)
             if self.isStartReadTheNews == true{
-                currentSpeakingNews = title.lowercased()
-                self.speak(string: title.lowercased())
+                currentSpeakingNews = description.lowercased()
+                self.speak(string: description.lowercased())
                 GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: carloudy_show_stop)
                 return
             }
@@ -310,6 +319,7 @@ extension DrawerViewController: AVSpeechSynthesizerDelegate{
     func waitFewSecondBetweenVoices(){
         //结束说时，打开语音。 给用户两秒时间 停止read
         if let vc = UIApplication.firstViewController() as? LikeViewController{  // && if user choose read
+            startAnimationView()
             GloableSiriFunc.shareInstance.startGlobleHeyCarloudyNews(vc: vc)
         }
         
@@ -317,6 +327,7 @@ extension DrawerViewController: AVSpeechSynthesizerDelegate{
         self.timer_checkText = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (_) in
             timerIndex += 1
             if timerIndex > 3{
+                self.stopAnimationView()
                 GloableSiriFunc.shareInstance.stopGlobleHeyCarloudyNews()
                 self.timer_checkText?.invalidate()
                 self.timer_checkText = nil

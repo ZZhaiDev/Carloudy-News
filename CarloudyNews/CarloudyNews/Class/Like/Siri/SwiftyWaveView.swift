@@ -52,7 +52,7 @@ open class SwiftyWaveView: UIView {
     @IBInspectable
     public var frequency: Int = 6
     @IBInspectable
-    public var color: UIColor = .orange
+    public var color: UIColor = UIColor.white
     public private(set) var animating = false
     
 

@@ -75,15 +75,6 @@ class DrawerViewController: UIViewController, UIGestureRecognizerDelegate, UISea
         return synthesizer
     }()
     
-//    fileprivate lazy var animImageView : UIImageView = { [unowned self] in
-//        let imageView = UIImageView(image: UIImage(named: "guzhang2"))
-//        imageView.center = self.view.center
-//        imageView.animationImages = [UIImage(named : "guzhang1")!, UIImage(named : "guzhang2")!, UIImage(named : "guzhang3")!]
-//        imageView.animationDuration = 0.3
-//        imageView.animationRepeatCount = LONG_MAX
-//        imageView.autoresizingMask = [.flexibleTopMargin, .flexibleBottomMargin]
-//        return imageView
-//    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,11 +89,34 @@ class DrawerViewController: UIViewController, UIGestureRecognizerDelegate, UISea
         stopGlobleHeyCarloudyNews()
     }
     
+    func stopAnimationView(){
+        UIView.animate(withDuration: 0.3) {
+            self.animationview.stop()
+            self.animationview.isHidden = true
+            UIView.animate(withDuration: 0.3, animations: {
+                self.imageView.isHidden = false
+                
+            })
+        }
+        
+    }
+    
+    func startAnimationView(){
+        UIView.animate(withDuration: 0.3) {
+            self.imageView.isHidden = true
+            UIView.animate(withDuration: 0.3, animations: {
+                self.animationview.isHidden = false
+                self.animationview.start()
+            })
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.animationview.stop()
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//            self.animationview.stop()
+//        }
+        
 //        GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: carloudy_show_choices)
 //        GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: carloudy_show_choices)
 //        CarloudyBLE.shareInstance.sendAppCommand(commandID: "0", appId: carloudyAppStoreAppKey_)
@@ -114,10 +128,31 @@ class DrawerViewController: UIViewController, UIGestureRecognizerDelegate, UISea
     }
     
     func setupImageViewAnimation(){
-        imageView.animationImages = [UIImage(named : "guzhang1")!, UIImage(named : "guzhang2")!, UIImage(named : "guzhang3")!]
-        imageView.animationDuration = 0.3
+        var arr = [UIImage]()
+        let number = Int.random(in: 1...3)
+        if number == 1{
+            headerView.backgroundColor = UIColor.rgb(red: 0, green: 0, blue: 0)
+            for i in 0...57{
+                arr.append(UIImage(named: "siri_gif1-\(i)")!)
+            }
+        }else if number == 3{
+            headerView.backgroundColor = UIColor.rgb(red: 0, green: 0, blue: 0)
+            for i in 0...147{
+                arr.append(UIImage(named: "siri_gif3-\(i)")!)
+            }
+        }else if number == 2{
+            headerView.backgroundColor = UIColor.rgb(red: 1, green: 1, blue: 2)
+            for i in 0...47{
+                ZJPrint(i)
+                arr.append(UIImage(named: "siri_gif4-\(i*5)")!)
+            }
+        }
+        
+        imageView.animationImages = arr
+        imageView.animationDuration = 2
         imageView.animationRepeatCount = LONG_MAX
         imageView.autoresizingMask = [.flexibleTopMargin, .flexibleBottomMargin]
+        imageView.startAnimating()
     }
     
     deinit {

@@ -63,7 +63,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h3G-Hj-IpG">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="755" text="Recommendations" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Lu-Gd-WTV">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="755" text="Recommendations" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Lu-Gd-WTV">
                                         <rect key="frame" x="12" y="95" width="351" height="29"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="29" id="y2U-6G-Vgj"/>
@@ -72,27 +72,30 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="diS-qw-uyE" customClass="SwiftyWaveView" customModule="CarloudyNews" customModuleProvider="target">
-                                        <rect key="frame" x="172.5" y="20" width="187.5" height="65"/>
-                                    </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="guzhang2" translatesAutoresizingMaskIntoConstraints="NO" id="Id7-mL-vCs">
-                                        <rect key="frame" x="67.5" y="10" width="75" height="75"/>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="diS-qw-uyE" customClass="SwiftyWaveView" customModule="CarloudyNews" customModuleProvider="target">
+                                        <rect key="frame" x="30" y="64.5" width="315" height="1"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="75" id="LKb-pm-8HP"/>
-                                            <constraint firstAttribute="height" constant="75" id="wf0-f0-zpu"/>
+                                            <constraint firstAttribute="height" constant="1" id="2sf-ki-OyS"/>
+                                        </constraints>
+                                    </view>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="siri_gif-0" translatesAutoresizingMaskIntoConstraints="NO" id="Id7-mL-vCs">
+                                        <rect key="frame" x="127.5" y="5" width="120" height="120"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="120" id="LKb-pm-8HP"/>
+                                            <constraint firstAttribute="height" constant="120" id="wf0-f0-zpu"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.10980392156862745" green="0.10980392156862745" blue="0.10980392156862745" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="diS-qw-uyE" firstAttribute="top" secondItem="h3G-Hj-IpG" secondAttribute="top" constant="20" id="AL4-04-2lD"/>
+                                    <constraint firstItem="Id7-mL-vCs" firstAttribute="centerX" secondItem="h3G-Hj-IpG" secondAttribute="centerX" id="7ob-rm-2He"/>
+                                    <constraint firstItem="Id7-mL-vCs" firstAttribute="centerY" secondItem="h3G-Hj-IpG" secondAttribute="centerY" id="9ky-Xh-bYA"/>
+                                    <constraint firstItem="diS-qw-uyE" firstAttribute="centerY" secondItem="h3G-Hj-IpG" secondAttribute="centerY" id="BQm-RL-vsR"/>
                                     <constraint firstAttribute="trailing" secondItem="6Lu-Gd-WTV" secondAttribute="trailing" constant="12" id="BqR-qO-nTi"/>
                                     <constraint firstAttribute="height" constant="130" id="JW8-sZ-QIK"/>
-                                    <constraint firstItem="diS-qw-uyE" firstAttribute="leading" secondItem="Id7-mL-vCs" secondAttribute="trailing" constant="30" id="P3O-vH-5zn"/>
-                                    <constraint firstItem="6Lu-Gd-WTV" firstAttribute="top" secondItem="Id7-mL-vCs" secondAttribute="bottom" constant="10" id="TuF-B5-kUJ"/>
-                                    <constraint firstItem="6Lu-Gd-WTV" firstAttribute="top" secondItem="diS-qw-uyE" secondAttribute="bottom" constant="10" id="a01-Ta-Hzx"/>
                                     <constraint firstItem="6Lu-Gd-WTV" firstAttribute="leading" secondItem="h3G-Hj-IpG" secondAttribute="leading" constant="12" id="div-Xs-30y"/>
-                                    <constraint firstAttribute="trailing" secondItem="diS-qw-uyE" secondAttribute="trailing" constant="15" id="pSk-Q3-ArO"/>
+                                    <constraint firstAttribute="trailing" secondItem="diS-qw-uyE" secondAttribute="trailing" constant="30" id="j88-BE-ReX"/>
+                                    <constraint firstItem="diS-qw-uyE" firstAttribute="leading" secondItem="h3G-Hj-IpG" secondAttribute="leading" constant="30" id="pig-f1-Akm"/>
                                     <constraint firstAttribute="bottom" secondItem="6Lu-Gd-WTV" secondAttribute="bottom" constant="6" id="tba-en-B72"/>
                                 </constraints>
                             </view>
@@ -101,11 +104,10 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="BgS-W2-zIi" firstAttribute="top" secondItem="h3G-Hj-IpG" secondAttribute="bottom" id="AuT-4v-6Md"/>
                             <constraint firstItem="h3G-Hj-IpG" firstAttribute="leading" secondItem="fD7-dV-Mzs" secondAttribute="leading" id="GSp-UW-BCY"/>
-                            <constraint firstItem="diS-qw-uyE" firstAttribute="width" secondItem="fD7-dV-Mzs" secondAttribute="width" multiplier="0.5" id="IET-gB-czM"/>
                             <constraint firstItem="h3G-Hj-IpG" firstAttribute="top" secondItem="fD7-dV-Mzs" secondAttribute="top" id="If0-jS-WGw"/>
                             <constraint firstAttribute="trailing" secondItem="h3G-Hj-IpG" secondAttribute="trailing" id="TIK-5O-0mv"/>
                             <constraint firstAttribute="bottom" secondItem="BgS-W2-zIi" secondAttribute="bottom" id="TP4-Zw-Yye"/>
@@ -116,6 +118,7 @@
                     </view>
                     <connections>
                         <outlet property="animationview" destination="diS-qw-uyE" id="IIt-X9-rYl"/>
+                        <outlet property="headerView" destination="h3G-Hj-IpG" id="q0Y-k0-65z"/>
                         <outlet property="headerViewTitleLabel" destination="6Lu-Gd-WTV" id="GAp-tZ-tEo"/>
                         <outlet property="imageView" destination="Id7-mL-vCs" id="YNA-X2-J6T"/>
                         <outlet property="imageViewHeightConstraint" destination="wf0-f0-zpu" id="EO7-Nd-QQp"/>
@@ -129,6 +132,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="guzhang2" width="110" height="110"/>
+        <image name="siri_gif-0" width="400" height="400"/>
     </resources>
 </document>

@@ -101,10 +101,10 @@ class SiriViewController: UIViewController {
     
     func sendMessageWithNoTimer(articles: [Article], maxIndex: Int){
         let article = articles[dataIndex]
-        if let title = article.title{
-            self.speak(string: title)
+        if let title = article.title, let description = article.description{
+            self.speak(string: description)
             GloableSiriFunc.shareInstance.sendWaringLabelToCarloudy(title: carloudy_show_stop)
-            currentSpeakingNews = title
+            currentSpeakingNews = description
             sendMessageToCarloudy(title: title)
         }
         dataIndex += 1

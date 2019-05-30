@@ -53,6 +53,7 @@ class PrimaryViewController: UIViewController, DrawerViewControllerDelegate {
             drawerViewController.synthesizer.delegate = nil
             drawerViewController.endSendingData()
             drawerViewController.endSiriSpeech()
+            drawerViewController.clearScreen()
             self.dismiss(animated: true) {
                 if let vc = UIApplication.firstViewController() as? LikeViewController{
                     ZJPrint(vc)

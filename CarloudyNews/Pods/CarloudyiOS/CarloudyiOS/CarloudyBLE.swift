@@ -121,6 +121,10 @@ open class CarloudyBLE: NSObject {
         sendMessageForSplit(prefix: createNewImageNewPrefixKey, message: finalStr)
     }
     
+    open func removeImageViewForCarloudyHUD(picID: String){
+        sendMessageForSplit(prefix: createNewImageNewPrefixKey, message: picID)
+    }
+    
     
     /// “zb” + “(textViewId)” + “(text)”, Example: zb1Hello, World!, This command must be sent after “za” and “z0”. Otherwise, it’s meaningless and will be ignored. This command can be used to replace old text with “text” only for the specific “id” after “za” has been received and without sending “za” again.
     ///
