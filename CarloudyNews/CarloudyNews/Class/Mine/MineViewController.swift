@@ -15,7 +15,8 @@ class MineViewController: UIViewController {
 //    var mainViewController: MainViewController?
     private lazy var myArray: Array = {
         return [[["icon":"mine_feedBack", "title": "Talk to CarloudyNews"],
-                 ["icon":"mine_setting", "title": "Carloudy Setting"]]//,
+                 ["icon":"mine_setting", "title": "Carloudy Setting"],
+            ["icon":"mine_setting", "title": "ChatBotAI"]]//,
                 
 //                [["icon":"mine_feedBack", "title": "夜间模式"],
 //                 ["icon":"mine_mail", "title": "我要反馈"],
@@ -130,6 +131,9 @@ extension MineViewController: UITableViewDelegate, UITableViewDataSource{
             navigationController?.pushViewController(talkToNews, animated: true)
         }else if indexPath == [0, 1]{
             let csVC = CarloudySettingViewController()
+            navigationController?.pushViewController(csVC, animated: true)
+        }else if indexPath == [0, 2]{
+            let csVC = ChatBotViewController()
             navigationController?.pushViewController(csVC, animated: true)
         }
     }

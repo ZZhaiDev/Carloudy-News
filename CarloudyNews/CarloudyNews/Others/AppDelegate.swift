@@ -8,6 +8,7 @@
 
 import UIKit
 import CarloudyiOS
+import ApiAI
 
 let testView = UILabel(frame: CGRect(x: 50, y: 80, width: 200, height: 50))
 func test(){
@@ -22,10 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    
-    
-    
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         UITabBar.appearance().tintColor = .orange
@@ -41,6 +38,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             isListenForReadNews = 1
             UserDefaults.standard.set(true, forKey: str)
         }
+        
+        let configuration = AIDefaultConfiguration()
+        configuration.clientAccessToken = "d5bebebd5e10475485cc5fff84e3aa0d"
+        let apiai = ApiAI.shared()
+        apiai?.configuration = configuration
         
         
         ZJPrint(isEnableOpenCarloudyNews)

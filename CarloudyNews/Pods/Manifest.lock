@@ -1,24 +1,52 @@
 PODS:
   - Alamofire (5.0.0.beta.1)
+  - ApiAI (0.7.2):
+    - ApiAI/AudioFileConverter (= 0.7.2)
+    - ApiAI/Core (= 0.7.2)
+    - ApiAI/Events (= 0.7.2)
+    - ApiAI/ResponseMapping (= 0.7.2)
+    - ApiAI/UIKit (= 0.7.2)
+    - ApiAI/UserEntities (= 0.7.2)
+    - ApiAI/VoiceFileRequest (= 0.7.2)
+    - ApiAI/VoiceRequest (= 0.7.2)
+  - ApiAI/AudioFileConverter (0.7.2):
+    - ApiAI/Core
+  - ApiAI/Core (0.7.2)
+  - ApiAI/Events (0.7.2):
+    - ApiAI/Core
+  - ApiAI/ResponseMapping (0.7.2):
+    - ApiAI/Core
+  - ApiAI/UIKit (0.7.2):
+    - ApiAI/Core
+    - ApiAI/VoiceRequest
+  - ApiAI/UserEntities (0.7.2):
+    - ApiAI/Core
+  - ApiAI/VoiceFileRequest (0.7.2):
+    - ApiAI/Core
+  - ApiAI/VoiceRequest (0.7.2):
+    - ApiAI/Core
   - CarloudyiOS (1.08):
     - CryptoSwift (= 0.8.0)
   - CryptoSwift (0.8.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.0.0.beta.1)
+  - ApiAI
   - CarloudyiOS (= 1.08)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - Alamofire
+    - ApiAI
     - CarloudyiOS
     - CryptoSwift
 
 SPEC CHECKSUMS:
   Alamofire: 2ef6d6c984c5d21c366e9b41a9ae7dfee2b67a44
+  ApiAI: d4b49d3736f33ce6f3ef66dc33c0e0fccb23579e
   CarloudyiOS: 7ccb4c4cd8194a28eb0bc2c37990ed2a8008b13b
   CryptoSwift: f81907430ebbe38b8404b4f6fb40f3c576a8755f
 
-PODFILE CHECKSUM: db81dae17d164e80ca6a39772ba6586f02fe35c6
+PODFILE CHECKSUM: 26669929d172a503840fdef3cb3ac6d51de7461e
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.6.2

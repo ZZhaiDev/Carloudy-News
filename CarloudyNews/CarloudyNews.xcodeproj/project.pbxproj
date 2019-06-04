@@ -60,6 +60,9 @@
 		A4ECD29B21E94BBF0040720D /* SettingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4ECD29A21E94BBF0040720D /* SettingView.xib */; };
 		A4ECD2D721ED2A1C0040720D /* AddCategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ECD2D621ED2A1C0040720D /* AddCategoriesViewController.swift */; };
 		A4ECD2D921ED31850040720D /* UIColor-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ECD2D821ED31850040720D /* UIColor-Extension.swift */; };
+		A4F460DE22A6DD0900A0831E /* ChatBotAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F460DD22A6DD0900A0831E /* ChatBotAI.swift */; };
+		A4F460E122A6E11500A0831E /* ChatBotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4F460DF22A6E11500A0831E /* ChatBotViewController.swift */; };
+		A4F460E222A6E11500A0831E /* ChatBotViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F460E022A6E11500A0831E /* ChatBotViewController.xib */; };
 		ADD1D8B0382E053972D66C87 /* Pods_CarloudyNews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EE447B55BBC04CACE1C6C89 /* Pods_CarloudyNews.framework */; };
 /* End PBXBuildFile section */
 
@@ -143,6 +146,9 @@
 		A4ECD29A21E94BBF0040720D /* SettingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingView.xib; sourceTree = "<group>"; };
 		A4ECD2D621ED2A1C0040720D /* AddCategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoriesViewController.swift; sourceTree = "<group>"; };
 		A4ECD2D821ED31850040720D /* UIColor-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor-Extension.swift"; sourceTree = "<group>"; };
+		A4F460DD22A6DD0900A0831E /* ChatBotAI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBotAI.swift; sourceTree = "<group>"; };
+		A4F460DF22A6E11500A0831E /* ChatBotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBotViewController.swift; sourceTree = "<group>"; };
+		A4F460E022A6E11500A0831E /* ChatBotViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatBotViewController.xib; sourceTree = "<group>"; };
 		ADB8FD6F4BEA93DBC06E7ADD /* Pods-CarloudyNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarloudyNews.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CarloudyNews/Pods-CarloudyNews.debug.xcconfig"; sourceTree = "<group>"; };
 		B60452CE45A7EC64E299B1FA /* Pods_CarloudyNewsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarloudyNewsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBCAE3AE176F0C552E3C2803 /* Pods_CarloudyNewsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarloudyNewsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -330,6 +336,7 @@
 		A4C0814621DFEEC400E2216A /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				A4F460DC22A6DCE600A0831E /* ChatBot */,
 				A4ECD29721E90E9C0040720D /* Main */,
 				A4C0814721DFEEC400E2216A /* Home */,
 				A4C0814821DFEEC400E2216A /* Like */,
@@ -386,6 +393,16 @@
 				38D0E44421E04E0700293F7B /* HomeDetailViewController.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		A4F460DC22A6DCE600A0831E /* ChatBot */ = {
+			isa = PBXGroup;
+			children = (
+				A4F460DD22A6DD0900A0831E /* ChatBotAI.swift */,
+				A4F460DF22A6E11500A0831E /* ChatBotViewController.swift */,
+				A4F460E022A6E11500A0831E /* ChatBotViewController.xib */,
+			);
+			path = ChatBot;
 			sourceTree = "<group>";
 		};
 		B6D7251AE33D2372166AE7E1 /* Pods */ = {
@@ -512,6 +529,7 @@
 				A4ECD29B21E94BBF0040720D /* SettingView.xib in Resources */,
 				A49EAA68221F41E300200C82 /* DrawerTableViewCell.xib in Resources */,
 				A4C0811E21DFEB2D00E2216A /* LaunchScreen.storyboard in Resources */,
+				A4F460E222A6E11500A0831E /* ChatBotViewController.xib in Resources */,
 				A454DA7D22947F69006EED07 /* beep_short_on.wav in Resources */,
 				A454DA7E22947F69006EED07 /* beep_short_off.wav in Resources */,
 				A401331F21DFF03B00E8E29E /* Like.storyboard in Resources */,
@@ -565,20 +583,22 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-CarloudyNews/Pods-CarloudyNews-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-CarloudyNews/Pods-CarloudyNews-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/ApiAI/ApiAI.framework",
 				"${BUILT_PRODUCTS_DIR}/CarloudyiOS/CarloudyiOS.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ApiAI.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CarloudyiOS.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CarloudyNews/Pods-CarloudyNews-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CarloudyNews/Pods-CarloudyNews-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -590,6 +610,7 @@
 			files = (
 				A486134121E52E420071CF17 /* MineHead.swift in Sources */,
 				A486134821E52E650071CF17 /* ParallaxHeader.swift in Sources */,
+				A4F460E122A6E11500A0831E /* ChatBotViewController.swift in Sources */,
 				A49EAA64221F41E300200C82 /* DrawerViewControllerDelegate.swift in Sources */,
 				A4ECD2D721ED2A1C0040720D /* AddCategoriesViewController.swift in Sources */,
 				A401332D21DFF3AC00E8E29E /* HomeMainView.swift in Sources */,
@@ -613,6 +634,7 @@
 				A401332B21DFF29400E8E29E /* UIBarButtonItem-Extension.swift in Sources */,
 				A401331821DFEFCE00E8E29E /* LikeViewController.swift in Sources */,
 				3891B53921E17D7F008D8AA5 /* AllViewController.swift in Sources */,
+				A4F460DE22A6DD0900A0831E /* ChatBotAI.swift in Sources */,
 				A401331A21DFEFD700E8E29E /* MineViewController.swift in Sources */,
 				A401332921DFF1D700E8E29E /* Const.swift in Sources */,
 				3891B53721E17B2D008D8AA5 /* PageTitleView.swift in Sources */,

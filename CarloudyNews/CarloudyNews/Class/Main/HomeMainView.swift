@@ -59,9 +59,6 @@ class HomeMainView: UIView {
      init(frame: CGRect, isdefaultTheme: Bool = false) {
         super.init(frame: frame)
         self.isdefaultTheme = isdefaultTheme
-//        self.layer.cornerRadius  = 50
-//        self.layer.masksToBounds = true
-        
         setupUI()
     }
     
