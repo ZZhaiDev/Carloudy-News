@@ -58,7 +58,7 @@ class ChatBotViewController: UIViewController {
         speechSynthesizer.speak(speechUtterance)
         sendTextF.text = ""
         resultL.text = text
-        ZJPrint("")
+        ZJPrint("New Branch Test")
     }
 
 }
