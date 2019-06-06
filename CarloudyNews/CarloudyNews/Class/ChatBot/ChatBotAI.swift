@@ -6,7 +6,6 @@
 //  Copyright © 2019 cognitiveAI. All rights reserved.
 //
 
-/*
 import UIKit
 import ApiAI
 import AVFoundation
@@ -18,15 +17,16 @@ class ChatBotAI: NSObject{
 
 
 extension ChatBotAI{
-    func sendMessage(message: String){
+    func sendMessage(message: String, finished: @escaping (String)->()){
         
         request?.query = message
         
         request?.setMappedCompletionBlockSuccess({ (request, response) in
             let response = response as! AIResponse
-            if let textResponse = response.result.fulfillment.speech {
-                self.speechAndText(text: textResponse)
-            }
+//            if let textResponse = response.result.fulfillment.speech {
+//                self.speechAndText(text: textResponse)
+//            }
+            finished(response.result.fulfillment.speech)
         }, failure: { (request, error) in
             print(error!)
         })
@@ -40,4 +40,3 @@ extension ChatBotAI{
     }
 }
 
- */

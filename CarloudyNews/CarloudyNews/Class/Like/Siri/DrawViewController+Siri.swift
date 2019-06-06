@@ -132,8 +132,17 @@ extension DrawerViewController{
             
             imageView.startAnimating()
             
-            speak(string: searchingSpeech + "`\(self.textReturnedFromSiri)`")
-            loadData(topic: self.textReturnedFromSiri)
+            // MARK:- 在这里处理 textReturnedFromSiri 用chatbot处理
+            ZJPrint(self.textReturnedFromSiri)
+            let chatbotAI = ChatBotAI()
+            chatbotAI.sendMessage(message: self.textReturnedFromSiri) { (str) in
+                self.textReturnedFromSiri = str
+                self.speak(string: self.searchingSpeech + "`\(str)`")
+                self.loadData(topic: self.textReturnedFromSiri)
+            }
+            
+//            speak(string: searchingSpeech + "`\(self.textReturnedFromSiri)`")
+//            loadData(topic: self.textReturnedFromSiri)
             
         }else{      //长时间没说话
             ZJPrint("//// -----return1111")
