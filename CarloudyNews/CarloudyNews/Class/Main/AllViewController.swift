@@ -49,24 +49,14 @@ enum NewsSubCat {
 //https://newsapi.org/v2/everything?q=apple&from=2019-01-07&to=2019-01-07&sortBy=popularity&apiKey=b7f7add8d89849be8c82306180dac738
 //sortBy=popularity
 //sortBy=publishedAt
-
-
 // MARK:- 如何设置只能自己访问和子类访问
 
-
 class AllViewController: SiriViewController {
-
     
     var country = "us"
     var subCat : String?
     var newsCat: String?
     var isdefaultTheme = true
-    
-    
-    
-    
-    
-    
     
     required public init(cat: String, subCat: String){
         self.subCat = subCat
@@ -77,7 +67,6 @@ class AllViewController: SiriViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     fileprivate lazy var homeView: HomeMainView = { [unowned self] in
         let hv = HomeMainView(frame: CGRect(x: 0, y: 0, width: zjScreenWidth, height: zjScreenHeight), isdefaultTheme: isdefaultTheme)

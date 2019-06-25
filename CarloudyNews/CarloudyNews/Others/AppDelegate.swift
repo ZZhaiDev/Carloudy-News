@@ -39,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaults.standard.set(true, forKey: str)
         }
         
+        //ChatbotAI
         let configuration = AIDefaultConfiguration()
         configuration.clientAccessToken = "7d63d3809c31490b92a0187eb3dc0abe"
         let apiai = ApiAI.shared()
